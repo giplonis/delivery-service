@@ -11,8 +11,8 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = "Order.findAll", query = "select e from Order as e")
 })
-@Getter
-@Setter
+@Getter @Setter
+@Table(name = "ORDERS")
 public class Order implements Serializable {
 
     @Id
@@ -21,20 +21,25 @@ public class Order implements Serializable {
 
     private Boolean status;
 
+    @Column(name = "PICKUP_DATE_TIME")
     private Date pickupDateTime;
 
+    @Column(name = "TOTAL_PRICE")
     private float totalPrice;
 
-    @OneToOne
+    @OneToOne(mappedBy = "order")
     private Package orderPackage;
 
-    @OneToOne
+    @OneToOne(mappedBy = "senderOrder", cascade = CascadeType.ALL)
     private UserInfo senderInfo;
 
-    @OneToOne
+    @OneToOne(mappedBy = "recipientOrder", cascade = CascadeType.ALL)
     private UserInfo recipientInfo;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="USER_ID")
     private User registeredSender;
 
+    public Order() {
+    }
 }

@@ -8,10 +8,11 @@ import java.io.Serializable;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Order.findAll", query = "select e from Address as e")
+        @NamedQuery(name = "Address.findAll", query = "select e from Address as e")
 })
 @Getter
 @Setter
+@Table(name = "ADDRESSES")
 public class Address implements Serializable {
 
     @Id
@@ -24,4 +25,12 @@ public class Address implements Serializable {
 
     private String nr;
 
+    @OneToOne
+    private User user;
+
+    @OneToOne
+    private UserInfo guest;
+
+    public Address() {
+    }
 }

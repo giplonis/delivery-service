@@ -9,10 +9,11 @@ import java.io.Serializable;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Order.findAll", query = "select e from PackageSize as e")
+        @NamedQuery(name = "PackageSize.findAll", query = "select e from PackageSize as e")
 })
 @Getter
 @Setter
+@Table(name = "PACKAGE_SIZES")
 public class PackageSize implements Serializable {
 
     @Id
@@ -21,6 +22,7 @@ public class PackageSize implements Serializable {
 
     private String title;
 
+    @Column(name = "MAX_WEIGHT")
     private float maxWeight;
 
     private float length;
@@ -28,4 +30,10 @@ public class PackageSize implements Serializable {
     private float height;
 
     private float width;
+
+    public PackageSize() {
+    }
+
+    @OneToOne
+    private Package orderPackage;
 }
