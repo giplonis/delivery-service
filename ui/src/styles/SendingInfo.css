@@ -1,0 +1,10 @@
+.form-column {
+  text-align: center;
+}
+
+.form-header {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 25px;
+  margin-bottom: 20px;
+}

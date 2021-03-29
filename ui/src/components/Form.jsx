@@ -1,9 +1,17 @@
 import React from "react";
-import Field from "./Field";
-import FormButton from "./FormButton";
+import SendingInfo from "./SendingInfo";
+import Header from "./Header";
+import { Container } from "@material-ui/core";
 
 function Form() {
-  return <div></div>;
+  return (
+    <div>
+      <Container>
+        <Header />
+        <SendingInfo />
+      </Container>
+    </div>
+  );
 }
 
 export default Form;
