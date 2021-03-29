@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @NamedQueries({
@@ -32,5 +33,18 @@ public class Address implements Serializable {
     private UserInfo guest;
 
     public Address() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return id == address.id && city.equals(address.city) && street.equals(address.street) && nr.equals(address.nr) && Objects.equals(user, address.user) && Objects.equals(guest, address.guest);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, city, street, nr, user, guest);
     }
 }

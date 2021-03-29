@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @NamedQueries({
@@ -30,5 +31,18 @@ public class Package implements Serializable {
     private PackageSize packageSize;
 
     public Package() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Package aPackage = (Package) o;
+        return id == aPackage.id && Float.compare(aPackage.price, price) == 0 && packageType == aPackage.packageType && order.equals(aPackage.order) && packageSize.equals(aPackage.packageSize);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, packageType, price, order, packageSize);
     }
 }

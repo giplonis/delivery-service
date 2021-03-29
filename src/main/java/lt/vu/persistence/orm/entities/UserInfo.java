@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @NamedQueries({
@@ -44,5 +45,18 @@ public class UserInfo implements Serializable {
     private Order recipientOrder;
 
     public UserInfo() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserInfo userInfo = (UserInfo) o;
+        return id == userInfo.id && firstName.equals(userInfo.firstName) && lastName.equals(userInfo.lastName) && email.equals(userInfo.email) && phoneNumber.equals(userInfo.phoneNumber) && address.equals(userInfo.address) && Objects.equals(senderOrder, userInfo.senderOrder) && Objects.equals(recipientOrder, userInfo.recipientOrder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, phoneNumber, address, senderOrder, recipientOrder);
     }
 }
