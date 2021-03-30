@@ -1,6 +1,5 @@
 package lt.vu.persistence.orm.entities;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,45 +8,48 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "PackageSize.findAll", query = "select e from PackageSize as e")
-})
-@Getter
-@Setter
-@Table(name = "PACKAGE_SIZES")
+@Table(name = "PACKAGE_SIZE")
+@Getter @Setter
 public class PackageSize implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "TITLE")
     private String title;
 
     @Column(name = "MAX_WEIGHT")
-    private float maxWeight;
+    private int maxWeight;
 
-    private float length;
+    @Column(name = "LENGTH")
+    private int length;
 
-    private float height;
+    @Column(name = "HEIGHT")
+    private int height;
 
-    private float width;
+    @Column(name = "WIDTH")
+    private int width;
 
     public PackageSize() {
     }
-
-    @OneToOne
-    private Package orderPackage;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PackageSize that = (PackageSize) o;
-        return id == that.id && Float.compare(that.maxWeight, maxWeight) == 0 && Float.compare(that.length, length) == 0 && Float.compare(that.height, height) == 0 && Float.compare(that.width, width) == 0 && title.equals(that.title) && Objects.equals(orderPackage, that.orderPackage);
+        PackageSize packageSize = (PackageSize) o;
+
+        return packageSize.id == this.id
+            && packageSize.maxWeight == this.maxWeight
+            && packageSize.length == this.length
+            && packageSize.height == this.height
+            && packageSize.width == this.width
+            && packageSize.title.equals(this.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, maxWeight, length, height, width, orderPackage);
+        return Objects.hash(id, title, maxWeight, length, height, width);
     }
 }

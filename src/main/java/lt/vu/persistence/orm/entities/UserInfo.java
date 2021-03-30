@@ -12,37 +12,29 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "UserInfo.findAll", query = "select e from UserInfo as e")
-})
-@Getter
-@Setter
-@Table(name = "USER_INFOS")
+@Table(name = "USER_INFO")
+@Getter @Setter
 public class UserInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
-    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "guest",cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ADDRESS_ID", nullable = false)
     private Address address;
-
-    @OneToOne
-    private Order senderOrder;
-
-    @OneToOne
-    private Order recipientOrder;
 
     public UserInfo() {
     }
@@ -52,11 +44,22 @@ public class UserInfo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserInfo userInfo = (UserInfo) o;
-        return id == userInfo.id && firstName.equals(userInfo.firstName) && lastName.equals(userInfo.lastName) && email.equals(userInfo.email) && phoneNumber.equals(userInfo.phoneNumber) && address.equals(userInfo.address) && Objects.equals(senderOrder, userInfo.senderOrder) && Objects.equals(recipientOrder, userInfo.recipientOrder);
+
+        return userInfo.id == this.id
+            && userInfo.firstName.equals(this.firstName)
+            && userInfo.lastName.equals(this.lastName)
+            && userInfo.email.equals(this.email)
+            && userInfo.phoneNumber.equals(this.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, phoneNumber, address, senderOrder, recipientOrder);
+        return Objects.hash(
+            this.id,
+            this.firstName,
+            this.lastName,
+            this.email,
+            this.phoneNumber
+        );
     }
 }

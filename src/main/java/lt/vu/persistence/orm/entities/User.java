@@ -5,55 +5,64 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "User.findAll", query = "select e from User as e")
-})
-@Getter
-@Setter
-@Table(name = "USERS")
+@Table(name = "USER")
+@Getter @Setter
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
-    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
+    @Column(name = "STRING", nullable = false)
     private String password;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Address address;
 
     public User() {
     }
-
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private Address address;
-
-    @OneToMany(mappedBy = "registeredSender")
-    private List<Order> orders = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email) && phoneNumber.equals(user.phoneNumber) && password.equals(user.password) && address.equals(user.address) && Objects.equals(orders, user.orders);
+
+        return user.id == this.id
+            && user.firstName.equals(this.firstName)
+            && user.lastName.equals(this.lastName)
+            && user.email.equals(this.email)
+            && user.phoneNumber.equals(this.phoneNumber)
+            && user.password.equals(this.password)
+            && user.address.equals(this.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, phoneNumber, password, address, orders);
+        return Objects.hash(
+            this.id,
+            this.firstName,
+            this.lastName,
+            this.email,
+            this.phoneNumber,
+            this.password,
+            this.address
+        );
     }
 }

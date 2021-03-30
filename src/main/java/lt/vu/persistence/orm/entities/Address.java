@@ -8,29 +8,22 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "Address.findAll", query = "select e from Address as e")
-})
-@Getter
-@Setter
-@Table(name = "ADDRESSES")
+@Table(name = "ADDRESS")
+@Getter @Setter
 public class Address implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "CITY", nullable = false)
     private String city;
 
+    @Column(name = "STREET", nullable = false)
     private String street;
 
-    private String nr;
-
-    @OneToOne
-    private User user;
-
-    @OneToOne
-    private UserInfo guest;
+    @Column(name = "NUMBER", nullable = false)
+    private String number;
 
     public Address() {
     }
@@ -40,11 +33,15 @@ public class Address implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return id == address.id && city.equals(address.city) && street.equals(address.street) && nr.equals(address.nr) && Objects.equals(user, address.user) && Objects.equals(guest, address.guest);
+
+        return address.id == this.id
+            && address.city.equals(this.city)
+            && address.street.equals(this.street)
+            && address.number.equals(this.number);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, city, street, nr, user, guest);
+        return Objects.hash(this.id, this.city, this.street, this.number);
     }
 }
