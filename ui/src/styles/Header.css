@@ -1,5 +1,5 @@
 header {
-  margin-bottom: 20px;
+  margin-bottom: 100px;
 }
 
 .header-inner {
@@ -10,10 +10,11 @@ header {
 .header-item {
   display: flex;
   align-items: center;
+  transition: 0.1s;
 }
 
 .header-item:hover {
-  opacity: 0.7;
+  opacity: 0.9;
   cursor: pointer;
 }
 

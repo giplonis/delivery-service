@@ -6,5 +6,30 @@
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 25px;
-  margin-bottom: 20px;
+  text-align: left;
+  background-color: var(--dark);
+  width: max-content;
+  padding: 0 10px;
+  margin: -27px 0 10px -35px;
+  font-weight: 500;
+}
+
+.form-inner {
+  border: 1px solid var(--primary);
+  padding: 10px;
+  padding: 10px 50px 15px 50px;
+  height: 100%;
+}
+
+.MuiButton-label {
+  font-size: 16px;
+  text-transform: none;
+}
+
+.form-wrapper .form-button {
+  margin-top: 70px;
+  border-radius: 0;
+  padding: 2px 50px;
+  display: flex;
+  margin-left: auto;
 }
