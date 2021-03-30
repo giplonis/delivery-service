@@ -5,7 +5,7 @@ import "../styles/Footer.css";
 function Footer() {
   return (
     <Container className="footer-wrapper">
-      <Divider />
+      <Divider className="footer-divider" />
       <span className="footer-copyright">&copy; Davai Davai Deploy Ltd.</span>
     </Container>
   );
