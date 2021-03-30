@@ -10,6 +10,7 @@ body {
   --dark: #272727;
   --white: #fff;
   --primary: #cee002;
+  --gray: #bbb;
   background-color: var(--dark);
   color: var(--white);
 }
@@ -20,6 +21,10 @@ code {
 
 .d-flex {
   display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
 
 .mr-2 {

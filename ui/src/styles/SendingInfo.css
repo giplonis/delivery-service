@@ -33,3 +33,7 @@
   display: flex;
   margin-left: auto;
 }
+
+.form-wrapper .form-button-left {
+  margin-left: unset;
+}

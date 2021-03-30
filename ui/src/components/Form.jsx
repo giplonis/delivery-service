@@ -2,6 +2,7 @@ import React from "react";
 import SendingInfo from "./SendingInfo";
 import Header from "./Header";
 import Footer from "./Footer";
+import DocumentSize from "./DocumentSize";
 import { Container } from "@material-ui/core";
 import "../styles/Form.css";
 
@@ -11,7 +12,8 @@ function Form() {
       <Container>
         <div className="content-wrapper">
           <Header />
-          <SendingInfo />
+          {/* <SendingInfo /> */}
+          <DocumentSize />
         </div>
         <Footer />
       </Container>
