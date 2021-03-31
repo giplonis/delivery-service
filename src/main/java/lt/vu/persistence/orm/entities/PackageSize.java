@@ -9,6 +9,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "PACKAGE_SIZE")
+@NamedQueries({
+    @NamedQuery(name = "PackageSize.findAll", query = "select ps from PackageSize ps")
+})
 @Getter @Setter
 public class PackageSize implements Serializable {
 

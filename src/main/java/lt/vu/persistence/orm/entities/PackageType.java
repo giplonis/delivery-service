@@ -9,6 +9,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "PACKAGE_TYPE")
+@NamedQueries({
+    @NamedQuery(name = "PackageType.findAll", query = "select pt from PackageType pt")
+})
 @Getter @Setter
 public class PackageType implements Serializable {
 
