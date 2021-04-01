@@ -24,4 +24,32 @@
   <welcome-file-list>
     <welcome-file>index.xhtml</welcome-file>
   </welcome-file-list>
+
+<!--  swagger-->
+  <servlet>
+    <servlet-name>Resteasy</servlet-name>
+    <servlet-class>
+      org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+    </servlet-class>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>io.swagger.sample.MyApplication</param-value>
+    </init-param>
+    <!-- specify resource classes to scan -->
+    <init-param>
+      <param-name>openApi.configuration.resourceClasses</param-name>
+      <param-value>io.swagger.sample.resource.UserResource</param-value>
+    </init-param>
+    <!-- specify scanner implementation -->
+    <init-param>
+      <param-name>openApi.configuration.scannerClass</param-name>
+      <param-value>io.swagger.v3.jaxrs2.integration.JaxrsAnnotationScanner</param-value>
+    </init-param>
+    <!-- pretty print -->
+    <init-param>
+      <param-name>openApi.configuration.prettyPrint</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </servlet>
+
 </web-app>
