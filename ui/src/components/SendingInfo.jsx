@@ -6,7 +6,7 @@ import "../styles/SendingInfo.css";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 
-function SendingInfo() {
+function SendingInfo(props) {
   const labels = ["First Name", "Last Name", "Phone Number", "City", "Address"];
   const fields = labels.map((label, key) => <Field label={label} key={key} />);
 
@@ -44,9 +44,14 @@ function SendingInfo() {
           </div>
         </Grid>
       </Grid>
-      <Button color="primary" variant="contained" className="form-button">
-        Next
-      </Button>
+      <div className="d-flex">
+        <Button color="primary" variant="contained" className="form-button form-button-left" onClick={props.PreviousPage}>
+          Back
+        </Button>
+        <Button color="primary" variant="contained" className="form-button" onClick={props.NextPage}>
+          Next
+        </Button>
+      </div>
     </div>
   );
 }

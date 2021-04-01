@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./components/Form";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   const theme = createMuiTheme({
@@ -24,7 +25,9 @@ function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Form />
+        <SnackbarProvider>
+          <Form />
+        </SnackbarProvider>
       </ThemeProvider>
     </div>
   );

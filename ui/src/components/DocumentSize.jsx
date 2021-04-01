@@ -1,55 +1,30 @@
 import React from "react";
-import ImageBox from "./ImageBox";
 import Letter from "../images/letter.png";
-import { Grid, Button, ButtonBase } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import "../styles/DocumentSize.css";
+import DocumentSizeCard from "./DocumentSizeCard";
 
-function DocumentSize() {
-  const smallLetter = ["Max weight: 100g", "Max length: 24cm", "Max width: 16.5cm"];
-  const largeLetter = ["Max weight: 750g", "Max length: 35.3cm", "Max width: 25cm"];
-
-  const small = smallLetter.map((item, key) => <li key={key}>{item}</li>);
-  const large = largeLetter.map((item, key) => <li key={key}>{item}</li>);
-
+function DocumentSize(props) {
   return (
     <div className="form-wrapper">
       <Grid container justify="center" spacing={9}>
-        <Grid item xs={12} md={6}>
-          <ButtonBase className="w-100">
-            <div className="form-inner form-inner-document w-100">
-              <div className="form-header">Small letter</div>
-              <Grid container justify="flex-start" alignItems="center" spacing={3}>
-                <Grid item xs={6}>
-                  <ImageBox image={Letter} alt="small letter" />
-                </Grid>
-                <Grid item xs={6}>
-                  <ul className="letter-ul">{small}</ul>
-                </Grid>
-              </Grid>
-            </div>
-          </ButtonBase>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <ButtonBase className="w-100">
-            <div className="form-inner form-inner-document w-100">
-              <div className="form-header">Large letter</div>
-              <Grid container justify="flex-start" alignItems="center" spacing={3}>
-                <Grid item xs={6}>
-                  <ImageBox image={Letter} alt="large letter" />
-                </Grid>
-                <Grid item xs={6}>
-                  <ul className="letter-ul">{large}</ul>
-                </Grid>
-              </Grid>
-            </div>
-          </ButtonBase>
-        </Grid>
+        {props.letterSizes.map((size, key) => (
+          <Grid item xs={12} md={6} key={key}>
+            <DocumentSizeCard
+              onClick={props.onChange}
+              image={Letter}
+              dimensions={{ weight: size.weight, length: size.length, width: size.width }}
+              name={size.name}
+              selectedDocumentSize={props.selectedDocumentSize}
+            />
+          </Grid>
+        ))}
       </Grid>
       <div className="d-flex">
-        <Button color="primary" variant="contained" className="form-button form-button-left">
+        <Button color="primary" variant="contained" className="form-button form-button-left" onClick={props.PreviousPage}>
           Back
         </Button>
-        <Button color="primary" variant="contained" className="form-button">
+        <Button color="primary" variant="contained" className="form-button" onClick={props.NextPage}>
           Next
         </Button>
       </div>

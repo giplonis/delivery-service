@@ -1,0 +1,20 @@
+.payment-card {
+  margin: auto !important;
+}
+
+.payment-card:last-child {
+  margin-bottom: 0 !important;
+}
+
+.payment-card:first-child {
+  margin-top: 0 !important;
+}
+
+.payment-card img {
+  max-height: 80px;
+  max-width: 250px;
+}
+
+.payment-cards-wrapper {
+  display: grid;
+}

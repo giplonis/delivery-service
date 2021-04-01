@@ -5,7 +5,9 @@ import "../styles/ParcelSizeCard.css";
 
 function ParcelSizeCard(props) {
   return (
-    <ButtonBase className="w-100">
+    <ButtonBase
+      className={props.name === props.selectedPackageSize ? "selected-card w-100" : "w-100 scale-down"}
+      onClick={() => props.onClick(props.name)}>
       <div className="form-inner form-inner-document w-100">
         <div className="form-header">{props.name}</div>
         <ImageBox image={props.image} alt={props.name} />

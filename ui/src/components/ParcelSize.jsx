@@ -26,10 +26,10 @@ function ParcelSize(props) {
         ))}
       </Grid>
       <div className="d-flex">
-        <Button color="primary" variant="contained" className="form-button form-button-left">
+        <Button color="primary" variant="contained" className="form-button form-button-left" onClick={props.PreviousPage}>
           Back
         </Button>
-        <Button color="primary" variant="contained" className="form-button">
+        <Button color="primary" variant="contained" className="form-button" onClick={props.NextPage}>
           Next
         </Button>
       </div>
