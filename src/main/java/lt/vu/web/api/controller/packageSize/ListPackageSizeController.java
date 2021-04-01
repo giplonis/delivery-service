@@ -1,5 +1,8 @@
 package lt.vu.web.api.controller.packageSize;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.java.Log;
 import lt.vu.persistence.orm.entities.PackageSize;
 import lt.vu.persistence.orm.repository.PackageSizeRepository;
 import lt.vu.web.api.controller.AbstractApiController;
@@ -16,12 +19,15 @@ import java.util.List;
 
 @Path("/package-size")
 @RequestScoped
+@Api(value= "List package size ") // swagger minimum (controller name)
 public class ListPackageSizeController extends AbstractApiController<List<PackageSizeDTO>> {
 
     @Inject
     private PackageSizeRepository packageSizeRepository;
 
     @GET
+    @ApiOperation(value = "Retrieves valid package sizes",         //swagger optional (endpoint summary)
+                  notes = "Return some json to the client")  //swagger optional (description)
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listAction() {
