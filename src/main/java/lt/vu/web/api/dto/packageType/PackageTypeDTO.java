@@ -1,4 +1,4 @@
-package lt.vu.web.api.dto;
+package lt.vu.web.api.dto.packageType;
 
 import lombok.Getter;
 import lombok.Setter;

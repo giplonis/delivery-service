@@ -1,4 +1,4 @@
-package lt.vu.web.api.dto;
+package lt.vu.web.api.dto.packageSize;
 
 import lombok.Getter;
 import lombok.Setter;
