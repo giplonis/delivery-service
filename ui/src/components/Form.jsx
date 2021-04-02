@@ -7,10 +7,13 @@ import { Container, LinearProgress } from "@material-ui/core";
 import "../styles/Form.css";
 import ParcelSize from "./ParcelSize";
 import ParcelType from "./ParcelType";
-import { withSnackbar } from "notistack";
 import Summary from "./Summary";
+import useMessage from "../hooks/messages";
 
 function Form(props) {
+
+  const {displayError} = useMessage()
+
   var boxSizes = [
     { name: "Small", width: 35, height: 16, length: 45, weigth: 2 },
     { name: "Medium", width: 46, height: 46, length: 64, weigth: 20 },
@@ -31,13 +34,13 @@ function Form(props) {
 
   function NextPage(e) {
     if (currentPage === 0 && selectedPackageType === undefined) {
-      displayError("Parcel type is not selected!", "error");
+      displayError("Parcel type is not selected!");
       return;
     } else if (currentPage === 1 && selectedBoxSize === undefined && selectedPackageType === "Box") {
-      displayError("Box size is not selected!", "error");
+      displayError("Box size is not selected!");
       return;
     } else if (currentPage === 1 && selectedDocumentSize === undefined && selectedPackageType === "Document") {
-      displayError("Letter size is not selected!", "error");
+      displayError("Letter size is not selected!");
       return;
     }
     setCurrentPage(currentPage + 1);
@@ -49,16 +52,7 @@ function Form(props) {
     setProgress(progress - 25);
   }
 
-  function displayError(errorMessage, type) {
-    props.enqueueSnackbar(errorMessage, {
-      variant: type,
-      preventDuplicate: true,
-      anchorOrigin: {
-        vertical: "bottom",
-        horizontal: "center",
-      },
-    });
-  }
+  
 
   function selectPage() {
     if (currentPage === 0) {
@@ -133,4 +127,4 @@ function Form(props) {
   );
 }
 
-export default withSnackbar(Form);
+export default Form;
