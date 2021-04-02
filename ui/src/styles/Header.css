@@ -1,0 +1,23 @@
+header {
+  margin-bottom: 100px;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-item {
+  display: flex;
+  align-items: center;
+  transition: 0.1s;
+}
+
+.header-item:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.header-item svg {
+  padding-right: 10px;
+}

@@ -1,0 +1,21 @@
+.letter-ul li {
+  padding: 10px 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--gray);
+}
+
+.letter-ul {
+  list-style: square;
+}
+
+.form-inner-document {
+  height: unset;
+  transition: 0.2s;
+}
+
+.form-inner-document:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
