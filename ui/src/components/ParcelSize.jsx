@@ -19,7 +19,7 @@ function ParcelSize(props) {
                 width: size.width,
                 height: size.height,
                 length: size.length,
-                weigth: size.weigth,
+                weight: size.weight,
               }}
             />
           </Grid>
