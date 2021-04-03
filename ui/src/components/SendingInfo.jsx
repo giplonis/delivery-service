@@ -48,14 +48,20 @@ function SendingInfo(props) {
     sender: yup.object({
       name: yup.string().required("Required").max(30, "First Name is too long!"),
       surname: yup.string().required("Required").max(30, "Last Name is too long!"),
-      number: yup.string().required("Required").max(15, "Phone Number is too long!"),
+      number: yup
+        .string()
+        .required("Required")
+        .matches(/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/, "Invalid Phone Number!"),
       city: yup.string().required("Required").max(30, "City Name is too long!"),
       address: yup.string().required("Required").max(50, "Address is too long!"),
     }),
     recipient: yup.object({
       name: yup.string().required("Required").max(30, "First Name is too long!"),
       surname: yup.string().required("Required").max(30, "Last Name is too long!"),
-      number: yup.string().required("Required").max(15, "Phone Number is too long!"),
+      number: yup
+        .string()
+        .required("Required")
+        .matches(/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/, "Invalid Phone Number!"),
       city: yup.string().required("Required").max(30, "City Name is too long!"),
       address: yup.string().required("Required").max(50, "Address is too long!"),
     }),
