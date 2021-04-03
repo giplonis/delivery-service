@@ -33,7 +33,7 @@ public class CreateOrder {
         order.setSenderInfo(createUserInfo(orderDTO.getSender()));
         order.setRecipientInfo(createUserInfo(orderDTO.getRecipient()));
         order.setStatus(OrderStatus.NEW);
-        order.setTotalPrice(0); //temporary mocked solution, due to null validation
+        order.setTotalPrice(0);
         orderRepository.persist(order);
 
         return order;
@@ -69,6 +69,7 @@ public class CreateOrder {
         Address address = new Address();
         address.setCity(userData.getAddress().getCity());
         address.setStreet(userData.getAddress().getStreet());
+        address.setNumber("1");
         return address;
     }
 
