@@ -12,7 +12,7 @@ function ParcelSizeCard(props) {
         <div className="form-header">{props.name}</div>
         <ImageBox image={props.image} alt={props.name} />
         <ul className="parcel-ul">
-          <li>Max weigth: {props.dimensions.weigth}kg</li>
+          <li>Max weigth: {props.dimensions.weight}kg</li>
           <li>Max length: {props.dimensions.length}cm</li>
           <li>Max width: {props.dimensions.width}cm</li>
           <li>Max height: {props.dimensions.height}cm</li>

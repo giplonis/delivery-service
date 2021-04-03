@@ -7,19 +7,21 @@ import { Container, LinearProgress } from "@material-ui/core";
 import "../styles/Form.css";
 import ParcelSize from "./ParcelSize";
 import ParcelType from "./ParcelType";
-import { withSnackbar } from "notistack";
 import Summary from "./Summary";
+import useMessage from "../hooks/messages";
 
-function Form(props) {
+function Form() {
+  const { displayError } = useMessage();
+
   var boxSizes = [
-    { name: "Small", width: 35, height: 16, length: 45, weigth: 2 },
-    { name: "Medium", width: 46, height: 46, length: 64, weigth: 20 },
-    { name: "Large", width: 150, height: 150, length: 150, weigth: 30 },
+    { id: 1, name: "Small Box", width: 35, height: 16, length: 45, weight: 2 },
+    { id: 2, name: "Medium Box", width: 46, height: 46, length: 64, weight: 20 },
+    { id: 3, name: "Large Box", width: 150, height: 150, length: 150, weight: 30 },
   ];
 
   var letterSizes = [
-    { name: "Small Letter", weight: 100, length: 24, width: 16 },
-    { name: "Large Letter", weight: 750, length: 35, width: 25 },
+    { id: 4, name: "Small Letter", weight: 100, length: 24, width: 16 },
+    { id: 5, name: "Large Letter", weight: 750, length: 35, width: 25 },
   ];
 
   const [selectedPackageType, setSelectedPackageType] = useState(undefined);
@@ -28,16 +30,17 @@ function Form(props) {
   const [selectedPaymentType, setSelectedPaymentType] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(0);
   const [progress, setProgress] = useState(25);
+  const [formData, setFormData] = useState(undefined);
 
   function NextPage(e) {
     if (currentPage === 0 && selectedPackageType === undefined) {
-      displayError("Parcel type is not selected!", "error");
+      displayError("Parcel type is not selected!");
       return;
     } else if (currentPage === 1 && selectedBoxSize === undefined && selectedPackageType === "Box") {
-      displayError("Box size is not selected!", "error");
+      displayError("Box size is not selected!");
       return;
     } else if (currentPage === 1 && selectedDocumentSize === undefined && selectedPackageType === "Document") {
-      displayError("Letter size is not selected!", "error");
+      displayError("Letter size is not selected!");
       return;
     }
     setCurrentPage(currentPage + 1);
@@ -47,17 +50,6 @@ function Form(props) {
   function PreviousPage(e) {
     setCurrentPage(currentPage - 1);
     setProgress(progress - 25);
-  }
-
-  function displayError(errorMessage, type) {
-    props.enqueueSnackbar(errorMessage, {
-      variant: type,
-      preventDuplicate: true,
-      anchorOrigin: {
-        vertical: "bottom",
-        horizontal: "center",
-      },
-    });
   }
 
   function selectPage() {
@@ -102,7 +94,7 @@ function Form(props) {
     } else if (currentPage === 2) {
       return (
         <>
-          <SendingInfo NextPage={NextPage} PreviousPage={PreviousPage} />
+          <SendingInfo NextPage={NextPage} PreviousPage={PreviousPage} submitForm={(data) => setFormData(data)} formData={formData} />
           <LinearProgress variant="determinate" className="progress-bar" value={progress} />
         </>
       );
@@ -114,6 +106,12 @@ function Form(props) {
             onChange={(name) => setSelectedPaymentType(name)}
             selectedPaymentType={selectedPaymentType}
             selectedPackageType={selectedPackageType}
+            selectedPackage={
+              selectedPackageType === "Document"
+                ? letterSizes.find((o) => o.name === selectedDocumentSize)
+                : boxSizes.find((o) => o.name === selectedBoxSize)
+            }
+            formData={formData}
           />
           <LinearProgress variant="determinate" className="progress-bar" value={progress} />
         </>
@@ -133,4 +131,4 @@ function Form(props) {
   );
 }
 
-export default withSnackbar(Form);
+export default Form;

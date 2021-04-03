@@ -10,7 +10,6 @@ import Letter from "../images/letter.png";
 import ImageBox from "./ImageBox";
 
 function Summary(props) {
-  console.log(props);
   return (
     <div className="form-wrapper">
       <Grid container spacing={9}>
@@ -27,18 +26,16 @@ function Summary(props) {
                 <div className="form-inner form-inner-summary">
                   <div className="form-header summary-subheader">Sender Info</div>
                   <Grid container>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <ul className="summary-ul">
-                        <li>First Name: </li>
-                        <li>Last Name: </li>
-                        <li>Phone Number: </li>
-                      </ul>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <ul className="summary-ul">
-                        <li>City: </li>
-                        <li>Address: </li>
-                        <li>Pick Up Date: </li>
+                        <li>
+                          {props.formData.sender.name} {props.formData.sender.surname}
+                        </li>
+                        <li>
+                          {props.formData.sender.address}, {props.formData.sender.city}
+                        </li>
+                        <li>Phone Number: {props.formData.sender.number}</li>
+                        <li>Pick Up Date: {props.formData.pickUpDate}</li>
                       </ul>
                     </Grid>
                   </Grid>
@@ -48,17 +45,15 @@ function Summary(props) {
                 <div className="form-inner form-inner-summary">
                   <div className="form-header summary-subheader">Recipient Info</div>
                   <Grid container>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <ul className="summary-ul">
-                        <li>First Name: </li>
-                        <li>Last Name: </li>
-                        <li>Phone Number: </li>
-                      </ul>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <ul className="summary-ul">
-                        <li>City: </li>
-                        <li>Address: </li>
+                        <li>
+                          {props.formData.recipient.name} {props.formData.recipient.surname}
+                        </li>
+                        <li>
+                          {props.formData.recipient.address}, {props.formData.recipient.city}
+                        </li>
+                        <li>Phone Number: {props.formData.recipient.number}</li>
                       </ul>
                     </Grid>
                   </Grid>
@@ -66,17 +61,20 @@ function Summary(props) {
               </div>
               <div className="form-wrapper summary-subform-wrapper package-type-summary-wrapper">
                 <div className="form-inner form-inner-summary">
-                  <div className="form-header summary-subheader">{props.selectedPackageType}</div>
+                  <div className="form-header summary-subheader">{props.selectedPackage.name}</div>
                   <Grid container>
                     <Grid item xs={6}>
                       <ImageBox alt={props.selectedPackageType} image={props.selectedPackageType === "Document" ? Letter : Box} />
                     </Grid>
                     <Grid item xs={6}>
                       <ul className="summary-ul">
-                        <li>Max weight: </li>
-                        <li>Max length: </li>
-                        <li>Max width: </li>
-                        {props.selectedPackageType === "Box" ? <li>Max heigth: </li> : ""}
+                        <li>
+                          Max weight: {props.selectedPackage.weight}
+                          {props.selectedPackageType === "Document" ? "g" : "kg"}
+                        </li>
+                        <li>Max length: {props.selectedPackage.length}cm</li>
+                        <li>Max width: {props.selectedPackage.width}cm</li>
+                        {props.selectedPackageType === "Box" ? <li>Max height: {props.selectedPackage.height}cm</li> : ""}
                       </ul>
                     </Grid>
                   </Grid>

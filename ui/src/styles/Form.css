@@ -1,5 +1,5 @@
 .content-wrapper {
-  min-height: calc(100vh - 35px);
+  min-height: calc(100vh - 65px);
 }
 
 @keyframes scale-up-center {
