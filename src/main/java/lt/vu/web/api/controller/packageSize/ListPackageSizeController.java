@@ -3,7 +3,7 @@ package lt.vu.web.api.controller.packageSize;
 import lt.vu.persistence.orm.entities.PackageSize;
 import lt.vu.persistence.orm.repository.PackageSizeRepository;
 import lt.vu.web.api.controller.AbstractApiController;
-import lt.vu.web.api.dto.PackageSizeDTO;
+import lt.vu.web.api.dto.getDtos.PackageSizeDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
