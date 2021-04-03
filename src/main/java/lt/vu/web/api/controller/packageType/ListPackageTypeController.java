@@ -3,7 +3,7 @@ package lt.vu.web.api.controller.packageType;
 import lt.vu.persistence.orm.entities.PackageType;
 import lt.vu.persistence.orm.repository.PackageTypeRepository;
 import lt.vu.web.api.controller.AbstractApiController;
-import lt.vu.web.api.dto.PackageTypeDTO;
+import lt.vu.web.api.dto.getDtos.PackageTypeDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

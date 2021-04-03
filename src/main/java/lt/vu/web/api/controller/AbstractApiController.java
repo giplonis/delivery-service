@@ -1,6 +1,6 @@
 package lt.vu.web.api.controller;
 
-import lt.vu.web.api.dto.ApiResourceDTO;
+import lt.vu.web.api.dto.getDtos.ApiResourceDTO;
 
 public class AbstractApiController<T> {
 
