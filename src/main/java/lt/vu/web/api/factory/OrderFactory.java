@@ -25,7 +25,6 @@ public class OrderFactory {
     @Inject
     private UserInfoFactory userInfoFactory;
 
-    @Transactional
     public Order create(OrderDTO orderDTO){
         Order order = new Order();
         setOrderPackageOption(orderDTO, order);
