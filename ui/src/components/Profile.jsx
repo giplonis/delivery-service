@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Container, Grid } from "@material-ui/core";
 import PersonalData from "./PersonalData";
+import PasswordChange from "./PasswordChange";
 
 function Profile() {
   return (
@@ -13,7 +14,9 @@ function Profile() {
           <Grid item xs={6}>
             <PersonalData />
           </Grid>
-          <Grid item xs={6}></Grid>
+          <Grid item xs={6}>
+            <PasswordChange />
+          </Grid>
         </Grid>
       </div>
       <Footer />
