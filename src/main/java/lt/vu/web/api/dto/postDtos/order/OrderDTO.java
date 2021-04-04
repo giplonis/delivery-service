@@ -3,6 +3,8 @@ package lt.vu.web.api.dto.postDtos.order;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter @Setter
 public class OrderDTO {
 
@@ -12,6 +14,6 @@ public class OrderDTO {
 
     private int packageOptionId;
 
-    private String pickUpDate;
+    private Date pickUpDate;
 
 }
