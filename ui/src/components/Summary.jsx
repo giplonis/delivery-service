@@ -10,6 +10,7 @@ import Letter from "../images/letter.png";
 import ImageBox from "./ImageBox";
 
 function Summary(props) {
+  const date = props.formData.pickUpDate;
   return (
     <div className="form-wrapper">
       <Grid container spacing={9}>
@@ -35,7 +36,17 @@ function Summary(props) {
                           {props.formData.sender.address}, {props.formData.sender.city}
                         </li>
                         <li>Phone Number: {props.formData.sender.number}</li>
-                        <li>Pick Up Date: {props.formData.pickUpDate}</li>
+                        <li>
+                          Pick Up Date:{" "}
+                          {date.toLocaleString("en-US", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          })}
+                        </li>
                       </ul>
                     </Grid>
                   </Grid>
