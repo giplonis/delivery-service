@@ -3,6 +3,7 @@ import Form from "./components/Form";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
+import OrderHistory from "./components/OrderHistory";
 
 function App() {
   const theme = createMuiTheme({
@@ -26,7 +27,8 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <SnackbarProvider>
-          <Form />
+          {/* <Form /> */}
+          <OrderHistory/>
         </SnackbarProvider>
       </ThemeProvider>
     </div>
