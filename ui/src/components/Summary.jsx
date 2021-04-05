@@ -37,17 +37,15 @@ function Summary(props) {
                         </li>
                         <li>Phone Number: {props.formData.sender.number}</li>
                         <li>
-                          Pick Up Date:
-                          {" " +
-                            date.getFullYear() +
-                            "/" +
-                            (date.getMonth() + 1) +
-                            "/" +
-                            date.getDate() +
-                            " " +
-                            date.getHours() +
-                            ":" +
-                            date.getMinutes()}
+                          Pick Up Date:{" "}
+                          {date.toLocaleString("en-US", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          })}
                         </li>
                       </ul>
                     </Grid>

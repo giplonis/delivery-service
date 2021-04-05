@@ -26,6 +26,7 @@ const CustomKeyboardDateTimePicker = ({ variant, format, margin, label, onChange
       error={!!errorText}
       name={fields.name}
       onBlur={fields.onBlur}
+      minutesStep="15"
     />
   );
 };
