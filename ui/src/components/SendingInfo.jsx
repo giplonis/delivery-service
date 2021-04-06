@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import Field from "./Field";
 import { Grid, Button } from "@material-ui/core";
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import "../styles/SendingInfo.css";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import * as yup from "yup";
 import { Formik, Form, useField } from "formik";
 
-const CustomKeyboardDatePicker = ({ variant, format, margin, label, onChange, className, ...props }) => {
+const CustomKeyboardDateTimePicker = ({ variant, format, margin, label, onChange, className, ...props }) => {
   const [fields, meta] = useField(props);
   const errorText = meta.error && meta.touched ? meta.error : "";
   return (
-    <KeyboardDatePicker
-      disableToolbar
+    <KeyboardDateTimePicker
+      disablePast
+      ampm={false}
       variant={variant}
       format={format}
       margin={margin}
@@ -25,6 +26,7 @@ const CustomKeyboardDatePicker = ({ variant, format, margin, label, onChange, cl
       error={!!errorText}
       name={fields.name}
       onBlur={fields.onBlur}
+      minutesStep="15"
     />
   );
 };
@@ -90,7 +92,7 @@ function SendingInfo(props) {
         props.submitForm(data);
         props.NextPage();
       }}>
-      {({ values, errors, setFieldValue }) => (
+      {({ setFieldValue }) => (
         <Form>
           <div className="form-wrapper">
             <Grid container spacing={9}>
@@ -102,14 +104,13 @@ function SendingInfo(props) {
                   ))}
                   <Field label="E-mail" name="email" />
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <CustomKeyboardDatePicker
-                      disableToolbar
+                    <CustomKeyboardDateTimePicker
                       variant="inline"
-                      format="yyyy/MM/dd"
+                      format="yyyy/MM/dd HH:mm"
                       margin="normal"
                       label="Pick Up Date"
                       onChange={(value) => {
-                        setFieldValue("pickUpDate", value !== null ? value.getFullYear() + "/" + (value.getMonth() + 1) + "/" + value.getDate() : "");
+                        setFieldValue("pickUpDate", value);
                         handleDateChange(value);
                       }}
                       value={selectedDate}

@@ -18,7 +18,7 @@ public class Order implements Serializable {
     private int id;
 
     @Column(name = "CREATED_AT", nullable = false)
-    private Date createdAt;
+    private final Date createdAt = new Date();
 
     @Column(name = "STATUS", nullable = false)
     private OrderStatus status;
