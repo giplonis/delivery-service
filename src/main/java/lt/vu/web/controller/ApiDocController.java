@@ -32,7 +32,7 @@ public class ApiDocController {
     }
 
     @GET
-    @Path("{file}")
+    @Path("/{file}")
     public InputStream getFileAction(@PathParam("file") String file) throws IOException {
         return new FileInputStream(
             this.servletContext.getRealPath("/WEB-INF/classes/api-doc/" + file)
