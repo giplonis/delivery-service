@@ -3,7 +3,8 @@ import Form from "./components/Form";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
-import OrderHistory from "./components/OrderHistory";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Profile from "./components/Profile";
 
 function App() {
   const theme = createMuiTheme({
@@ -27,8 +28,16 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <SnackbarProvider>
-          {/* <Form /> */}
-          <OrderHistory/>
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <Form />
+              </Route>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+            </Switch>
+          </Router>
         </SnackbarProvider>
       </ThemeProvider>
     </div>
