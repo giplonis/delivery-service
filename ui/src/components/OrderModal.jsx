@@ -11,6 +11,10 @@ export default function OrderModal(props){
             onClose = {() => props.onClose(props.order)}
         >
             <div className = "modal-wrapper">
+                <div className="order-status-wrapper">
+                    <span className="form-header summary-subheader">Order Status: </span>
+                    <span className="description-text">{props.order.status}</span>
+                </div>
                 <SenderSummaryCard
                     sender = {props.order.sender}
                     pickUpDate = {props.order.pickUpDate}

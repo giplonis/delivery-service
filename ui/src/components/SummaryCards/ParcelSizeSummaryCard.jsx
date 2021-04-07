@@ -1,6 +1,5 @@
 import React from "react";
 import {Grid} from "@material-ui/core";
-import "../../styles/Summary.css";
 import Box from "../../images/box.png";
 import Letter from "../../images/letter.png";
 import ImageBox from "../ImageBox";

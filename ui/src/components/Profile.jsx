@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Container, Grid } from "@material-ui/core";
 import PersonalData from "./PersonalData";
 import PasswordChange from "./PasswordChange";
+import OrderHistory from "./OrderHistory";
 
 function Profile() {
   return (
@@ -16,6 +17,9 @@ function Profile() {
           </Grid>
           <Grid item xs={6}>
             <PasswordChange />
+          </Grid>
+          <Grid item xs={12}>
+            <OrderHistory/>
           </Grid>
         </Grid>
       </div>

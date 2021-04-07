@@ -1,6 +1,8 @@
-import {Dialog, Grid, List, ListItem} from "@material-ui/core"
+import {Divider, Grid, IconButton, List, ListItem, ListItemSecondaryAction} from "@material-ui/core";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useState } from "react";
 import OrderModal from "./OrderModal";
+import "../styles/OrderHistory.css";
 
 export default function OrderHistory(){
     
@@ -53,38 +55,67 @@ export default function OrderHistory(){
         return packageSizes.find(x =>  x.id === order.packageId)
     }
 
+    function OrderInfo(props){
+        return(
+            <span>
+                <span>{props.title}: </span>
+                <span className="order-description">{props.description}</span>
+            </span>
+        )
+    }
+
     return(
-        <>
-            <List>
-                {
-                    orders.map((order, index) => 
-                        <ListItem 
-                            button 
-                            key={index}
-                            onClick = {() => selectOrder(order)}
-                        >
-                            <Grid container>
-                                <Grid item xs={4}>
-                                    {`Status: ${order.status}`}
-                                </Grid>
-                                <Grid item xs={4}>
-                                    {`Recipient: ${order.recipient.name}`}
-                                </Grid>
-                                <Grid item xs={4}>
-                                    {`Package: ${getPackageSize(order).name}`}
-                                </Grid>
-                            </Grid>
-                        </ListItem>
-                    )
-                }
-            </List>
-            {selectedOrder && <OrderModal
-                order = {selectedOrder}
-                packageSize = {getPackageSize(selectedOrder)}
-                open = {selectedOrder !== null}
-                onClose = {selectOrder}
-            />}
-        </>
+        <div className="form-wrapper">
+            <div className="form-inner">
+            <div className="form-header">Order History</div>
+                <List>
+                    {
+                        orders.map((order, index) => 
+                            <>
+                                <ListItem 
+                                    button 
+                                    key={index}
+                                    onClick = {() => selectOrder(order)}
+                                >
+                                    <Grid container>
+                                        <Grid item xs={4}>
+                                            <OrderInfo
+                                                title = "Status"
+                                                description = {order.status}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <OrderInfo
+                                                title = "Recipient"
+                                                description = {order.recipient.name}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <OrderInfo
+                                                title = "Package"
+                                                description = {getPackageSize(order).name}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                    <ListItemSecondaryAction>
+                                        <IconButton edge="end" size="small" onClick = {() => selectOrder(order)}>
+                                            <ArrowForwardIcon />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                                {index + 1 < orders.length && <Divider/>}
+                            </>
+                        )
+                    }
+                </List>
+                {selectedOrder && <OrderModal
+                    order = {selectedOrder}
+                    packageSize = {getPackageSize(selectedOrder)}
+                    open = {selectedOrder !== null}
+                    onClose = {selectOrder}
+                />}
+            </div>
+        </div>
     )
 
 
