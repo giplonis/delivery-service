@@ -6,7 +6,8 @@
         <jta-data-source>AppDataSource</jta-data-source>
         <properties>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.import_files" value="/META-INF/import.sql"/>
         </properties>
     </persistence-unit>
 </persistence>
