@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.orm.entities.PackageSize;
 import lt.vu.persistence.orm.repository.PackageSizeRepository;
-import lt.vu.web.api.v1.dto.getDto.packageSize.ListPackageSizeDTO;
-import lt.vu.web.api.v1.dto.getDto.packageSize.PackageSizeDTO;
+import lt.vu.web.api.v1.dto.get.packageSize.ListPackageSizeDTO;
+import lt.vu.web.api.v1.dto.get.packageSize.PackageSizeDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/package-size")
+@Path("/package-sizes")
 @RequestScoped
 public class ListPackageSizeController {
 

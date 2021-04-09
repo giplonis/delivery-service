@@ -1,6 +1,6 @@
-package lt.vu.web.api.v1.dto.getDto.packageType;
+package lt.vu.web.api.v1.dto.get.packageType;
 
-import lt.vu.web.api.v1.dto.getDto.ApiResourceDTO;
+import lt.vu.web.api.v1.dto.get.ApiResourceDTO;
 
 import java.util.List;
 

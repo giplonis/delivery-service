@@ -1,17 +1,17 @@
-package lt.vu.web.api.v1.dto.postDto.order;
+package lt.vu.web.api.v1.dto.post.order;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import lt.vu.web.api.v1.dto.post.userInfo.UserInfoDTO;
 
 import java.util.Date;
 
 @Getter @Setter
 public class OrderDTO {
 
-    private SenderDTO sender;
+    private UserInfoDTO sender;
 
-    private SenderDTO recipient;
+    private UserInfoDTO recipient;
 
     private int packageOptionId;
 

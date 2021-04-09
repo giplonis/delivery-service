@@ -22,9 +22,6 @@ public class Address implements Serializable {
     @Column(name = "STREET", nullable = false)
     private String street;
 
-    @Column(name = "NUMBER", nullable = false)
-    private String number;
-
     public Address() {
     }
 
@@ -36,12 +33,11 @@ public class Address implements Serializable {
 
         return address.id == this.id
             && address.city.equals(this.city)
-            && address.street.equals(this.street)
-            && address.number.equals(this.number);
+            && address.street.equals(this.street);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.city, this.street, this.number);
+        return Objects.hash(this.id, this.city, this.street);
     }
 }

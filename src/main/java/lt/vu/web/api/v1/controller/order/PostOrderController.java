@@ -1,9 +1,14 @@
 package lt.vu.web.api.v1.controller.order;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.factory.OrderFactory;
-import lt.vu.web.api.v1.dto.postDto.order.OrderDTO;
+import lt.vu.web.api.v1.dto.post.order.OrderDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -26,9 +31,24 @@ public class PostOrderController {
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response createAction(OrderDTO orderDTO){
-        Order order = orderFactory.create(orderDTO);
-        orderRepository.persist(order);
-        return Response.ok(order, MediaType.APPLICATION_JSON).build();
+    @Operation(
+        summary = "Submit new order",
+        tags = { "Order" },
+        responses = {
+            @ApiResponse(
+                responseCode = "201"
+            )
+        }
+    )
+    public Response createAction(
+        @RequestBody(
+            required = true,
+            content = @Content(schema = @Schema(implementation = OrderDTO.class))
+        ) OrderDTO orderDTO) {
+
+        Order order = this.orderFactory.create(orderDTO);
+        this.orderRepository.persist(order);
+
+        return Response.status(Response.Status.CREATED).build();
     }
 }
