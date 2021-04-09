@@ -1,0 +1,15 @@
+.parcel-ul {
+  list-style: square;
+  width: max-content;
+  margin: auto;
+  text-align: left;
+  margin-top: 15px;
+}
+
+.parcel-ul li {
+  padding: 8px 0 8px 5px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--gray);
+}

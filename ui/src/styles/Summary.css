@@ -1,0 +1,38 @@
+.cash-image img {
+  max-height: 110px;
+}
+
+.summary-subform-wrapper {
+  margin-bottom: 30px;
+}
+
+.summary-header {
+  margin-bottom: 30px;
+}
+
+.summary-subheader {
+  font-size: 20px;
+  margin: -24px 0 10px 4px;
+}
+
+.summary-ul {
+  list-style: square;
+  text-align: left;
+  margin: 0;
+}
+
+.summary-ul li {
+  padding: 3px 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--gray);
+}
+
+.form-inner-summary {
+  padding: 10px 30px 15px 10px;
+}
+
+.package-type-summary-wrapper img {
+  max-height: 90px;
+}
