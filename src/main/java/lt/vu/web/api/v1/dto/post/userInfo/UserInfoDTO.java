@@ -1,10 +1,11 @@
-package lt.vu.web.api.v1.dto.postDto.order;
+package lt.vu.web.api.v1.dto.post.userInfo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lt.vu.web.api.v1.dto.post.address.AddressDTO;
 
 @Getter @Setter
-public class SenderDTO {
+public class UserInfoDTO {
 
     private String firstName;
 

@@ -1,6 +1,6 @@
-package lt.vu.web.api.v1.dto.packageSize;
+package lt.vu.web.api.v1.dto.get.packageSize;
 
-import lt.vu.web.api.v1.dto.ApiResourceDTO;
+import lt.vu.web.api.v1.dto.get.ApiResourceDTO;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values(1, 'Document', 'Send a 
 insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values(2, 'Package', 'Send a regular package');
 
 -- Address info
-insert into ADDRESS (ID, CITY, NUMBER, STREET) values (1, 'Vilnius', 32, 'Antakalnio g.');
+insert into ADDRESS (ID, CITY, STREET) values (1, 'Vilnius', 'Antakalnio g., 32');
 
 -- PackageSize info
 insert into PACKAGE_SIZE (ID, TITLE, HEIGHT, LENGTH, WIDTH, MAX_WEIGHT) values (1, 'S', 450, 350, 160, 2000);

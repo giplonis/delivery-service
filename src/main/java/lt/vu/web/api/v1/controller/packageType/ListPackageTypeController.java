@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.orm.entities.PackageType;
 import lt.vu.persistence.orm.repository.PackageTypeRepository;
-import lt.vu.web.api.v1.dto.getDto.packageType.ListPackageTypeDTO;
-import lt.vu.web.api.v1.dto.getDto.packageType.PackageTypeDTO;
+import lt.vu.web.api.v1.dto.get.packageType.ListPackageTypeDTO;
+import lt.vu.web.api.v1.dto.get.packageType.PackageTypeDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/package-type")
+@Path("/package-types")
 @RequestScoped
 public class ListPackageTypeController {
 
