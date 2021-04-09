@@ -21,6 +21,9 @@ function App() {
         paper: "#272727",
       },
       divider: "#cee002",
+    },
+    shape: {
+      borderRadius: 0
     }
   });
 

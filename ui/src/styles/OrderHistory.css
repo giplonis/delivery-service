@@ -1,3 +1,11 @@
 .order-description {
-    color: var(--gray);
+  color: var(--gray);
+  margin-left: 3px;
+}
+.order-info-field-wrapper {
+  display: flex;
+  align-items: center;
+}
+.order-info-field-title {
+  margin-right: 7px;
 }
