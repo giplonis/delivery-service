@@ -1,0 +1,21 @@
+.modal-wrapper {
+  padding: 25px 30px 0px 30px;
+  width: 400px;
+}
+.description-text {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--gray);
+  margin-left: 5px;
+}
+.order-status-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  background-color: var(--dark);
+  font-weight: 500;
+  margin-right: 10px;
+}
+.order-status-wrapper {
+  margin-bottom: 35px;
+}

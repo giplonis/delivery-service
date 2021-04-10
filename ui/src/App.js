@@ -18,10 +18,13 @@ function App() {
       },
       background: {
         default: "#272727",
-        paper: "#3c3c3c",
+        paper: "#272727",
       },
       divider: "#cee002",
     },
+    shape: {
+      borderRadius: 0
+    }
   });
 
   return (
