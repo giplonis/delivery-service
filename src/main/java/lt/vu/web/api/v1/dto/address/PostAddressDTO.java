@@ -1,10 +1,10 @@
-package lt.vu.web.api.v1.dto.post.address;
+package lt.vu.web.api.v1.dto.address;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class AddressDTO {
+public class PostAddressDTO {
 
     private String city;
 

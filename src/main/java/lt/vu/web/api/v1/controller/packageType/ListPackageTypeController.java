@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.orm.entities.PackageType;
 import lt.vu.persistence.orm.repository.PackageTypeRepository;
-import lt.vu.web.api.v1.dto.get.packageType.ListPackageTypeDTO;
-import lt.vu.web.api.v1.dto.get.packageType.PackageTypeDTO;
+import lt.vu.web.api.v1.dto.packageType.ListPackageTypeDTO;
+import lt.vu.web.api.v1.dto.packageType.GetPackageTypeDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -42,7 +42,7 @@ public class ListPackageTypeController {
         List<PackageType> packageTypes = this.packageTypeRepository.findAll();
 
         return Response
-                .ok(new ListPackageTypeDTO(PackageTypeDTO.createMany(packageTypes)))
+                .ok(new ListPackageTypeDTO(GetPackageTypeDTO.createMany(packageTypes)))
                 .build();
     }
 }

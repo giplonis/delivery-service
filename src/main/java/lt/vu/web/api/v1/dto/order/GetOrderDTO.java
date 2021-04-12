@@ -1,17 +1,17 @@
-package lt.vu.web.api.v1.dto.get.order;
+package lt.vu.web.api.v1.dto.order;
 
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.persistence.orm.entities.Order;
-import lt.vu.web.api.v1.dto.get.user.UserDTO;
-import lt.vu.web.api.v1.dto.get.userInfo.UserInfoDTO;
+import lt.vu.web.api.v1.dto.user.GetUserDTO;
+import lt.vu.web.api.v1.dto.userInfo.GetUserInfoDTO;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter @Setter
-public class OrderDTO {
+public class GetOrderDTO {
 
     private int id;
 
@@ -23,33 +23,33 @@ public class OrderDTO {
 
     private int totalPrice;
 
-    private UserInfoDTO senderInfo;
+    private GetUserInfoDTO senderInfo;
 
-    private UserInfoDTO recipientInfo;
+    private GetUserInfoDTO recipientInfo;
 
-    private UserDTO sender;
+    private GetUserDTO sender;
 
-    public static OrderDTO createFromEntity(Order order) {
-        OrderDTO dto = new OrderDTO();
+    public static GetOrderDTO createFromEntity(Order order) {
+        GetOrderDTO dto = new GetOrderDTO();
 
         dto.setId(order.getId());
         dto.setCreatedAt(order.getCreatedAt());
         dto.setStatus(order.getStatus().toString().toUpperCase());
         dto.setPickupDateTime(order.getPickupDateTime());
         dto.setTotalPrice(order.getTotalPrice());
-        dto.setSenderInfo(UserInfoDTO.createFromEntity(order.getSenderInfo()));
-        dto.setRecipientInfo(UserInfoDTO.createFromEntity(order.getRecipientInfo()));
+        dto.setSenderInfo(GetUserInfoDTO.createFromEntity(order.getSenderInfo()));
+        dto.setRecipientInfo(GetUserInfoDTO.createFromEntity(order.getRecipientInfo()));
         if (order.getSender() != null) {
-            dto.setSender(UserDTO.createFromEntity(order.getSender()));
+            dto.setSender(GetUserDTO.createFromEntity(order.getSender()));
         }
 
         return dto;
     }
 
-    public static List<OrderDTO> createMany(List<Order> orders) {
+    public static List<GetOrderDTO> createMany(List<Order> orders) {
         return orders
                 .stream()
-                .map(OrderDTO::createFromEntity)
+                .map(GetOrderDTO::createFromEntity)
                 .collect(Collectors.toList());
     }
 }

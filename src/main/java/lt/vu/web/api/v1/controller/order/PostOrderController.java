@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.factory.OrderFactory;
-import lt.vu.web.api.v1.dto.post.order.OrderDTO;
+import lt.vu.web.api.v1.dto.order.PostOrderDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -43,8 +43,8 @@ public class PostOrderController {
     public Response createAction(
         @RequestBody(
             required = true,
-            content = @Content(schema = @Schema(implementation = OrderDTO.class))
-        ) OrderDTO orderDTO) {
+            content = @Content(schema = @Schema(implementation = PostOrderDTO.class))
+        ) PostOrderDTO orderDTO) {
 
         Order order = this.orderFactory.create(orderDTO);
         this.orderRepository.persist(order);

@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.orm.entities.PackageSize;
 import lt.vu.persistence.orm.repository.PackageSizeRepository;
-import lt.vu.web.api.v1.dto.get.packageSize.ListPackageSizeDTO;
-import lt.vu.web.api.v1.dto.get.packageSize.PackageSizeDTO;
+import lt.vu.web.api.v1.dto.packageSize.ListPackageSizeDTO;
+import lt.vu.web.api.v1.dto.packageSize.GetPackageSizeDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -42,7 +42,7 @@ public class ListPackageSizeController {
         List<PackageSize> packageSizes = this.packageSizeRepository.findAll();
 
         return Response
-                .ok(new ListPackageSizeDTO(PackageSizeDTO.createMany(packageSizes)))
+                .ok(new ListPackageSizeDTO(GetPackageSizeDTO.createMany(packageSizes)))
                 .build();
     }
 }

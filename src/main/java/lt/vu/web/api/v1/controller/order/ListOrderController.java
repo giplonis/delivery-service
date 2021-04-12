@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
-import lt.vu.web.api.v1.dto.get.order.ListOrderDTO;
-import lt.vu.web.api.v1.dto.get.order.OrderDTO;
+import lt.vu.web.api.v1.dto.order.ListOrderDTO;
+import lt.vu.web.api.v1.dto.order.GetOrderDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -43,7 +43,7 @@ public class ListOrderController {
         List<Order> orders = this.orderRepository.findAll();
 
         return Response
-                .ok(new ListOrderDTO(OrderDTO.createMany(orders)))
+                .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))
                 .build();
     }
 }
