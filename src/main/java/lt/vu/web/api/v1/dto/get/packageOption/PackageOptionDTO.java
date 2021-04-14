@@ -18,6 +18,8 @@ public class PackageOptionDTO {
 
     private int packageType;
 
+    private boolean fragile;
+
     public static PackageOptionDTO createFromEntity(PackageOption packageOption) {
         PackageOptionDTO dto = new PackageOptionDTO();
 
@@ -25,6 +27,7 @@ public class PackageOptionDTO {
         dto.setPrice(packageOption.getPrice());
         dto.setPackageSize(packageOption.getPackageSize().getId());
         dto.setPackageType(packageOption.getPackageType().getId());
+        dto.setFragile(packageOption.isFragile());
 
         return dto;
     }
