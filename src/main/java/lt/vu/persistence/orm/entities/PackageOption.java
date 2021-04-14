@@ -31,8 +31,7 @@ public class PackageOption implements Serializable {
     @JoinColumn(name = "PACKAGE_SIZE_ID", nullable = false)
     private PackageSize packageSize;
 
-    @Column(name = "FRAGILE",
-            columnDefinition = "boolean default false")
+    @Column(name = "FRAGILE", columnDefinition = "boolean default false")
     private boolean fragile;
 
     public PackageOption() {
