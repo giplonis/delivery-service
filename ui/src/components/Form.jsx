@@ -9,6 +9,7 @@ import ParcelSize from "./ParcelSize";
 import ParcelType from "./ParcelType";
 import Summary from "./Summary";
 import useMessage from "../hooks/messages";
+import PaymentSuccess from "./PaymentSuccess";
 
 function Form() {
   const { displayError } = useMessage();
@@ -98,11 +99,12 @@ function Form() {
           <LinearProgress variant="determinate" className="progress-bar" value={progress} />
         </>
       );
-    } else {
+    } else if (currentPage === 3) {
       return (
         <>
           <Summary
             PreviousPage={PreviousPage}
+            onOrderSuccess={() => setCurrentPage(1000)}
             onChange={(name) => setSelectedPaymentType(name)}
             selectedPaymentType={selectedPaymentType}
             selectedPackageType={selectedPackageType}
@@ -116,6 +118,11 @@ function Form() {
           <LinearProgress variant="determinate" className="progress-bar" value={progress} />
         </>
       );
+    }
+    else {
+      return (
+        <PaymentSuccess/>
+      )
     }
   }
   return (
