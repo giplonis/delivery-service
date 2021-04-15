@@ -2,7 +2,7 @@ package lt.vu.web.api.v1.factory;
 
 import lt.vu.persistence.orm.entities.*;
 import lt.vu.persistence.orm.repository.PackageOptionRepository;
-import lt.vu.web.api.v1.dto.post.order.OrderDTO;
+import lt.vu.web.api.v1.dto.order.PostOrderDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ public class OrderFactory {
     @Inject
     private UserInfoFactory userInfoFactory;
 
-    public Order create(OrderDTO orderDTO) {
+    public Order create(PostOrderDTO orderDTO) {
         Order order = new Order();
 
         PackageOption packageOption = this.packageOptionRepository.findOneById(orderDTO.getPackageOptionId());

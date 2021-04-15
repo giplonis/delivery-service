@@ -1,13 +1,13 @@
-package lt.vu.web.api.v1.controller.packageSize;
+package lt.vu.web.api.v1.controller.order;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lt.vu.persistence.orm.entities.PackageSize;
-import lt.vu.persistence.orm.repository.PackageSizeRepository;
-import lt.vu.web.api.v1.dto.packageSize.ListPackageSizeDTO;
-import lt.vu.web.api.v1.dto.packageSize.GetPackageSizeDTO;
+import lt.vu.persistence.orm.entities.Order;
+import lt.vu.persistence.orm.repository.OrderRepository;
+import lt.vu.web.api.v1.dto.order.ListOrderDTO;
+import lt.vu.web.api.v1.dto.order.GetOrderDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -18,31 +18,32 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/package-sizes")
+@Path("/orders")
 @RequestScoped
-public class ListPackageSizeController {
+public class ListOrderController {
 
     @Inject
-    private PackageSizeRepository packageSizeRepository;
+    private OrderRepository orderRepository;
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
-        summary = "Fetch list of package sizes available",
-        tags = { "PackageSize" },
+        summary = "Fetch list of user's orders",
+        tags = { "Order" },
         responses = {
             @ApiResponse(
                 responseCode = "200",
-                content = @Content(schema = @Schema(implementation = ListPackageSizeDTO.class))
+                content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
             )
         }
     )
     public Response listAction() {
-        List<PackageSize> packageSizes = this.packageSizeRepository.findAll();
+        // TODO: Fetch orders only for current user
+        List<Order> orders = this.orderRepository.findAll();
 
         return Response
-                .ok(new ListPackageSizeDTO(GetPackageSizeDTO.createMany(packageSizes)))
+                .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))
                 .build();
     }
 }

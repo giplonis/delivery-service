@@ -1,7 +1,7 @@
 package lt.vu.web.api.v1.factory;
 
 import lt.vu.persistence.orm.entities.UserInfo;
-import lt.vu.web.api.v1.dto.post.userInfo.UserInfoDTO;
+import lt.vu.web.api.v1.dto.userInfo.PostUserInfoDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -12,7 +12,7 @@ public class UserInfoFactory {
     @Inject
     private AddressFactory addressFactory;
 
-    public UserInfo create(UserInfoDTO userData) {
+    public UserInfo create(PostUserInfoDTO userData) {
         UserInfo userInfo = new UserInfo();
 
         userInfo.setFirstName(userData.getFirstName());

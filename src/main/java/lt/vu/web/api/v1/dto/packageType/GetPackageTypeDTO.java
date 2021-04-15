@@ -1,4 +1,4 @@
-package lt.vu.web.api.v1.dto.get.packageType;
+package lt.vu.web.api.v1.dto.packageType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter @Setter
-public class PackageTypeDTO {
+public class GetPackageTypeDTO {
 
     private int id;
 
@@ -16,8 +16,8 @@ public class PackageTypeDTO {
 
     private String description;
 
-    public static PackageTypeDTO createFromEntity(PackageType packageType) {
-        PackageTypeDTO dto = new PackageTypeDTO();
+    public static GetPackageTypeDTO createFromEntity(PackageType packageType) {
+        GetPackageTypeDTO dto = new GetPackageTypeDTO();
 
         dto.setId(packageType.getId());
         dto.setTitle(packageType.getTitle());
@@ -26,10 +26,10 @@ public class PackageTypeDTO {
         return dto;
     }
 
-    public static List<PackageTypeDTO> createMany(List<PackageType> packageTypes) {
+    public static List<GetPackageTypeDTO> createMany(List<PackageType> packageTypes) {
         return packageTypes
                 .stream()
-                .map(PackageTypeDTO::createFromEntity)
+                .map(GetPackageTypeDTO::createFromEntity)
                 .collect(Collectors.toList());
     }
 }
