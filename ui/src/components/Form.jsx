@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SendingInfo from "./SendingInfo";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -9,14 +9,29 @@ import ParcelSize from "./ParcelSize";
 import ParcelType from "./ParcelType";
 import Summary from "./Summary";
 import useMessage from "../hooks/messages";
+import { PACKAGE_SIZES } from "../config";
 
 function Form() {
   const { displayError } = useMessage();
 
   var boxSizes = [
     { id: 1, name: "Small Box", width: 35, height: 16, length: 45, weight: 2 },
-    { id: 2, name: "Medium Box", width: 46, height: 46, length: 64, weight: 20 },
-    { id: 3, name: "Large Box", width: 150, height: 150, length: 150, weight: 30 },
+    {
+      id: 2,
+      name: "Medium Box",
+      width: 46,
+      height: 46,
+      length: 64,
+      weight: 20,
+    },
+    {
+      id: 3,
+      name: "Large Box",
+      width: 150,
+      height: 150,
+      length: 150,
+      weight: 30,
+    },
   ];
 
   var letterSizes = [
@@ -32,14 +47,39 @@ function Form() {
   const [progress, setProgress] = useState(25);
   const [formData, setFormData] = useState(undefined);
 
+  useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    (async function () {
+      try {
+        const response = await fetch(PACKAGE_SIZES, requestOptions);
+        const responseJson = await response.json();
+        console.log(responseJson);
+      } catch (e) {
+        // TODO: display an error to user
+        console.log(e);
+      }
+    })();
+  }, []);
+
   function NextPage(e) {
     if (currentPage === 0 && selectedPackageType === undefined) {
       displayError("Parcel type is not selected!");
       return;
-    } else if (currentPage === 1 && selectedBoxSize === undefined && selectedPackageType === "Box") {
+    } else if (
+      currentPage === 1 &&
+      selectedBoxSize === undefined &&
+      selectedPackageType === "Box"
+    ) {
       displayError("Box size is not selected!");
       return;
-    } else if (currentPage === 1 && selectedDocumentSize === undefined && selectedPackageType === "Document") {
+    } else if (
+      currentPage === 1 &&
+      selectedDocumentSize === undefined &&
+      selectedPackageType === "Document"
+    ) {
       displayError("Letter size is not selected!");
       return;
     }
@@ -62,7 +102,12 @@ function Form() {
             NextPage={NextPage}
             PreviousPage={PreviousPage}
           />
-          <LinearProgress variant="determinate" color="primary" className="progress-bar" value={progress} />
+          <LinearProgress
+            variant="determinate"
+            color="primary"
+            className="progress-bar"
+            value={progress}
+          />
         </>
       );
     } else if (currentPage === 1 && selectedPackageType === "Document") {
@@ -75,7 +120,11 @@ function Form() {
             letterSizes={letterSizes}
             selectedDocumentSize={selectedDocumentSize}
           />
-          <LinearProgress variant="determinate" className="progress-bar" value={progress} />
+          <LinearProgress
+            variant="determinate"
+            className="progress-bar"
+            value={progress}
+          />
         </>
       );
     } else if (currentPage === 1 && selectedPackageType === "Box") {
@@ -88,14 +137,27 @@ function Form() {
             NextPage={NextPage}
             PreviousPage={PreviousPage}
           />
-          <LinearProgress variant="determinate" className="progress-bar" value={progress} />
+          <LinearProgress
+            variant="determinate"
+            className="progress-bar"
+            value={progress}
+          />
         </>
       );
     } else if (currentPage === 2) {
       return (
         <>
-          <SendingInfo NextPage={NextPage} PreviousPage={PreviousPage} submitForm={(data) => setFormData(data)} formData={formData} />
-          <LinearProgress variant="determinate" className="progress-bar" value={progress} />
+          <SendingInfo
+            NextPage={NextPage}
+            PreviousPage={PreviousPage}
+            submitForm={(data) => setFormData(data)}
+            formData={formData}
+          />
+          <LinearProgress
+            variant="determinate"
+            className="progress-bar"
+            value={progress}
+          />
         </>
       );
     } else {
@@ -113,7 +175,11 @@ function Form() {
             }
             formData={formData}
           />
-          <LinearProgress variant="determinate" className="progress-bar" value={progress} />
+          <LinearProgress
+            variant="determinate"
+            className="progress-bar"
+            value={progress}
+          />
         </>
       );
     }
