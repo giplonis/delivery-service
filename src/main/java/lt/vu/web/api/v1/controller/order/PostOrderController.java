@@ -46,7 +46,14 @@ public class PostOrderController {
             content = @Content(schema = @Schema(implementation = PostOrderDTO.class))
         ) PostOrderDTO orderDTO) {
 
-        Order order = this.orderFactory.create(orderDTO);
+        Order order = null;
+        try {
+            order = this.orderFactory.create(orderDTO);
+        }
+        catch(IllegalArgumentException e){
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+
         this.orderRepository.persist(order);
 
         return Response.status(Response.Status.CREATED).build();
