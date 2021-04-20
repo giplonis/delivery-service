@@ -15,13 +15,13 @@ export default function OrderModal(props) {
           <span className="description-text">{props.order.status}</span>
         </div>
         <SenderSummaryCard
-          sender={props.order.sender}
-          pickUpDate={props.order.pickUpDate}
+          sender={props.order.senderInfo}
+          pickUpDate={props.order.pickupDateTime}
         />
-        <RecipientSummaryCard recipient={props.order.recipient} />
+        <RecipientSummaryCard recipient={props.order.recipientInfo} />
         <ParcelSizeSummaryCard
-          selectedPackage={props.packageSize}
-          selectedPackageType={props.packageSize.type}
+          selectedPackageSize={props.order.packageOption.packageSize}
+          selectedPackageType={props.order.packageOption.packageType.title}
         />
       </div>
     </Dialog>
