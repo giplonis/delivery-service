@@ -1,72 +1,87 @@
 import { Divider, Grid, List, ListItem } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OrderModal from "./OrderModal";
 import "../styles/OrderHistory.css";
 import StatusIcon from "./StatusIcon";
+import { ORDERS } from "../config";
 
 export default function OrderHistory() {
-  const orders = [
-    {
-      sender: {
-        name: "qwer",
-        surname: "asdf",
-        number: "+6546464646",
-        city: "Vilnius",
-        address: "asdfafds g. 10",
-      },
-      recipient: {
-        name: "dsfgsrg",
-        surname: "dfghdfgdh",
-        number: "+98494984484",
-        city: "Vilnius",
-        address: "sdfdsfsf g. 10",
-      },
-      email: "sdfgsgfd@dfgdfg.dsf",
-      pickUpDate: new Date(2021, 3, 28, 11, 0),
-      status: "New",
-      packageId: 1,
-    },
-    {
-      sender: {
-        name: "fghnfhgn",
-        surname: "fnhgn",
-        number: "+6546464646",
-        city: "Vilnius",
-        address: "asdfafds g. 10",
-      },
-      recipient: {
-        name: "bghdn",
-        surname: "dfbdfgb",
-        number: "+98494984484",
-        city: "Vilnius",
-        address: "sdfdsfsf g. 10",
-      },
-      email: "sfaf@gmail.com",
-      pickUpDate: new Date(2021, 3, 10, 18, 50),
-      status: "New",
-      packageId: 2,
-    },
-    {
-      sender: {
-        name: "nhtrh",
-        surname: "fbggbd",
-        number: "+6546464646",
-        city: "Vilnius",
-        address: "vfvgv g. 10",
-      },
-      recipient: {
-        name: "dsfgsrg",
-        surname: "bbvgb",
-        number: "+98494984484",
-        city: "Vilnius",
-        address: "sdfdsfsf g. 10",
-      },
-      email: "asdfsd@gmail.com",
-      pickUpDate: new Date(2021, 4, 7, 9, 5),
-      status: "Delivered",
-      packageId: 5,
-    },
-  ];
+
+  const [orders, setOrders] = useState([])
+
+  useEffect(() => {
+    console.log(orders)
+    async function fetchData(){
+      const response = await fetch(ORDERS)
+      const data = await response.json()
+      console.log(data.data)
+      setOrders(data.data)
+    }
+    fetchData()
+  }, [])
+
+  // const orders = [
+  //   {
+  //     senderInfo: {
+  //       name: "qwer",
+  //       surname: "asdf",
+  //       number: "+6546464646",
+  //       city: "Vilnius",
+  //       address: "asdfafds g. 10",
+  //     },
+  //     recipientInfo: {
+  //       name: "dsfgsrg",
+  //       surname: "dfghdfgdh",
+  //       number: "+98494984484",
+  //       city: "Vilnius",
+  //       address: "sdfdsfsf g. 10",
+  //     },
+  //     email: "sdfgsgfd@dfgdfg.dsf",
+  //     pickUpDate: new Date(2021, 3, 28, 11, 0),
+  //     status: "New",
+  //     packageId: 1,
+  //   },
+  //   {
+  //     senderInfo: {
+  //       name: "fghnfhgn",
+  //       surname: "fnhgn",
+  //       number: "+6546464646",
+  //       city: "Vilnius",
+  //       address: "asdfafds g. 10",
+  //     },
+  //     recipientInfo: {
+  //       name: "bghdn",
+  //       surname: "dfbdfgb",
+  //       number: "+98494984484",
+  //       city: "Vilnius",
+  //       address: "sdfdsfsf g. 10",
+  //     },
+  //     email: "sfaf@gmail.com",
+  //     pickUpDate: new Date(2021, 3, 10, 18, 50),
+  //     status: "New",
+  //     packageId: 2,
+  //   },
+  //   {
+  //     senderInfo: {
+  //       name: "nhtrh",
+  //       surname: "fbggbd",
+  //       number: "+6546464646",
+  //       city: "Vilnius",
+  //       address: "vfvgv g. 10",
+  //     },
+  //     recipientInfo: {
+  //       name: "dsfgsrg",
+  //       surname: "bbvgb",
+  //       number: "+98494984484",
+  //       city: "Vilnius",
+  //       address: "sdfdsfsf g. 10",
+  //     },
+  //     email: "asdfsd@gmail.com",
+  //     pickUpDate: new Date(2021, 4, 7, 9, 5),
+  //     status: "Delivered",
+  //     packageId: 5,
+  //   },
+  // ];
   const packageSizes = [
     {
       id: 1,
@@ -153,7 +168,7 @@ export default function OrderHistory() {
                   <Grid item xs={4}>
                     <OrderInfo
                       title="Recipient"
-                      description={`${order.recipient.name} ${order.recipient.surname}`}
+                      description={`${order.recipientInfo.name} ${order.recipientInfo.surname}`}
                     />
                   </Grid>
                   <Grid item xs={4}>
