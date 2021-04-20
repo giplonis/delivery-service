@@ -3,6 +3,8 @@ package lt.vu.web.api.v1.dto.packageOption;
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.persistence.orm.entities.PackageOption;
+import lt.vu.web.api.v1.dto.packageSize.GetPackageSizeDTO;
+import lt.vu.web.api.v1.dto.packageType.GetPackageTypeDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,9 +16,9 @@ public class GetPackageOptionDTO {
 
     private int price;
 
-    private int packageSize;
+    private GetPackageSizeDTO packageSize;
 
-    private int packageType;
+    private GetPackageTypeDTO packageType;
 
     private boolean fragile;
 
@@ -25,8 +27,8 @@ public class GetPackageOptionDTO {
 
         dto.setId(packageOption.getId());
         dto.setPrice(packageOption.getPrice());
-        dto.setPackageSize(packageOption.getPackageSize().getId());
-        dto.setPackageType(packageOption.getPackageType().getId());
+        dto.setPackageSize(GetPackageSizeDTO.createFromEntity(packageOption.getPackageSize()));
+        dto.setPackageType(GetPackageTypeDTO.createFromEntity(packageOption.getPackageType()));
         dto.setFragile(packageOption.isFragile());
 
         return dto;
