@@ -36,7 +36,7 @@ function Form() {
         displayError("Failed to load package sizes");
       }
     })();
-  }, []);
+  }, [displayError]);
 
   function NextPage(e) {
     if (currentPage === 0 && selectedPackageType === undefined) {
