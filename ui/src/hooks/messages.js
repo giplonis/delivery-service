@@ -1,9 +1,10 @@
 import { useSnackbar } from "notistack";
+import { useCallback } from "react";
 
 export default function useMessage() {
   const { enqueueSnackbar } = useSnackbar();
 
-  function displayMessage(message, type) {
+  const displayMessage = useCallback((message, type) => {
     enqueueSnackbar(message, {
       variant: type,
       preventDuplicate: true,
@@ -12,11 +13,11 @@ export default function useMessage() {
         horizontal: "center",
       },
     });
-  }
+  }, [enqueueSnackbar])
 
-  function displayError(errorMessage) {
+  const displayError = useCallback((errorMessage) => {
     displayMessage(errorMessage, "error");
-  }
+  }, [displayMessage])
 
   return { displayError };
 }

@@ -8,7 +8,7 @@ import useMessage from "../hooks/messages";
 
 export default function OrderHistory() {
   const [orders, setOrders] = useState([]);
-  const displayErrorRef = useRef(useMessage().displayError);
+  const {displayError} = useMessage();
   useEffect(() => {
     (async function fetchData() {
       try {
@@ -21,10 +21,10 @@ export default function OrderHistory() {
         }
         setOrders(responseJson.data);
       } catch (e) {
-        displayErrorRef.current("Failed to load orders.");
+        displayError("Failed to load orders.");
       }
     })();
-  }, []);
+  }, [displayError]);
 
   const [selectedOrder, setSelectedOrder] = useState(null);
   const selectOrder = (order) => {
