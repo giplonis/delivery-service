@@ -5,7 +5,6 @@ import ParcelSizeCard from "./ParcelSizeCard";
 import "../styles/SendingInfo.css";
 
 function ParcelSize(props) {
-  console.log(props.boxSizes);
   return (
     <div className="form-wrapper">
       <Grid container justify="space-between" spacing={9}>

@@ -135,10 +135,6 @@ function Form() {
         </>
       );
     } else {
-      console.log(
-        packageSizes.data.find((o) => o.title === selectedDocumentSize)
-      );
-      console.log(selectedDocumentSize);
       return (
         <>
           <Summary

@@ -5,7 +5,6 @@ import Letter from "../../images/letter.png";
 import ImageBox from "../ImageBox";
 
 export default function ParcelSizeSummaryCard(props) {
-  console.log(props);
   return (
     <div className="form-wrapper summary-subform-wrapper package-type-summary-wrapper">
       <div className="form-inner form-inner-summary">
