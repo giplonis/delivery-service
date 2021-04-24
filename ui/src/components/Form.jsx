@@ -10,6 +10,7 @@ import ParcelType from "./ParcelType";
 import Summary from "./Summary";
 import useMessage from "../hooks/messages";
 import { PACKAGE_SIZES } from "../config";
+import PaymentSuccess from "./PaymentSuccess";
 
 function Form() {
   const { displayError } = useMessage();
@@ -134,11 +135,12 @@ function Form() {
           />
         </>
       );
-    } else {
+    } else if (currentPage === 3) {
       return (
         <>
           <Summary
             PreviousPage={PreviousPage}
+            onOrderSuccess={() => setCurrentPage(1000)}
             onChange={(name) => setSelectedPaymentType(name)}
             selectedPaymentType={selectedPaymentType}
             selectedPackageType={selectedPackageType}
@@ -158,6 +160,11 @@ function Form() {
           />
         </>
       );
+    }
+    else {
+      return (
+        <PaymentSuccess/>
+      )
     }
   }
   return (

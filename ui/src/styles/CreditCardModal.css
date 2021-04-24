@@ -1,0 +1,15 @@
+.credit-card-modal-wrapper {
+  padding: 30px;
+  width: 500px;
+  height: 400px;
+}
+.form-button-credit-card {
+  align-self: flex-end;
+  width: 150px;
+}
+.credit-card-form-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Grid, ButtonBase } from "@material-ui/core";
 import PaymentTypeCard from "./PaymentTypeCard";
 import CreditCard from "../images/creditCard.png";
@@ -8,9 +8,36 @@ import "../styles/Summary.css";
 import SenderSummaryCard from "./SummaryCards/SenderSummaryCard";
 import RecipientSummaryCard from "./SummaryCards/RecipientSummaryCard";
 import ParcelSizeSummaryCard from "./SummaryCards/ParcelSizeSummaryCard";
+import CreditCardModal from "./CreditCardModal";
+import useMessage from "../hooks/messages";
 
 function Summary(props) {
   const date = props.formData.pickUpDate;
+  const [creditCardModalOpen, setCreditCardModalOpen] = useState(false);
+  const { displayError } = useMessage();
+
+  const placeOrder = () => {
+    props.onOrderSuccess()
+  }
+
+  const handleConfirmOrder = () => {
+    if (props.selectedPaymentType === undefined) {
+      displayError("Payment method is not selected")
+      return
+    }
+
+    if (props.selectedPaymentType === "Credit Card") {
+      toggleCreditCardModal()
+    }
+    else {
+      placeOrder()
+    }
+    
+  }
+  const toggleCreditCardModal = () => {
+    setCreditCardModalOpen(prevState => !prevState)
+  }
+
   return (
     <div className="form-wrapper">
       <Grid container spacing={9}>
@@ -42,9 +69,14 @@ function Summary(props) {
         <Button color="primary" variant="contained" className="form-button form-button-left" onClick={props.PreviousPage}>
           Back
         </Button>
-        <Button color="primary" variant="contained" className="form-button">
+        <Button color="primary" variant="contained" className="form-button" onClick={handleConfirmOrder}>
           Confirm Order
         </Button>
+        <CreditCardModal
+          open={creditCardModalOpen}
+          toggleModal={toggleCreditCardModal}
+          placeOrder={placeOrder}
+        />
       </div>
     </div>
   );
