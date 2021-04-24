@@ -5,6 +5,7 @@ import ParcelSizeCard from "./ParcelSizeCard";
 import "../styles/SendingInfo.css";
 
 function ParcelSize(props) {
+  console.log(props.boxSizes);
   return (
     <div className="form-wrapper">
       <Grid container justify="space-between" spacing={9}>
@@ -12,24 +13,34 @@ function ParcelSize(props) {
           <Grid item xs={4} key={index}>
             <ParcelSizeCard
               image={BoxImage}
-              name={size.name}
+              name={size.title}
               selectedPackageSize={props.selectedBoxSize}
               onClick={props.onChange}
               dimensions={{
                 width: size.width,
                 height: size.height,
                 length: size.length,
-                weight: size.weight,
+                weight: size.maxWeight / 1000,
               }}
             />
           </Grid>
         ))}
       </Grid>
       <div className="d-flex">
-        <Button color="primary" variant="contained" className="form-button form-button-left" onClick={props.PreviousPage}>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-button form-button-left"
+          onClick={props.PreviousPage}
+        >
           Back
         </Button>
-        <Button color="primary" variant="contained" className="form-button" onClick={props.NextPage}>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-button"
+          onClick={props.NextPage}
+        >
           Next
         </Button>
       </div>

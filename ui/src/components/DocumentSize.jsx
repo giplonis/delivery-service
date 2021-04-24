@@ -13,18 +13,32 @@ function DocumentSize(props) {
             <DocumentSizeCard
               onClick={props.onChange}
               image={Letter}
-              dimensions={{ weight: size.weight, length: size.length, width: size.width }}
-              name={size.name}
+              dimensions={{
+                weight: size.maxWeight,
+                length: size.length,
+                width: size.width,
+              }}
+              name={size.title}
               selectedDocumentSize={props.selectedDocumentSize}
             />
           </Grid>
         ))}
       </Grid>
       <div className="d-flex">
-        <Button color="primary" variant="contained" className="form-button form-button-left" onClick={props.PreviousPage}>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-button form-button-left"
+          onClick={props.PreviousPage}
+        >
           Back
         </Button>
-        <Button color="primary" variant="contained" className="form-button" onClick={props.NextPage}>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-button"
+          onClick={props.NextPage}
+        >
           Next
         </Button>
       </div>

@@ -13,32 +13,6 @@ import { PACKAGE_SIZES } from "../config";
 
 function Form() {
   const { displayError } = useMessage();
-
-  var boxSizes = [
-    { id: 1, name: "Small Box", width: 35, height: 16, length: 45, weight: 2 },
-    {
-      id: 2,
-      name: "Medium Box",
-      width: 46,
-      height: 46,
-      length: 64,
-      weight: 20,
-    },
-    {
-      id: 3,
-      name: "Large Box",
-      width: 150,
-      height: 150,
-      length: 150,
-      weight: 30,
-    },
-  ];
-
-  var letterSizes = [
-    { id: 4, name: "Small Letter", weight: 100, length: 24, width: 16 },
-    { id: 5, name: "Large Letter", weight: 750, length: 35, width: 25 },
-  ];
-
   const [selectedPackageType, setSelectedPackageType] = useState(undefined);
   const [selectedBoxSize, setSelectedBoxSize] = useState(undefined);
   const [selectedDocumentSize, setSelectedDocumentSize] = useState(undefined);
@@ -46,6 +20,7 @@ function Form() {
   const [currentPage, setCurrentPage] = useState(0);
   const [progress, setProgress] = useState(25);
   const [formData, setFormData] = useState(undefined);
+  const [packageSizes, setPackageSizes] = useState(undefined);
 
   useEffect(() => {
     const requestOptions = {
@@ -56,10 +31,9 @@ function Form() {
       try {
         const response = await fetch(PACKAGE_SIZES, requestOptions);
         const responseJson = await response.json();
-        console.log(responseJson);
+        setPackageSizes(responseJson);
       } catch (e) {
-        // TODO: display an error to user
-        console.log(e);
+        displayError("Failed to load package sizes");
       }
     })();
   }, []);
@@ -117,7 +91,7 @@ function Form() {
             NextPage={NextPage}
             PreviousPage={PreviousPage}
             onChange={(name) => setSelectedDocumentSize(name)}
-            letterSizes={letterSizes}
+            letterSizes={packageSizes.data.slice(3, 6)}
             selectedDocumentSize={selectedDocumentSize}
           />
           <LinearProgress
@@ -133,7 +107,7 @@ function Form() {
           <ParcelSize
             selectedBoxSize={selectedBoxSize}
             onChange={(name) => setSelectedBoxSize(name)}
-            boxSizes={boxSizes}
+            boxSizes={packageSizes.data.slice(0, 3)}
             NextPage={NextPage}
             PreviousPage={PreviousPage}
           />
@@ -161,6 +135,10 @@ function Form() {
         </>
       );
     } else {
+      console.log(
+        packageSizes.data.find((o) => o.title === selectedDocumentSize)
+      );
+      console.log(selectedDocumentSize);
       return (
         <>
           <Summary
@@ -170,8 +148,10 @@ function Form() {
             selectedPackageType={selectedPackageType}
             selectedPackage={
               selectedPackageType === "Document"
-                ? letterSizes.find((o) => o.name === selectedDocumentSize)
-                : boxSizes.find((o) => o.name === selectedBoxSize)
+                ? packageSizes.data.find(
+                    (o) => o.title === selectedDocumentSize
+                  )
+                : packageSizes.data.find((o) => o.title === selectedBoxSize)
             }
             formData={formData}
           />
