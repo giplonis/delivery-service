@@ -1,0 +1,10 @@
+.success-icon-style {
+  font-size: 200;
+}
+.success-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  top: 50%;
+}
