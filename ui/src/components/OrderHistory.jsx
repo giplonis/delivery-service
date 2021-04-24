@@ -1,4 +1,4 @@
-import { Divider, Grid, List, ListItem } from "@material-ui/core";
+import { Divider, Grid, List, ListItem, Typography } from "@material-ui/core";
 import { useEffect, useRef, useState } from "react";
 import OrderModal from "./OrderModal";
 import "../styles/OrderHistory.css";
@@ -8,7 +8,7 @@ import useMessage from "../hooks/messages";
 
 export default function OrderHistory() {
   const [orders, setOrders] = useState([]);
-  const displayErrorRef = useRef(useMessage().displayError)
+  const displayErrorRef = useRef(useMessage().displayError);
   useEffect(() => {
     (async function fetchData() {
       try {
@@ -49,32 +49,36 @@ export default function OrderHistory() {
       <div className="form-inner">
         <div className="form-header">Order History</div>
         <List>
-          {orders.map((order, index) => (
-            <div key={index}>
-              <ListItem button onClick={() => selectOrder(order)}>
-                <Grid container>
-                  <Grid item xs={4}>
-                    <OrderInfo title="Status" description={order.status}>
-                      <StatusIcon status={order.status} />
-                    </OrderInfo>
+          {orders.length > 0 ? (
+            orders.map((order, index) => (
+              <div key={index}>
+                <ListItem button onClick={() => selectOrder(order)}>
+                  <Grid container>
+                    <Grid item xs={4}>
+                      <OrderInfo title="Status" description={order.status}>
+                        <StatusIcon status={order.status} />
+                      </OrderInfo>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <OrderInfo
+                        title="Recipient"
+                        description={`${order.recipientInfo.firstName} ${order.recipientInfo.lastName}`}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <OrderInfo
+                        title="Package"
+                        description={order.packageOption.packageType.title}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={4}>
-                    <OrderInfo
-                      title="Recipient"
-                      description={`${order.recipientInfo.firstName} ${order.recipientInfo.lastName}`}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <OrderInfo
-                      title="Package"
-                      description={order.packageOption.packageType.title}
-                    />
-                  </Grid>
-                </Grid>
-              </ListItem>
-              {index + 1 < orders.length && <Divider />}
-            </div>
-          ))}
+                </ListItem>
+                {index + 1 < orders.length && <Divider />}
+              </div>
+            ))
+          ) : (
+            <Typography align="center">No orders to show.</Typography>
+          )}
         </List>
         {selectedOrder && (
           <OrderModal
