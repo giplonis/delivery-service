@@ -12,24 +12,34 @@ function ParcelSize(props) {
           <Grid item xs={4} key={index}>
             <ParcelSizeCard
               image={BoxImage}
-              name={size.name}
+              name={size.packageSize.title}
               selectedPackageSize={props.selectedBoxSize}
               onClick={props.onChange}
               dimensions={{
-                width: size.width,
-                height: size.height,
-                length: size.length,
-                weight: size.weight,
+                width: size.packageSize.width,
+                height: size.packageSize.height,
+                length: size.packageSize.length,
+                weight: size.packageSize.maxWeight / 1000,
               }}
             />
           </Grid>
         ))}
       </Grid>
       <div className="d-flex">
-        <Button color="primary" variant="contained" className="form-button form-button-left" onClick={props.PreviousPage}>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-button form-button-left"
+          onClick={props.PreviousPage}
+        >
           Back
         </Button>
-        <Button color="primary" variant="contained" className="form-button" onClick={props.NextPage}>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-button"
+          onClick={props.NextPage}
+        >
           Next
         </Button>
       </div>

@@ -21,8 +21,10 @@ export default function ParcelSizeSummaryCard(props) {
           <Grid item xs={6}>
             <ul className="summary-ul">
               <li>
-                Max weight: {props.selectedPackageSize.maxWeight}
-                {props.selectedPackageType === "Document" ? "g" : "kg"}
+                Max weight:{" "}
+                {props.selectedPackageType === "Document"
+                  ? props.selectedPackageSize.maxWeight + "g"
+                  : props.selectedPackageSize.maxWeight / 1000 + "kg"}
               </li>
               <li>Max length: {props.selectedPackageSize.length}cm</li>
               <li>Max width: {props.selectedPackageSize.width}cm</li>

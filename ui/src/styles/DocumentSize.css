@@ -8,6 +8,7 @@
 
 .letter-ul {
   list-style: square;
+  text-align: left;
 }
 
 .form-inner-document {
