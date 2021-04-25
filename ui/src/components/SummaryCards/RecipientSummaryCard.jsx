@@ -10,12 +10,12 @@ export default function RecipientSummaryCard(props) {
           <Grid item xs={12}>
             <ul className="summary-ul">
               <li>
-                {props.recipient.name} {props.recipient.surname}
+                {props.recipient.firstName} {props.recipient.lastName}
               </li>
               <li>
-                {props.recipient.address}, {props.recipient.city}
+                {props.recipient.address.street}, {props.recipient.address.city}
               </li>
-              <li>Phone Number: {props.recipient.number}</li>
+              <li>Phone Number: {props.recipient.phoneNumber}</li>
             </ul>
           </Grid>
         </Grid>

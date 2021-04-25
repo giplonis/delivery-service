@@ -10,12 +10,12 @@ export default function SenderSummaryCard(props) {
           <Grid item xs={12}>
             <ul className="summary-ul">
               <li>
-                {props.sender.name} {props.sender.surname}
+                {props.sender.firstName} {props.sender.lastName}
               </li>
               <li>
-                {props.sender.address}, {props.sender.city}
+                {props.sender.address.street}, {props.sender.address.city}
               </li>
-              <li>Phone Number: {props.sender.number}</li>
+              <li>Phone Number: {props.sender.phoneNumber}</li>
               <li>
                 Pick Up Date:{" "}
                 {props.pickUpDate.toLocaleString("en-US", {

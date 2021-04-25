@@ -33,11 +33,11 @@ const CustomKeyboardDateTimePicker = ({ variant, format, margin, label, onChange
 
 function SendingInfo(props) {
   const labels = [
-    { label: "First Name", name: "name" },
-    { label: "Last Name", name: "surname" },
-    { label: "Phone Number", name: "number" },
-    { label: "City", name: "city" },
-    { label: "Address", name: "address" },
+    { label: "First Name", name: "firstName" },
+    { label: "Last Name", name: "lastName" },
+    { label: "Phone Number", name: "phoneNumber" },
+    { label: "City", name: "address.city" },
+    { label: "Address", name: "address.street" },
   ];
 
   const [selectedDate, setSelectedDate] = useState(null);
@@ -48,24 +48,28 @@ function SendingInfo(props) {
 
   const validationSchema = yup.object({
     sender: yup.object({
-      name: yup.string().required("Required").max(30, "First Name is too long!"),
-      surname: yup.string().required("Required").max(30, "Last Name is too long!"),
-      number: yup
+      firstName: yup.string().required("Required").max(30, "First Name is too long!"),
+      lastName: yup.string().required("Required").max(30, "Last Name is too long!"),
+      phoneNumber: yup
         .string()
         .required("Required")
         .matches(/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/, "Invalid Phone Number!"),
-      city: yup.string().required("Required").max(30, "City Name is too long!"),
-      address: yup.string().required("Required").max(50, "Address is too long!"),
+      address: yup.object({
+        city: yup.string().required("Required").max(30, "City Name is too long!"),
+        street: yup.string().required("Required").max(50, "Address is too long!"),        
+      }),
     }),
     recipient: yup.object({
-      name: yup.string().required("Required").max(30, "First Name is too long!"),
-      surname: yup.string().required("Required").max(30, "Last Name is too long!"),
-      number: yup
+      firstName: yup.string().required("Required").max(30, "First Name is too long!"),
+      lastName: yup.string().required("Required").max(30, "Last Name is too long!"),
+      phoneNumber: yup
         .string()
         .required("Required")
         .matches(/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/, "Invalid Phone Number!"),
-      city: yup.string().required("Required").max(30, "City Name is too long!"),
-      address: yup.string().required("Required").max(50, "Address is too long!"),
+      address: yup.object({
+        city: yup.string().required("Required").max(30, "City Name is too long!"),
+        street: yup.string().required("Required").max(50, "Address is too long!"),        
+      }),
     }),
     email: yup.string().required("Required").email("Invalid E-mail"),
     pickUpDate: yup
@@ -81,8 +85,8 @@ function SendingInfo(props) {
         !!props.formData
           ? props.formData
           : {
-              sender: { name: "", surname: "", number: "", city: "", address: "" },
-              recipient: { name: "", surname: "", number: "", city: "", address: "" },
+              sender: { firstName: "", lastName: "", phoneNumber: "", address: {city: "", street: ""} },
+              recipient: { firstName: "", lastName: "", phoneNumber: "", address: {city: "", street: ""} },
               email: "",
               pickUpDate: selectedDate,
             }

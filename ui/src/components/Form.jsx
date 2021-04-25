@@ -9,8 +9,8 @@ import ParcelSize from "./ParcelSize";
 import ParcelType from "./ParcelType";
 import Summary from "./Summary";
 import useMessage from "../hooks/messages";
-import { PACKAGE_SIZES } from "../config";
 import PaymentSuccess from "./PaymentSuccess";
+import { PACKAGE_SIZES } from "../config";
 
 function Form() {
   const { displayError } = useMessage();
@@ -160,11 +160,8 @@ function Form() {
           />
         </>
       );
-    }
-    else {
-      return (
-        <PaymentSuccess/>
-      )
+    } else {
+      return <PaymentSuccess />;
     }
   }
   return (

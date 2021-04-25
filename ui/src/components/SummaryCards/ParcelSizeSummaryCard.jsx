@@ -26,10 +26,10 @@ export default function ParcelSizeSummaryCard(props) {
                   ? props.selectedPackage.maxWeight + "g"
                   : props.selectedPackage.maxWeight / 1000 + "kg"}
               </li>
-              <li>Max length: {props.selectedPackage.length}cm</li>
-              <li>Max width: {props.selectedPackage.width}cm</li>
+              <li>Max length: {props.selectedPackageSize.length}cm</li>
+              <li>Max width: {props.selectedPackageSize.width}cm</li>
               {props.selectedPackageType === "Box" ? (
-                <li>Max height: {props.selectedPackage.height}cm</li>
+                <li>Max height: {props.selectedPackageSize.height}cm</li>
               ) : (
                 ""
               )}

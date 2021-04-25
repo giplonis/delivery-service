@@ -3,7 +3,7 @@ import StarsIcon from "@material-ui/icons/Stars";
 
 export default function StatusIcon(props) {
   const color = "primary";
-  if (props.status === "New") {
+  if (props.status === "NEW") {
     return <StarsIcon color={color} style={{ fontSize: props.fontSize }} />;
   } else {
     return (
