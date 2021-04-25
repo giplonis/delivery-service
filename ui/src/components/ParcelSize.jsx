@@ -12,14 +12,14 @@ function ParcelSize(props) {
           <Grid item xs={4} key={index}>
             <ParcelSizeCard
               image={BoxImage}
-              name={size.title}
+              name={size.packageSize.title}
               selectedPackageSize={props.selectedBoxSize}
               onClick={props.onChange}
               dimensions={{
-                width: size.width,
-                height: size.height,
-                length: size.length,
-                weight: size.maxWeight / 1000,
+                width: size.packageSize.width,
+                height: size.packageSize.height,
+                length: size.packageSize.length,
+                weight: size.packageSize.maxWeight / 1000,
               }}
             />
           </Grid>

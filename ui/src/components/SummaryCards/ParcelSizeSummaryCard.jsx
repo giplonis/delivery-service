@@ -9,7 +9,7 @@ export default function ParcelSizeSummaryCard(props) {
     <div className="form-wrapper summary-subform-wrapper package-type-summary-wrapper">
       <div className="form-inner form-inner-summary">
         <div className="form-header summary-subheader">
-          {props.selectedPackage.title}
+          {props.selectedPackageSize.packageSize.title}
         </div>
         <Grid container>
           <Grid item xs={6}>
@@ -23,13 +23,20 @@ export default function ParcelSizeSummaryCard(props) {
               <li>
                 Max weight:{" "}
                 {props.selectedPackageType === "Document"
-                  ? props.selectedPackage.maxWeight + "g"
-                  : props.selectedPackage.maxWeight / 1000 + "kg"}
+                  ? props.selectedPackageSize.packageSize.maxWeight + "g"
+                  : props.selectedPackageSize.packageSize.maxWeight / 1000 +
+                    "kg"}
               </li>
-              <li>Max length: {props.selectedPackageSize.length}cm</li>
-              <li>Max width: {props.selectedPackageSize.width}cm</li>
+              <li>
+                Max length: {props.selectedPackageSize.packageSize.length}cm
+              </li>
+              <li>
+                Max width: {props.selectedPackageSize.packageSize.width}cm
+              </li>
               {props.selectedPackageType === "Box" ? (
-                <li>Max height: {props.selectedPackageSize.height}cm</li>
+                <li>
+                  Max height: {props.selectedPackageSize.packageSize.height}cm
+                </li>
               ) : (
                 ""
               )}

@@ -10,7 +10,7 @@ import ParcelType from "./ParcelType";
 import Summary from "./Summary";
 import useMessage from "../hooks/messages";
 import PaymentSuccess from "./PaymentSuccess";
-import { PACKAGE_SIZES } from "../config";
+import { PACKAGE_OPTIONS } from "../config";
 
 function Form() {
   const { displayError } = useMessage();
@@ -30,9 +30,9 @@ function Form() {
     };
     (async function () {
       try {
-        const response = await fetch(PACKAGE_SIZES, requestOptions);
+        const response = await fetch(PACKAGE_OPTIONS, requestOptions);
         const responseJson = await response.json();
-        setPackageSizes(responseJson);
+        setPackageSizes(responseJson.data);
       } catch (e) {
         displayError("Failed to load package sizes");
       }
@@ -92,7 +92,9 @@ function Form() {
             NextPage={NextPage}
             PreviousPage={PreviousPage}
             onChange={(name) => setSelectedDocumentSize(name)}
-            letterSizes={packageSizes.data.slice(3, 6)}
+            letterSizes={packageSizes.filter(
+              (o) => o.packageType.title === "Document"
+            )}
             selectedDocumentSize={selectedDocumentSize}
           />
           <LinearProgress
@@ -108,7 +110,9 @@ function Form() {
           <ParcelSize
             selectedBoxSize={selectedBoxSize}
             onChange={(name) => setSelectedBoxSize(name)}
-            boxSizes={packageSizes.data.slice(0, 3)}
+            boxSizes={packageSizes.filter(
+              (o) => o.packageType.title === "Package" && o.fragile === false
+            )}
             NextPage={NextPage}
             PreviousPage={PreviousPage}
           />
@@ -146,10 +150,12 @@ function Form() {
             selectedPackageType={selectedPackageType}
             selectedPackage={
               selectedPackageType === "Document"
-                ? packageSizes.data.find(
-                    (o) => o.title === selectedDocumentSize
+                ? packageSizes.find(
+                    (o) => o.packageSize.title === selectedDocumentSize
                   )
-                : packageSizes.data.find((o) => o.title === selectedBoxSize)
+                : packageSizes.find(
+                    (o) => o.packageSize.title === selectedBoxSize
+                  )
             }
             formData={formData}
           />

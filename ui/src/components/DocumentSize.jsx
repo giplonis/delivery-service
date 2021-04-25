@@ -14,11 +14,11 @@ function DocumentSize(props) {
               onClick={props.onChange}
               image={Letter}
               dimensions={{
-                weight: size.maxWeight,
-                length: size.length,
-                width: size.width,
+                weight: size.packageSize.maxWeight,
+                length: size.packageSize.length,
+                width: size.packageSize.width,
               }}
-              name={size.title}
+              name={size.packageSize.title}
               selectedDocumentSize={props.selectedDocumentSize}
             />
           </Grid>

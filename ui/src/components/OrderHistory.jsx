@@ -1,5 +1,5 @@
 import { Divider, Grid, List, ListItem, Typography } from "@material-ui/core";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import OrderModal from "./OrderModal";
 import "../styles/OrderHistory.css";
 import StatusIcon from "./StatusIcon";
@@ -8,7 +8,7 @@ import useMessage from "../hooks/messages";
 
 export default function OrderHistory() {
   const [orders, setOrders] = useState([]);
-  const {displayError} = useMessage();
+  const { displayError } = useMessage();
   useEffect(() => {
     (async function fetchData() {
       try {

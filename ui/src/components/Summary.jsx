@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Button, Grid, ButtonBase } from "@material-ui/core";
 import PaymentTypeCard from "./PaymentTypeCard";
 import CreditCard from "../images/creditCard.png";
@@ -17,46 +17,58 @@ function Summary(props) {
   const { displayError } = useMessage();
 
   const placeOrder = () => {
-    props.onOrderSuccess()
-  }
+    props.onOrderSuccess();
+  };
 
   const handleConfirmOrder = () => {
     if (props.selectedPaymentType === undefined) {
-      displayError("Payment method is not selected")
-      return
+      displayError("Payment method is not selected");
+      return;
     }
 
     if (props.selectedPaymentType === "Credit Card") {
-      toggleCreditCardModal()
+      toggleCreditCardModal();
+    } else {
+      placeOrder();
     }
-    else {
-      placeOrder()
-    }
-    
-  }
+  };
   const toggleCreditCardModal = () => {
-    setCreditCardModalOpen(prevState => !prevState)
-  }
+    setCreditCardModalOpen((prevState) => !prevState);
+  };
 
   return (
     <div className="form-wrapper">
       <Grid container spacing={9}>
         <Grid item xs={6} className="payment-cards-wrapper">
-          <PaymentTypeCard image={CreditCard} name="Credit Card" onClick={props.onChange} selectedPaymentType={props.selectedPaymentType} />
-          <PaymentTypeCard image={Paypal} name="Paypal" onClick={props.onChange} selectedPaymentType={props.selectedPaymentType} />
-          <PaymentTypeCard image={Cash} name="Cash" className="cash-image" onClick={props.onChange} selectedPaymentType={props.selectedPaymentType} />
+          <PaymentTypeCard
+            image={CreditCard}
+            name="Credit Card"
+            onClick={props.onChange}
+            selectedPaymentType={props.selectedPaymentType}
+          />
+          <PaymentTypeCard
+            image={Paypal}
+            name="Paypal"
+            onClick={props.onChange}
+            selectedPaymentType={props.selectedPaymentType}
+          />
+          <PaymentTypeCard
+            image={Cash}
+            name="Cash"
+            className="cash-image"
+            onClick={props.onChange}
+            selectedPaymentType={props.selectedPaymentType}
+          />
         </Grid>
         <Grid item xs={6}>
           <ButtonBase className="w-100">
             <div className="form-inner w-100">
               <div className="form-header summary-header">Summary</div>
               <SenderSummaryCard
-                sender = {props.formData.sender}
-                pickUpDate = {date}
+                sender={props.formData.sender}
+                pickUpDate={date}
               />
-              <RecipientSummaryCard
-                recipient = {props.formData.recipient}
-              />
+              <RecipientSummaryCard recipient={props.formData.recipient} />
               <ParcelSizeSummaryCard
                 selectedPackageSize={{
                   ...props.selectedPackage,
@@ -70,10 +82,20 @@ function Summary(props) {
         </Grid>
       </Grid>
       <div className="d-flex">
-        <Button color="primary" variant="contained" className="form-button form-button-left" onClick={props.PreviousPage}>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-button form-button-left"
+          onClick={props.PreviousPage}
+        >
           Back
         </Button>
-        <Button color="primary" variant="contained" className="form-button" onClick={handleConfirmOrder}>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-button"
+          onClick={handleConfirmOrder}
+        >
           Confirm Order
         </Button>
         <CreditCardModal
