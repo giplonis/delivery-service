@@ -21,7 +21,7 @@ function Form() {
   const [currentPage, setCurrentPage] = useState(0);
   const [progress, setProgress] = useState(25);
   const [formData, setFormData] = useState(undefined);
-  const [packageSizes, setPackageSizes] = useState(undefined);
+  const [packageOptions, setPackageOptions] = useState(undefined);
 
   useEffect(() => {
     const requestOptions = {
@@ -32,7 +32,7 @@ function Form() {
       try {
         const response = await fetch(PACKAGE_OPTIONS, requestOptions);
         const responseJson = await response.json();
-        setPackageSizes(responseJson.data);
+        setPackageOptions(responseJson.data);
       } catch (e) {
         displayError("Failed to load package sizes");
       }
@@ -92,7 +92,7 @@ function Form() {
             NextPage={NextPage}
             PreviousPage={PreviousPage}
             onChange={(name) => setSelectedDocumentSize(name)}
-            letterSizes={packageSizes.filter(
+            letterSizes={packageOptions.filter(
               (o) => o.packageType.title === "Document"
             )}
             selectedDocumentSize={selectedDocumentSize}
@@ -110,7 +110,7 @@ function Form() {
           <ParcelSize
             selectedBoxSize={selectedBoxSize}
             onChange={(name) => setSelectedBoxSize(name)}
-            boxSizes={packageSizes.filter(
+            boxSizes={packageOptions.filter(
               (o) => o.packageType.title === "Package" && o.fragile === false
             )}
             NextPage={NextPage}
@@ -150,10 +150,10 @@ function Form() {
             selectedPackageType={selectedPackageType}
             selectedPackage={
               selectedPackageType === "Document"
-                ? packageSizes.find(
+                ? packageOptions.find(
                     (o) => o.packageSize.title === selectedDocumentSize
                   )
-                : packageSizes.find(
+                : packageOptions.find(
                     (o) => o.packageSize.title === selectedBoxSize
                   )
             }

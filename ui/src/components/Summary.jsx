@@ -70,11 +70,7 @@ function Summary(props) {
               />
               <RecipientSummaryCard recipient={props.formData.recipient} />
               <ParcelSizeSummaryCard
-                selectedPackageSize={{
-                  ...props.selectedPackage,
-                  title: props.selectedPackage.name,
-                  maxWeight: props.selectedPackage.weight,
-                }}
+                selectedPackageSize={props.selectedPackage.packageSize}
                 selectedPackageType={props.selectedPackageType}
               />
             </div>
