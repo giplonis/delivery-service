@@ -1,6 +1,6 @@
 -- PackageType info
-insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values(1, 'Document', 'Send a document');
-insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values(2, 'Package', 'Send a regular package');
+insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values (1, 'Document', 'Send a document');
+insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values (2, 'Package', 'Send a regular package');
 
 -- Address info
 insert into ADDRESS (ID, CITY, STREET) values (1, 'Vilnius', 'Antakalnio g., 32');
@@ -23,3 +23,6 @@ insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE
 insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE) values (6, 2, 1, 300, TRUE);
 insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE) values (7, 2, 2, 650, TRUE);
 insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE) values (8, 2, 3, 1150, TRUE);
+
+-- Attribute info
+insert into ATTRIBUTE (ID, LABEL, TYPE) values (1, 'Fragile', 'FRAGILE');
