@@ -31,9 +31,6 @@ public class PackageOption implements Serializable {
     @JoinColumn(name = "PACKAGE_SIZE_ID", nullable = false)
     private PackageSize packageSize;
 
-    @Column(name = "FRAGILE", columnDefinition = "boolean default false")
-    private boolean fragile;
-
     public PackageOption() {
     }
 
@@ -46,12 +43,11 @@ public class PackageOption implements Serializable {
         return packageOption.id == this.id
             && packageOption.price == this.price
             && packageOption.packageType.equals(this.packageType)
-            && packageOption.packageSize.equals(this.packageSize)
-            && packageOption.fragile == this.fragile;
+            && packageOption.packageSize.equals(this.packageSize);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.packageType, this.price, this.packageSize, this.fragile);
+        return Objects.hash(this.id, this.packageType, this.price, this.packageSize);
     }
 }
