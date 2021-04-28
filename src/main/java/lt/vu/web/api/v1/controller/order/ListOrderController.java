@@ -8,6 +8,7 @@ import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.dto.order.ListOrderDTO;
 import lt.vu.web.api.v1.dto.order.GetOrderDTO;
+import lt.vu.web.api.v1.exception.ExceptionDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -35,6 +36,10 @@ public class ListOrderController {
             @ApiResponse(
                 responseCode = "200",
                 content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             )
         }
     )
