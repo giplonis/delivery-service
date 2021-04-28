@@ -31,6 +31,7 @@ public class PostOrderController {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     @Operation(
         summary = "Submit new order",
