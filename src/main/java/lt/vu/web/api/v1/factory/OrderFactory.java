@@ -1,6 +1,7 @@
 package lt.vu.web.api.v1.factory;
 
 import lt.vu.persistence.orm.entities.*;
+import lt.vu.persistence.orm.repository.AttributeRepository;
 import lt.vu.persistence.orm.repository.PackageOptionRepository;
 import lt.vu.web.api.v1.dto.order.PostOrderDTO;
 
@@ -12,6 +13,9 @@ public class OrderFactory {
 
     @Inject
     private PackageOptionRepository packageOptionRepository;
+
+    @Inject
+    private AttributeRepository attributeRepository;
 
     @Inject
     private UserInfoFactory userInfoFactory;
@@ -27,6 +31,7 @@ public class OrderFactory {
         order.setPickupDateTime(orderDTO.getPickUpDate());
         order.setPackageOption(packageOption);
         order.setTotalPrice(packageOption.getPrice());
+        order.setAttributes(this.attributeRepository.findAllByIds(orderDTO.getAttributes()));
 
         return order;
     }

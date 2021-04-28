@@ -22,4 +22,11 @@ public class AttributeRepository {
                 .createNamedQuery("Attribute.findAll", Attribute.class)
                 .getResultList();
     }
+
+    public List<Attribute> findAllByIds(List<Integer> ids) {
+        return this.entityManager
+                .createNamedQuery("Attribute.findAllByIds", Attribute.class)
+                .setParameter("ids", ids)
+                .getResultList();
+    }
 }

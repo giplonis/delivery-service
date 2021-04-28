@@ -11,6 +11,7 @@ import java.util.Objects;
 @Table(name = "ATTRIBUTE")
 @NamedQueries({
     @NamedQuery(name = "Attribute.findAll", query = "select a from Attribute a"),
+    @NamedQuery(name = "Attribute.findAllByIds", query = "select a from Attribute a where a.id in (:ids)"),
 })
 @Getter @Setter
 public class Attribute implements Serializable {

@@ -5,6 +5,7 @@ import lombok.Setter;
 import lt.vu.web.api.v1.dto.userInfo.PostUserInfoDTO;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter @Setter
 public class PostOrderDTO {
@@ -16,4 +17,6 @@ public class PostOrderDTO {
     private int packageOptionId;
 
     private Date pickUpDate;
+
+    private List<Integer> attributes;
 }
