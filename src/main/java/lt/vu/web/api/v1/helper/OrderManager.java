@@ -41,6 +41,7 @@ public class OrderManager {
     public boolean shouldStatusBeChangedIntoDelivered(Order order) {
         if (order.getStatus() == OrderStatus.DELIVERED)
             return false;
+        //todo (mock) set the time here: how much time to wait till status change
         return timeManager.isExpired(
                 order.getPickupDateTime(),
                 0,
