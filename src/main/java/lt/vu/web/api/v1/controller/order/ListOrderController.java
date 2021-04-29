@@ -8,6 +8,7 @@ import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.dto.order.ListOrderDTO;
 import lt.vu.web.api.v1.dto.order.GetOrderDTO;
+import lt.vu.web.api.v1.helper.OrderManager;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -25,6 +26,9 @@ public class ListOrderController {
     @Inject
     private OrderRepository orderRepository;
 
+    @Inject
+    private OrderManager orderManager;
+
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -40,6 +44,7 @@ public class ListOrderController {
     )
     public Response listAction() {
         // TODO: Fetch orders only for current user
+        orderManager.checkStatusOfAllOrders();
         List<Order> orders = this.orderRepository.findAll();
 
         return Response
