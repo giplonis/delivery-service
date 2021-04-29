@@ -25,6 +25,13 @@ public class TimeManager implements Serializable {
                              long unixTillExpire) {
         long givenUnix = date.getTime();
         Date expirationDate = new Date(givenUnix + unixTillExpire);
+        System.out.println(
+                        "(Comparing given - expiration: " +
+                        givenUnix +
+                        "-" +
+                        (givenUnix+unixTillExpire) +
+                        ") "
+                );
         return dateNow.after(expirationDate);
     }
 

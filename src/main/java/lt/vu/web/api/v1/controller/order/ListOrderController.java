@@ -44,7 +44,7 @@ public class ListOrderController {
     )
     public Response listAction() {
         // TODO: Fetch orders only for current user
-        orderManager.checkStatusOfAllOrders();
+        orderManager.correctStatusOfAllOrders();
         List<Order> orders = this.orderRepository.findAll();
 
         return Response

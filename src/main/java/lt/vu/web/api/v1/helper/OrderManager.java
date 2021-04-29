@@ -17,20 +17,25 @@ public class OrderManager {
     @Inject
     private TimeManager timeManager;
 
-    public void checkStatusOfAllOrders() {
+    public void correctStatusOfAllOrders() {
         List<Order> orders = orderRepository.findAll();
         for (Order order : orders) {
+            boolean toChangeStatus = shouldStatusBeChangedIntoDelivered(order);
             System.out.println(order.getId()
                     + " is "
                     + order.getStatus()
                     + ". Needs change? - "
-                    + shouldStatusBeChangedIntoDelivered(order)
+                    + toChangeStatus
             );
-            if (shouldStatusBeChangedIntoDelivered(order)) {
-                order.setStatus(OrderStatus.DELIVERED);
-                orderRepository.save(order);
+            if (toChangeStatus) {
+                makeOrderDelivered(order);
             }
         }
+    }
+
+    public void makeOrderDelivered(Order order){
+        order.setStatus(OrderStatus.DELIVERED);
+        orderRepository.save(order);
     }
 
     public boolean shouldStatusBeChangedIntoDelivered(Order order) {
