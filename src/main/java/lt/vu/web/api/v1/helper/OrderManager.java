@@ -26,6 +26,10 @@ public class OrderManager {
                     + ". Needs change? - "
                     + shouldStatusBeChangedIntoDelivered(order)
             );
+            if (shouldStatusBeChangedIntoDelivered(order)) {
+                order.setStatus(OrderStatus.DELIVERED);
+                orderRepository.save(order);
+            }
         }
     }
 
