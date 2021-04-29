@@ -6,6 +6,7 @@ import lt.vu.web.api.v1.dto.order.PostOrderDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.util.Date;
 
 @RequestScoped
 public class OrderFactory {
