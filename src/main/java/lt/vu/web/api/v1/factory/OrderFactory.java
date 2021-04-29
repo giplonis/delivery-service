@@ -21,7 +21,6 @@ public class OrderFactory {
         Order order = new Order();
 
         PackageOption packageOption = this.packageOptionRepository.findOneById(orderDTO.getPackageOptionId());
-        validate(orderDTO, packageOption);
 
         order.setSenderInfo(this.userInfoFactory.create(orderDTO.getSender()));
         order.setRecipientInfo(this.userInfoFactory.create(orderDTO.getRecipient()));
@@ -31,14 +30,5 @@ public class OrderFactory {
         order.setTotalPrice(packageOption.getPrice());
 
         return order;
-    }
-
-    private void validate (PostOrderDTO orderDTO, PackageOption packageOption){
-        if(packageOption == null)
-            throw new IllegalArgumentException("Missing package option.");
-
-        if(orderDTO.getPickUpDate().before(new Date()))
-            throw new IllegalArgumentException("Pickup date cannot be older than today's date.");
-
     }
 }

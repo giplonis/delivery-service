@@ -13,6 +13,7 @@ import lt.vu.web.api.v1.dto.order.PostOrderDTO;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,19 +41,14 @@ public class PostOrderController {
             )
         }
     )
+    @Valid
     public Response createAction(
         @RequestBody(
             required = true,
             content = @Content(schema = @Schema(implementation = PostOrderDTO.class))
-        ) PostOrderDTO orderDTO) {
+        ) @Valid PostOrderDTO orderDTO) {
 
-        Order order = null;
-        try {
-            order = this.orderFactory.create(orderDTO);
-        }
-        catch(IllegalArgumentException e){
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }
+        Order order = this.orderFactory.create(orderDTO);
 
         this.orderRepository.persist(order);
 
