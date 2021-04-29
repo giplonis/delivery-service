@@ -17,6 +17,8 @@ public class OrderRepository {
         this.entityManager.persist(order);
     }
 
+    public void save(Order instance){ this.entityManager.merge(instance);}
+
     public List<Order> findAll() {
         return this.entityManager.createNamedQuery("Order.findAll", Order.class).getResultList();
     }
