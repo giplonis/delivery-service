@@ -13,7 +13,7 @@ public class FragilePriceCalculator implements ChainablePriceCalculator {
         return order
                 .getAttributes()
                 .stream()
-                .anyMatch(a -> a.getType().equals(AttributeType.FRAGILE));
+                .anyMatch(a -> a.getType() == AttributeType.FRAGILE);
     }
 
     @Override
