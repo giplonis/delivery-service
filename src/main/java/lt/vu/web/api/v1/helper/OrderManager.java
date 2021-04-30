@@ -35,7 +35,7 @@ public class OrderManager {
 
     public void makeOrderDelivered(Order order){
         order.setStatus(OrderStatus.DELIVERED);
-        orderRepository.save(order);
+        orderRepository.update(order);
     }
 
     public boolean shouldStatusBeChangedIntoDelivered(Order order) {

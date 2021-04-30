@@ -13,11 +13,13 @@ public class OrderRepository {
     @Inject
     private EntityManager entityManager;
 
-    public void persist(Order order){
+    public void persist(Order order) {
         this.entityManager.persist(order);
     }
 
-    public void save(Order instance){ this.entityManager.merge(instance);}
+    public void update(Order instance) {
+        this.entityManager.merge(instance);
+    }
 
     public List<Order> findAll() {
         return this.entityManager.createNamedQuery("Order.findAll", Order.class).getResultList();
