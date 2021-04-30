@@ -14,11 +14,14 @@ public class GetAttributeDTO {
 
     private String label;
 
+    private int additionalPrice;
+
     public static GetAttributeDTO createFromEntity(Attribute attribute) {
         GetAttributeDTO dto = new GetAttributeDTO();
 
         dto.setId(attribute.getId());
         dto.setLabel(attribute.getLabel());
+        dto.setAdditionalPrice(attribute.getAdditionalPrice());
 
         return dto;
     }

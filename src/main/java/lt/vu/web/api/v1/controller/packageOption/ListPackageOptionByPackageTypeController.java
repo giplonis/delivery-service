@@ -8,6 +8,7 @@ import lt.vu.persistence.orm.entities.PackageOption;
 import lt.vu.persistence.orm.repository.PackageOptionRepository;
 import lt.vu.web.api.v1.dto.packageOption.ListPackageOptionDTO;
 import lt.vu.web.api.v1.dto.packageOption.GetPackageOptionDTO;
+import lt.vu.web.api.v1.exception.ExceptionDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -33,6 +34,10 @@ public class ListPackageOptionByPackageTypeController {
             @ApiResponse(
                 responseCode = "200",
                 content = @Content(schema = @Schema(implementation = ListPackageOptionDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             )
         }
     )
