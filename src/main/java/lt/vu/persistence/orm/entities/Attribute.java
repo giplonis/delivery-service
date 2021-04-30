@@ -24,7 +24,7 @@ public class Attribute implements Serializable {
     private String label;
 
     @Column(name = "TYPE", nullable = false)
-    private String type;
+    private AttributeType type;
 
     @Override
     public int hashCode() {

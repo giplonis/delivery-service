@@ -22,4 +22,4 @@ insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE) values 
 insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE) values (5, 2, 3, 1000);
 
 -- Attribute info
-insert into ATTRIBUTE (ID, LABEL, TYPE) values (1, 'Fragile', 'FRAGILE');
+insert into ATTRIBUTE (ID, LABEL, TYPE) values (1, 'Fragile', 0);
