@@ -13,6 +13,8 @@ export default function OrderHistory() {
     (async function fetchData() {
       try {
         const response = await fetch(ORDERS);
+        if(!response.ok)
+          throw new Error()
         let responseJson = await response.json();
         for (let index in responseJson.data) {
           responseJson.data[index].pickupDateTime = new Date(
