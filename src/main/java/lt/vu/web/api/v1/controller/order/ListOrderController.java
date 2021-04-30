@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lt.vu.application.order.service.OrderStatusUpdater;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.dto.order.ListOrderDTO;
@@ -26,6 +27,9 @@ public class ListOrderController {
     @Inject
     private OrderRepository orderRepository;
 
+    @Inject
+    private OrderStatusUpdater orderStatusUpdater;
+
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -44,6 +48,9 @@ public class ListOrderController {
         }
     )
     public Response listAction() {
+        // This acts as a fake cronjob to update old order statuses into DELIVERED
+        this.orderStatusUpdater.updateNewOrders();
+
         // TODO: Fetch orders only for current user
         List<Order> orders = this.orderRepository.findAll();
 
