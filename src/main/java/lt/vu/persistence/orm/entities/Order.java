@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -47,6 +48,14 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name="USER_ID")
     private User sender;
+
+    @ManyToMany
+    @JoinTable(
+        name = "ORDER_ATTRIBUTE",
+        joinColumns = { @JoinColumn(name = "ORDER_ID") },
+        inverseJoinColumns = { @JoinColumn(name = "ATTRIBUTE_ID") }
+    )
+    private List<Attribute> attributes;
 
     public Order() {
     }

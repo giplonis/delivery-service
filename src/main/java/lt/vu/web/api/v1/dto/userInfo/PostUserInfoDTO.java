@@ -2,7 +2,6 @@ package lt.vu.web.api.v1.dto.userInfo;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.vu.web.api.v1.dto.address.GetAddressDTO;
 import lt.vu.web.api.v1.dto.address.PostAddressDTO;
 
 import javax.validation.Valid;
@@ -14,7 +13,7 @@ public class PostUserInfoDTO {
 
     @Size(max = 50)
     @NotNull
-    @FormParam("firstname")
+    @FormParam("firstName")
     private String firstName;
 
     @Size(max = 50)
