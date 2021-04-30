@@ -12,6 +12,7 @@ import java.util.Objects;
 @NamedQueries({
     @NamedQuery(name = "Attribute.findAll", query = "select a from Attribute a"),
     @NamedQuery(name = "Attribute.findAllByIds", query = "select a from Attribute a where a.id in (:ids)"),
+    @NamedQuery(name = "Attribute.findOneByType", query = "select a from Attribute a where a.type = :type"),
 })
 @Getter @Setter
 public class Attribute implements Serializable {
@@ -23,8 +24,11 @@ public class Attribute implements Serializable {
     @Column(name = "LABEL", nullable = false)
     private String label;
 
-    @Column(name = "TYPE", nullable = false)
+    @Column(name = "TYPE", nullable = false, unique = true)
     private AttributeType type;
+
+    @Column(name = "ADDITIONAL_PRICE", nullable = false)
+    private int additionalPrice = 0;
 
     @Override
     public int hashCode() {

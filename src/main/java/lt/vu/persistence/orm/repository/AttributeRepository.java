@@ -1,6 +1,7 @@
 package lt.vu.persistence.orm.repository;
 
 import lt.vu.persistence.orm.entities.Attribute;
+import lt.vu.persistence.orm.entities.AttributeType;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -28,5 +29,12 @@ public class AttributeRepository {
                 .createNamedQuery("Attribute.findAllByIds", Attribute.class)
                 .setParameter("ids", ids)
                 .getResultList();
+    }
+
+    public Attribute findOneByType(AttributeType type) {
+        return this.entityManager
+                .createNamedQuery("Attribute.findOneByType", Attribute.class)
+                .setParameter("type", type)
+                .getSingleResult();
     }
 }
