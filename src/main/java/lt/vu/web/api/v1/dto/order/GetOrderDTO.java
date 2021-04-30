@@ -3,6 +3,7 @@ package lt.vu.web.api.v1.dto.order;
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.persistence.orm.entities.Order;
+import lt.vu.web.api.v1.dto.attribute.GetAttributeDTO;
 import lt.vu.web.api.v1.dto.packageOption.GetPackageOptionDTO;
 import lt.vu.web.api.v1.dto.user.GetUserDTO;
 import lt.vu.web.api.v1.dto.userInfo.GetUserInfoDTO;
@@ -32,6 +33,8 @@ public class GetOrderDTO {
 
     private GetPackageOptionDTO packageOption;
 
+    private List<GetAttributeDTO> attributes;
+
     public static GetOrderDTO createFromEntity(Order order) {
         GetOrderDTO dto = new GetOrderDTO();
 
@@ -43,6 +46,7 @@ public class GetOrderDTO {
         dto.setSenderInfo(GetUserInfoDTO.createFromEntity(order.getSenderInfo()));
         dto.setRecipientInfo(GetUserInfoDTO.createFromEntity(order.getRecipientInfo()));
         dto.setPackageOption(GetPackageOptionDTO.createFromEntity(order.getPackageOption()));
+        dto.setAttributes(GetAttributeDTO.createMany(order.getAttributes()));
 
         if (order.getSender() != null) {
             dto.setSender(GetUserDTO.createFromEntity(order.getSender()));

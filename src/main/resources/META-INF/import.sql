@@ -1,6 +1,6 @@
 -- PackageType info
-insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values(1, 'Document', 'Send a document');
-insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values(2, 'Package', 'Send a regular package');
+insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values (1, 'Document', 'Send a document');
+insert into PACKAGE_TYPE (ID, TITLE, DESCRIPTION) values (2, 'Package', 'Send a regular package');
 
 -- Address info
 insert into ADDRESS (ID, CITY, STREET) values (1, 'Vilnius', 'Antakalnio g., 32');
@@ -18,14 +18,14 @@ insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE) values 
 
 -- Package options
 insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE) values (3, 2, 1, 150);
-insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE) values (4, 2, 2, 500, FALSE);
-insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE) values (5, 2, 3, 1000, FALSE);
-insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE) values (6, 2, 1, 300, TRUE);
-insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE) values (7, 2, 2, 650, TRUE);
-insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE, FRAGILE) values (8, 2, 3, 1150, TRUE);
+insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE) values (4, 2, 2, 500);
+insert into PACKAGE_OPTION (ID, PACKAGE_TYPE_ID, PACKAGE_SIZE_ID, PRICE) values (5, 2, 3, 1000);
+
+-- Attribute info
+insert into ATTRIBUTE (ID, LABEL, TYPE, ADDITIONAL_PRICE) values (1, 'Fragile', 0, 200);
+
+-- User info
+insert into USER_INFO (ID, FIRST_NAME, LAST_NAME, ADDRESS_ID, EMAIL, PHONE_NUMBER) values (1, 'Jonas', 'Jonauskas', 1, 'jonas@gmail.com', 862594785);
 
 -- Orders
--- todo: write order seed
-
--- broken (below)
--- insert into `ORDER` (ID, CREATED_AT, STATUS, PICKUP_DATE_TIME, TOTAL_PRICE, PACKAGE_OPTION_ID, SENDER_INFO_ID, RECIPIENT_INFO_ID, USER_ID) values (1,'2021-04-29T14:26:16+00:00','NEW','2021-04-29T14:26:16+00:00',420.69,1,1,1,1);
+insert into `ORDER` (ID, CREATED_AT, STATUS, PICKUP_DATE_TIME, TOTAL_PRICE, PACKAGE_OPTION_ID, SENDER_INFO_ID, RECIPIENT_INFO_ID, USER_ID) values (1, '2021-04-29T14:26:16+00:00', 0, '2021-04-29T14:26:16+00:00', 42069, 1, 1, 1, 1);
