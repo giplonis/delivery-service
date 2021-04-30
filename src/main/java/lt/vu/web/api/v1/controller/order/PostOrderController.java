@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
+import lt.vu.web.api.v1.exception.ExceptionDTO;
 import lt.vu.web.api.v1.factory.OrderFactory;
 import lt.vu.web.api.v1.dto.order.PostOrderDTO;
 
@@ -31,6 +32,7 @@ public class PostOrderController {
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     @Operation(
         summary = "Submit new order",
@@ -38,6 +40,10 @@ public class PostOrderController {
         responses = {
             @ApiResponse(
                 responseCode = "201"
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             )
         }
     )
