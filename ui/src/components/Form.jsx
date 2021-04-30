@@ -51,7 +51,6 @@ function Form() {
     } else {
       setSelectedAttributes((attributes) => [...attributes, attribute]);
     }
-    console.log(selectedAttributes);
   }
 
   function NextPage(e) {
