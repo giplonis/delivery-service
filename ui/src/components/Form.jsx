@@ -22,6 +22,7 @@ function Form() {
   const [progress, setProgress] = useState(25);
   const [formData, setFormData] = useState(undefined);
   const [packageOptions, setPackageOptions] = useState(undefined);
+  const [selectedAttributes, setSelectedAttributes] = useState([])
 
   useEffect(() => {
     const requestOptions = {
@@ -31,6 +32,8 @@ function Form() {
     (async function () {
       try {
         const response = await fetch(PACKAGE_OPTIONS, requestOptions);
+        if(!response.ok)
+          throw new Error()
         const responseJson = await response.json();
         setPackageOptions(responseJson.data);
       } catch (e) {
@@ -38,6 +41,17 @@ function Form() {
       }
     })();
   }, [displayError]);
+
+  function toggleAttribute(attribute) {
+    const attributeIndex = selectedAttributes.findIndex(attr => attr.id === attribute.id);
+    if (attributeIndex !== -1) {
+      setSelectedAttributes((attributes) =>
+        attributes.filter((item, index) => index !== attributeIndex)
+      );
+    } else {
+      setSelectedAttributes((attributes) => [...attributes, attribute]);
+    }
+  }
 
   function NextPage(e) {
     if (currentPage === 0 && selectedPackageType === undefined) {
@@ -111,10 +125,12 @@ function Form() {
             selectedBoxSize={selectedBoxSize}
             onChange={(name) => setSelectedBoxSize(name)}
             boxSizes={packageOptions.filter(
-              (o) => o.packageType.title === "Package" && o.fragile === false
+              (o) => o.packageType.title === "Package"
             )}
             NextPage={NextPage}
             PreviousPage={PreviousPage}
+            toggleAttribute = {toggleAttribute}
+            selectedAttributes = {selectedAttributes}
           />
           <LinearProgress
             variant="determinate"
@@ -158,6 +174,11 @@ function Form() {
                   )
             }
             formData={formData}
+            selectedAttributes={
+              selectedPackageType === "Document"
+                ? []
+                : selectedAttributes
+            }
           />
           <LinearProgress
             variant="determinate"

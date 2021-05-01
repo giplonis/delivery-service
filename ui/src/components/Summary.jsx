@@ -10,14 +10,47 @@ import RecipientSummaryCard from "./SummaryCards/RecipientSummaryCard";
 import ParcelSizeSummaryCard from "./SummaryCards/ParcelSizeSummaryCard";
 import CreditCardModal from "./CreditCardModal";
 import useMessage from "../hooks/messages";
+import { ORDERS } from "../config";
+import LoadingButton from "./LoadingButton";
 
 function Summary(props) {
   const date = props.formData.pickUpDate;
   const [creditCardModalOpen, setCreditCardModalOpen] = useState(false);
   const { displayError } = useMessage();
+  const [isPostingOrder, setIsPostingOrder] = useState(false)
+
+
+  const orderObject = {
+    ...props.formData,
+    packageOptionId: props.selectedPackage.id,
+    attributes: props.selectedAttributes.map(attribute => attribute.id),
+  }
 
   const placeOrder = () => {
-    props.onOrderSuccess();
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderObject),
+    };
+    (async function () {
+      let success = true
+      setIsPostingOrder(true)
+      try {
+        const response = await fetch(ORDERS, requestOptions);
+        if(!response.ok)
+          throw new Error(response.message)
+      } catch (e) {
+        success = false
+        displayError("Failed to place order");
+      }
+      finally {
+        setIsPostingOrder(false)
+      }
+      if(success){
+        props.onOrderSuccess();
+      }
+    })();
+    
   };
 
   const handleConfirmOrder = () => {
@@ -72,6 +105,7 @@ function Summary(props) {
               <ParcelSizeSummaryCard
                 selectedPackageSize={props.selectedPackage.packageSize}
                 selectedPackageType={props.selectedPackageType}
+                attributes={props.selectedAttributes}
               />
             </div>
           </ButtonBase>
@@ -86,14 +120,16 @@ function Summary(props) {
         >
           Back
         </Button>
-        <Button
+        <LoadingButton
           color="primary"
           variant="contained"
           className="form-button"
           onClick={handleConfirmOrder}
+          loading={isPostingOrder}
+          disabled={isPostingOrder}
         >
           Confirm Order
-        </Button>
+        </LoadingButton>
         <CreditCardModal
           open={creditCardModalOpen}
           toggleModal={toggleCreditCardModal}

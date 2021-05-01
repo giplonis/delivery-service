@@ -38,6 +38,7 @@ function SendingInfo(props) {
     { label: "Phone Number", name: "phoneNumber" },
     { label: "City", name: "address.city" },
     { label: "Address", name: "address.street" },
+    { label: "E-mail", name: "email"},
   ];
 
   const [selectedDate, setSelectedDate] = useState(null);
@@ -46,32 +47,22 @@ function SendingInfo(props) {
     setSelectedDate(date);
   };
 
-  const validationSchema = yup.object({
-    sender: yup.object({
-      firstName: yup.string().required("Required").max(30, "First Name is too long!"),
-      lastName: yup.string().required("Required").max(30, "Last Name is too long!"),
-      phoneNumber: yup
-        .string()
-        .required("Required")
-        .matches(/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/, "Invalid Phone Number!"),
-      address: yup.object({
-        city: yup.string().required("Required").max(30, "City Name is too long!"),
-        street: yup.string().required("Required").max(50, "Address is too long!"),        
-      }),
-    }),
-    recipient: yup.object({
-      firstName: yup.string().required("Required").max(30, "First Name is too long!"),
-      lastName: yup.string().required("Required").max(30, "Last Name is too long!"),
-      phoneNumber: yup
-        .string()
-        .required("Required")
-        .matches(/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/, "Invalid Phone Number!"),
-      address: yup.object({
-        city: yup.string().required("Required").max(30, "City Name is too long!"),
-        street: yup.string().required("Required").max(50, "Address is too long!"),        
-      }),
-    }),
+  const userInfoSchema = yup.object({
+    firstName: yup.string().required("Required").max(30, "First Name is too long!"),
+    lastName: yup.string().required("Required").max(30, "Last Name is too long!"),
     email: yup.string().required("Required").email("Invalid E-mail"),
+    phoneNumber: yup
+      .string()
+      .required("Required")
+      .matches(/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/, "Invalid Phone Number!"),
+    address: yup.object({
+      city: yup.string().required("Required").max(30, "City Name is too long!"),
+      street: yup.string().required("Required").max(50, "Address is too long!"),        
+    })
+  })
+  const validationSchema = yup.object({
+    sender: userInfoSchema,
+    recipient: userInfoSchema,
     pickUpDate: yup
       .date()
       .required("Required")
@@ -79,15 +70,16 @@ function SendingInfo(props) {
       .min(new Date(Date.now() - 86400000), "Back to the future!"),
   });
 
+  const userInfoObject = { firstName: "", lastName: "", email: "", phoneNumber: "", address: {city: "", street: ""} };
+
   return (
     <Formik
       initialValues={
         !!props.formData
           ? props.formData
           : {
-              sender: { firstName: "", lastName: "", phoneNumber: "", address: {city: "", street: ""} },
-              recipient: { firstName: "", lastName: "", phoneNumber: "", address: {city: "", street: ""} },
-              email: "",
+              sender: userInfoObject,
+              recipient: userInfoObject,
               pickUpDate: selectedDate,
             }
       }
@@ -106,7 +98,6 @@ function SendingInfo(props) {
                   {labels.map((label, key) => (
                     <Field key={key} label={label.label} name={`sender.${label.name}`} />
                   ))}
-                  <Field label="E-mail" name="email" />
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <CustomKeyboardDateTimePicker
                       variant="inline"

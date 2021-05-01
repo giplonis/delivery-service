@@ -22,6 +22,7 @@ export default function OrderModal(props) {
         <ParcelSizeSummaryCard
           selectedPackageSize={props.order.packageOption.packageSize}
           selectedPackageType={props.order.packageOption.packageType.title}
+          attributes={props.order.attributes}
         />
       </div>
     </Dialog>
