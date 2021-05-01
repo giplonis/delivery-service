@@ -43,9 +43,13 @@ public class PostOrderController {
                 responseCode = "201"
             ),
             @ApiResponse(
+                responseCode = "404",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            ),
+            @ApiResponse(
                 responseCode = "500",
                 content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-            )
+            ),
         }
     )
     @Valid

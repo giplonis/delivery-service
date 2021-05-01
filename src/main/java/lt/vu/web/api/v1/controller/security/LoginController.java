@@ -45,9 +45,13 @@ public class LoginController {
                 content = @Content(schema = @Schema(implementation = GetTokenDTO.class))
             ),
             @ApiResponse(
+                responseCode = "404",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            ),
+            @ApiResponse(
                 responseCode = "500",
                 content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-            )
+            ),
         }
     )
     public Response loginAction(
