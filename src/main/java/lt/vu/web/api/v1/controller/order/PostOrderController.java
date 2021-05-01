@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.exception.NotFoundException;
+import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
@@ -32,6 +33,7 @@ public class PostOrderController {
 
     @POST
     @Path("/")
+    @Authorized
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional

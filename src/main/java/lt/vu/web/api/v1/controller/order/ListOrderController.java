@@ -5,8 +5,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.order.service.OrderStatusUpdater;
+import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
+import lt.vu.web.api.v1.controller.security.CurrentUserAwareController;
 import lt.vu.web.api.v1.dto.order.ListOrderDTO;
 import lt.vu.web.api.v1.dto.order.GetOrderDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
@@ -22,7 +24,7 @@ import java.util.List;
 
 @Path("/orders")
 @RequestScoped
-public class ListOrderController {
+public class ListOrderController extends CurrentUserAwareController {
 
     @Inject
     private OrderRepository orderRepository;
@@ -32,6 +34,7 @@ public class ListOrderController {
 
     @GET
     @Path("/")
+    @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
         summary = "Fetch list of user's orders",
