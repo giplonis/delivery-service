@@ -12,6 +12,7 @@ import java.util.Objects;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "select u from User u"),
     @NamedQuery(name = "User.findOneByEmail", query = "select u from User u where u.email = :email"),
+    @NamedQuery(name = "User.findOneById", query = "select u from User u where u.id = :id"),
 })
 @Getter @Setter
 public class User implements Serializable {

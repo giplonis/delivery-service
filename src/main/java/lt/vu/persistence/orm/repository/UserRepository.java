@@ -26,6 +26,17 @@ public class UserRepository {
                 .getResultList();
     }
 
+    public User findOneById(int id) throws NotFoundException {
+        try {
+            return this.entityManager
+                    .createNamedQuery("User.findOneById", User.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new UserNotFoundException();
+        }
+    }
+
     public User findOneByEmail(String email) throws NotFoundException {
         try {
             return this.entityManager
