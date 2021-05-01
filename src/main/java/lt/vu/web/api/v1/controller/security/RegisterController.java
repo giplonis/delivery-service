@@ -1,4 +1,4 @@
-package lt.vu.web.api.v1.controller.order;
+package lt.vu.web.api.v1.controller.security;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -6,29 +6,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.exception.NotFoundException;
-import lt.vu.persistence.orm.entities.Order;
-import lt.vu.persistence.orm.repository.OrderRepository;
+import lt.vu.application.security.exception.AuthenticationFailedException;
+import lt.vu.application.security.model.Token;
+import lt.vu.application.security.service.AuthenticationService;
+import lt.vu.web.api.v1.dto.security.GetTokenDTO;
+import lt.vu.web.api.v1.dto.security.PostLoginDTO;
+import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
-import lt.vu.application.order.factory.OrderFactory;
-import lt.vu.web.api.v1.dto.order.PostOrderDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/orders")
+@Path("/register")
 @RequestScoped
-public class PostOrderController {
+public class RegisterController {
 
     @Inject
-    private OrderFactory orderFactory;
-
-    @Inject
-    private OrderRepository orderRepository;
+    private AuthenticationService authenticationService;
 
     @POST
     @Path("/")
@@ -36,11 +38,12 @@ public class PostOrderController {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     @Operation(
-        summary = "Submit new order",
-        tags = { "Order" },
+        summary = "Register new user",
+        tags = { "Security" },
         responses = {
             @ApiResponse(
-                responseCode = "201"
+                responseCode = "200",
+                content = @Content(schema = @Schema(implementation = GetTokenDTO.class))
             ),
             @ApiResponse(
                 responseCode = "404",
@@ -52,16 +55,15 @@ public class PostOrderController {
             ),
         }
     )
-    public Response createAction(
+    public Response registerAction(
         @RequestBody(
             required = true,
-            content = @Content(schema = @Schema(implementation = PostOrderDTO.class))
-        ) @Valid PostOrderDTO orderDTO) throws NotFoundException {
+            content = @Content(schema = @Schema(implementation = PostRegisterDTO.class))
+        ) @Valid PostRegisterDTO postRegisterDTO)
+            throws AuthenticationFailedException, NotFoundException {
 
-        Order order = this.orderFactory.createFromDTO(orderDTO);
+//        Token token = this.authenticationService.login(postRegisterDTO.getEmail(), postRegisterDTO.getPassword());
 
-        this.orderRepository.persist(order);
-
-        return Response.status(Response.Status.CREATED).build();
+        return Response.ok().build();
     }
 }
