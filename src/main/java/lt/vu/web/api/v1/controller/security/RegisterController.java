@@ -10,7 +10,6 @@ import lt.vu.application.security.exception.AuthenticationFailedException;
 import lt.vu.application.security.model.Token;
 import lt.vu.application.security.service.AuthenticationService;
 import lt.vu.web.api.v1.dto.security.GetTokenDTO;
-import lt.vu.web.api.v1.dto.security.PostLoginDTO;
 import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
 
@@ -42,7 +41,7 @@ public class RegisterController {
         tags = { "Security" },
         responses = {
             @ApiResponse(
-                responseCode = "200",
+                responseCode = "201",
                 content = @Content(schema = @Schema(implementation = GetTokenDTO.class))
             ),
             @ApiResponse(
@@ -62,8 +61,11 @@ public class RegisterController {
         ) @Valid PostRegisterDTO postRegisterDTO)
             throws AuthenticationFailedException, NotFoundException {
 
-//        Token token = this.authenticationService.login(postRegisterDTO.getEmail(), postRegisterDTO.getPassword());
+        Token token = this.authenticationService.register(postRegisterDTO);
 
-        return Response.ok().build();
+        return Response
+                .status(Response.Status.CREATED)
+                .entity(GetTokenDTO.createFromModel(token))
+                .build();
     }
 }
