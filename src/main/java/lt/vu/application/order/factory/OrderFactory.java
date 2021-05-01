@@ -1,14 +1,14 @@
-package lt.vu.web.api.v1.factory;
+package lt.vu.application.order.factory;
 
 import lt.vu.application.order.service.PriceCalculator;
 import lt.vu.persistence.orm.entities.*;
 import lt.vu.persistence.orm.repository.AttributeRepository;
 import lt.vu.persistence.orm.repository.PackageOptionRepository;
 import lt.vu.web.api.v1.dto.order.PostOrderDTO;
+import lt.vu.web.api.v1.factory.UserInfoFactory;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.Date;
 
 @RequestScoped
 public class OrderFactory {
@@ -25,7 +25,7 @@ public class OrderFactory {
     @Inject
     private PriceCalculator priceCalculator;
 
-    public Order create(PostOrderDTO orderDTO) {
+    public Order createFromDTO(PostOrderDTO orderDTO) {
         Order order = new Order();
 
         PackageOption packageOption = this.packageOptionRepository.findOneById(orderDTO.getPackageOptionId());
