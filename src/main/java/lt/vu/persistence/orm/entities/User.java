@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "USER")
+@NamedQueries({
+    @NamedQuery(name = "User.findAll", query = "select u from User u"),
+    @NamedQuery(name = "User.findOneByEmail", query = "select u from User u where u.email = :email"),
+})
 @Getter @Setter
 public class User implements Serializable {
 
@@ -28,7 +32,7 @@ public class User implements Serializable {
     @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "STRING", nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @ManyToOne(cascade = CascadeType.ALL)

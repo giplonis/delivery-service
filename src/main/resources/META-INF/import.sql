@@ -29,3 +29,6 @@ insert into USER_INFO (ID, FIRST_NAME, LAST_NAME, ADDRESS_ID, EMAIL, PHONE_NUMBE
 
 -- Orders
 insert into `ORDER` (ID, CREATED_AT, STATUS, PICKUP_DATE_TIME, TOTAL_PRICE, PACKAGE_OPTION_ID, SENDER_INFO_ID, RECIPIENT_INFO_ID, USER_ID) values (1, current_timestamp(), 0, dateadd('DAY', 2, current_timestamp()), 42069, 1, 1, 1, null);
+
+-- Users
+insert into `USER` (ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, ADDRESS_ID, PASSWORD) values (1, 'jonas@gmail.com', 'Jonas', 'Jonauskas', 862598745, 1, 'plaintextpass');
