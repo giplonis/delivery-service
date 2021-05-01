@@ -9,6 +9,7 @@ import lt.vu.application.exception.NotFoundException;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
+import lt.vu.web.api.v1.controller.security.CurrentUserAwareController;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
 import lt.vu.application.order.factory.OrderFactory;
 import lt.vu.web.api.v1.dto.order.PostOrderDTO;
@@ -23,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/orders")
 @RequestScoped
-public class PostOrderController {
+public class PostOrderController extends CurrentUserAwareController {
 
     @Inject
     private OrderFactory orderFactory;
@@ -60,7 +61,7 @@ public class PostOrderController {
             content = @Content(schema = @Schema(implementation = PostOrderDTO.class))
         ) @Valid PostOrderDTO orderDTO) throws NotFoundException {
 
-        Order order = this.orderFactory.createFromDTO(orderDTO);
+        Order order = this.orderFactory.createFromDTO(this.user, orderDTO);
 
         this.orderRepository.persist(order);
 

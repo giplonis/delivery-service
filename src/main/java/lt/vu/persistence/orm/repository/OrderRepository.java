@@ -1,6 +1,7 @@
 package lt.vu.persistence.orm.repository;
 
 import lt.vu.persistence.orm.entities.Order;
+import lt.vu.persistence.orm.entities.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -24,6 +25,14 @@ public class OrderRepository {
 
     public List<Order> findAll() {
         return this.entityManager.createNamedQuery("Order.findAll", Order.class).getResultList();
+    }
+
+    public List<Order> findByUser(User user) {
+        return this.entityManager
+                .createNamedQuery("Order.findByUser", Order.class)
+                .setParameter("sender", user)
+                .setParameter("email", user.getEmail())
+                .getResultList();
     }
 
     public List<Order> findNew() {

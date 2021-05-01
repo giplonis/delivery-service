@@ -54,8 +54,7 @@ public class ListOrderController extends CurrentUserAwareController {
         // This acts as a fake cronjob to update old order statuses into DELIVERED
         this.orderStatusUpdater.updateNewOrders();
 
-        // TODO: Fetch orders only for current user
-        List<Order> orders = this.orderRepository.findAll();
+        List<Order> orders = this.orderRepository.findByUser(this.user);
 
         return Response
                 .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))

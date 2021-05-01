@@ -26,7 +26,7 @@ public class OrderFactory {
     @Inject
     private PriceCalculator priceCalculator;
 
-    public Order createFromDTO(PostOrderDTO orderDTO) throws NotFoundException {
+    public Order createFromDTO(User sender, PostOrderDTO orderDTO) throws NotFoundException {
         Order order = new Order();
 
         PackageOption packageOption = this.packageOptionRepository.findOneById(orderDTO.getPackageOptionId());
@@ -38,6 +38,7 @@ public class OrderFactory {
         order.setPackageOption(packageOption);
         order.setAttributes(this.attributeRepository.findAllByIds(orderDTO.getAttributes()));
         order.setTotalPrice(this.priceCalculator.calculate(order));
+        order.setSender(sender);
 
         return order;
     }
