@@ -1,6 +1,8 @@
 package lt.vu.application.security.exception;
 
-public class TokenInvalidException extends Exception {
+import lt.vu.application.exception.UnauthorizedException;
+
+public class TokenInvalidException extends UnauthorizedException {
 
     private static final String message = "The provided token is invalid";
 

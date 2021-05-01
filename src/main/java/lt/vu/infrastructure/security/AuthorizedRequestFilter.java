@@ -5,8 +5,9 @@ import io.jsonwebtoken.impl.TextCodec;
 import lombok.SneakyThrows;
 import lt.vu.application.security.config.Claims;
 import lt.vu.application.security.config.SecurityConfig;
+import lt.vu.application.security.exception.CredentialsMissingException;
+import lt.vu.application.security.exception.TokenValidationFailedException;
 import lt.vu.application.security.exception.TokenInvalidException;
-import lt.vu.application.security.exception.UnauthorizedException;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -28,17 +29,21 @@ public class AuthorizedRequestFilter implements ContainerRequestFilter {
         String authHeader = containerRequestContext.getHeaders().getFirst("Authorization");
 
         if (authHeader == null || authHeader.isEmpty()) {
-            throw new UnauthorizedException();
+            throw new CredentialsMissingException();
         }
 
         if (authHeader.split(" ").length < 2) {
             throw new TokenInvalidException();
         }
 
-         int userId = (int) Jwts.parser()
-                .setSigningKey(TextCodec.BASE64.decode(SecurityConfig.SECRET))
-                .parseClaimsJws(authHeader.split(" ")[1]).getBody().get(Claims.USER_ID);
+        try {
+            int userId = (int) Jwts.parser()
+                    .setSigningKey(TextCodec.BASE64.decode(SecurityConfig.SECRET))
+                    .parseClaimsJws(authHeader.split(" ")[1]).getBody().get(Claims.USER_ID);
 
-        this.currentUserProducer.handleAuthenticationEvent(userId);
+            this.currentUserProducer.handleAuthenticationEvent(userId);
+        } catch (io.jsonwebtoken.JwtException e) {
+            throw new TokenValidationFailedException(e.getMessage());
+        }
     }
 }

@@ -1,8 +1,7 @@
-package lt.vu.web.api.v1.exception.security;
+package lt.vu.web.api.v1.exception;
 
-import lt.vu.application.security.exception.UnauthorizedException;
+import lt.vu.application.exception.UnauthorizedException;
 import lt.vu.infrastructure.logger.Logger;
-import lt.vu.web.api.v1.exception.ExceptionDTO;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;

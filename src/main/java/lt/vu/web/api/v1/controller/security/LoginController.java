@@ -5,8 +5,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lt.vu.application.exception.BadRequestException;
 import lt.vu.application.exception.NotFoundException;
-import lt.vu.application.security.exception.AuthenticationFailedException;
 import lt.vu.application.security.model.Token;
 import lt.vu.application.security.service.AuthenticationService;
 import lt.vu.web.api.v1.dto.security.GetTokenDTO;
@@ -59,7 +59,7 @@ public class LoginController {
             required = true,
             content = @Content(schema = @Schema(implementation = PostLoginDTO.class))
         ) @Valid PostLoginDTO postLoginDTO)
-            throws AuthenticationFailedException, NotFoundException {
+            throws BadRequestException, NotFoundException {
 
         Token token = this.authenticationService.login(postLoginDTO.getEmail(), postLoginDTO.getPassword());
 

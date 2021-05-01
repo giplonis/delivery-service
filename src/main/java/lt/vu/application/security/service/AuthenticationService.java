@@ -1,8 +1,8 @@
 package lt.vu.application.security.service;
 
 import lombok.SneakyThrows;
+import lt.vu.application.exception.BadRequestException;
 import lt.vu.application.exception.NotFoundException;
-import lt.vu.application.security.exception.AuthenticationFailedException;
 import lt.vu.application.security.model.Token;
 import lt.vu.application.user.exception.UserAlreadyExistsException;
 import lt.vu.application.user.factory.UserFactory;
@@ -29,7 +29,7 @@ public class AuthenticationService {
     private JWTBuilder jwtBuilder;
 
     public Token login(String email, String password)
-            throws AuthenticationFailedException, NotFoundException {
+            throws BadRequestException, NotFoundException {
         User user = this.userRepository.findOneByEmail(email);
 
         this.passwordVerificator.verify(user, password);

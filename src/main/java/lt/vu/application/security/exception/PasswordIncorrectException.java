@@ -1,6 +1,8 @@
 package lt.vu.application.security.exception;
 
-public class PasswordIncorrectException extends AuthenticationFailedException {
+import lt.vu.application.exception.BadRequestException;
+
+public class PasswordIncorrectException extends BadRequestException {
 
     private static final String message = "Password is incorrect";
 
