@@ -8,7 +8,6 @@ import lt.vu.application.security.config.SecurityConfig;
 import lt.vu.application.security.exception.TokenInvalidException;
 import lt.vu.application.security.exception.UnauthorizedException;
 
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -21,7 +20,7 @@ public class AuthorizedRequestFilter implements ContainerRequestFilter {
 
     @Inject
     @LoggedInUser
-    private Event<Integer> userAuthenticationEvent;
+    private CurrentUserProducer currentUserProducer;
 
     @Override
     @SneakyThrows
@@ -40,6 +39,6 @@ public class AuthorizedRequestFilter implements ContainerRequestFilter {
                 .setSigningKey(TextCodec.BASE64.decode(SecurityConfig.SECRET))
                 .parseClaimsJws(authHeader.split(" ")[1]).getBody().get(Claims.USER_ID);
 
-        this.userAuthenticationEvent.fire(userId);
+        this.currentUserProducer.handleAuthenticationEvent(userId);
     }
 }

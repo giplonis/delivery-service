@@ -5,7 +5,6 @@ import lt.vu.persistence.orm.entities.User;
 import lt.vu.persistence.orm.repository.UserRepository;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
@@ -13,6 +12,7 @@ import javax.inject.Inject;
  * Allows currently logged in User object to be injected inside CurrentUserAwareController
  */
 @RequestScoped
+@LoggedInUser
 public class CurrentUserProducer {
 
     @Produces
@@ -23,7 +23,7 @@ public class CurrentUserProducer {
     private UserRepository userRepository;
 
     @SneakyThrows
-    public void handleAuthenticationEvent(@Observes @LoggedInUser int userId) {
+    public void handleAuthenticationEvent(int userId) {
         this.user = this.userRepository.findOneById(userId);
     }
 }

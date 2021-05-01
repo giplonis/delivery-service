@@ -3,7 +3,6 @@ package lt.vu.persistence.orm.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.enterprise.inject.Default;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
