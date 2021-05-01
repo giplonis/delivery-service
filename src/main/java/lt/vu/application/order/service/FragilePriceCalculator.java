@@ -1,5 +1,6 @@
 package lt.vu.application.order.service;
 
+import lombok.SneakyThrows;
 import lt.vu.persistence.orm.entities.AttributeType;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.AttributeRepository;
@@ -24,6 +25,7 @@ public class FragilePriceCalculator implements ChainablePriceCalculator {
     }
 
     @Override
+    @SneakyThrows
     public int calculate(int basePrice) {
         return basePrice + this.attributeRepository.findOneByType(this.supportedType).getAdditionalPrice();
     }

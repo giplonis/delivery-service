@@ -1,5 +1,6 @@
 package lt.vu.application.security.service;
 
+import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.security.exception.AuthenticationFailedException;
 import lt.vu.application.security.model.Token;
 import lt.vu.persistence.orm.entities.User;
@@ -20,7 +21,8 @@ public class AuthenticationService {
     @Inject
     private JWTBuilder jwtBuilder;
 
-    public Token login(String email, String password) throws AuthenticationFailedException {
+    public Token login(String email, String password)
+            throws AuthenticationFailedException, NotFoundException {
         User user = this.userRepository.findOneByEmail(email);
 
         this.passwordVerificator.verify(user, password);

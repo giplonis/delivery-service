@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lt.vu.application.exception.NotFoundException;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
@@ -52,7 +53,7 @@ public class PostOrderController {
         @RequestBody(
             required = true,
             content = @Content(schema = @Schema(implementation = PostOrderDTO.class))
-        ) @Valid PostOrderDTO orderDTO) {
+        ) @Valid PostOrderDTO orderDTO) throws NotFoundException {
 
         Order order = this.orderFactory.createFromDTO(orderDTO);
 

@@ -1,5 +1,6 @@
 package lt.vu.application.order.factory;
 
+import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.order.service.PriceCalculator;
 import lt.vu.persistence.orm.entities.*;
 import lt.vu.persistence.orm.repository.AttributeRepository;
@@ -25,7 +26,7 @@ public class OrderFactory {
     @Inject
     private PriceCalculator priceCalculator;
 
-    public Order createFromDTO(PostOrderDTO orderDTO) {
+    public Order createFromDTO(PostOrderDTO orderDTO) throws NotFoundException {
         Order order = new Order();
 
         PackageOption packageOption = this.packageOptionRepository.findOneById(orderDTO.getPackageOptionId());
