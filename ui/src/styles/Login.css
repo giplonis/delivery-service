@@ -1,0 +1,23 @@
+.center-form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.form-wrapper .auth-button {
+  padding: 2px 50px;
+  display: flex;
+  margin: 40px auto 10px auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.auth-link:hover {
+  color: var(--primary);
+  cursor: pointer;
+}

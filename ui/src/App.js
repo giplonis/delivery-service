@@ -5,6 +5,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Profile from "./components/Profile";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   const theme = createMuiTheme({
@@ -23,8 +25,8 @@ function App() {
       divider: "#cee002",
     },
     shape: {
-      borderRadius: 0
-    }
+      borderRadius: 0,
+    },
   });
 
   return (
@@ -38,6 +40,12 @@ function App() {
               </Route>
               <Route path="/profile">
                 <Profile />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/register">
+                <Register />
               </Route>
             </Switch>
           </Router>
