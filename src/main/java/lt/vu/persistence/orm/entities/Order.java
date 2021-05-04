@@ -14,6 +14,7 @@ import java.util.Objects;
 @NamedQueries({
     @NamedQuery(name = "Order.findAll", query = "select o from Order o order by o.createdAt desc"),
     @NamedQuery(name = "Order.findNew", query = "select o from Order o where o.status = 0 and o.createdAt <= :date"),
+    @NamedQuery(name = "Order.findByUser", query = "select o from Order o where o.sender = :sender or o.senderInfo.email = :email"),
 })
 @Getter @Setter
 public class Order implements Serializable {

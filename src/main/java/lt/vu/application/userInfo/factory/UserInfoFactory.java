@@ -1,5 +1,6 @@
-package lt.vu.web.api.v1.factory;
+package lt.vu.application.userInfo.factory;
 
+import lt.vu.application.address.factory.AddressFactory;
 import lt.vu.persistence.orm.entities.UserInfo;
 import lt.vu.web.api.v1.dto.userInfo.PostUserInfoDTO;
 
@@ -12,14 +13,14 @@ public class UserInfoFactory {
     @Inject
     private AddressFactory addressFactory;
 
-    public UserInfo create(PostUserInfoDTO userData) {
+    public UserInfo createFromDTO(PostUserInfoDTO userData) {
         UserInfo userInfo = new UserInfo();
 
         userInfo.setFirstName(userData.getFirstName());
         userInfo.setLastName(userData.getLastName());
         userInfo.setEmail(userData.getEmail());
         userInfo.setPhoneNumber(userData.getPhoneNumber());
-        userInfo.setAddress(addressFactory.create(userData.getAddress()));
+        userInfo.setAddress(addressFactory.createFromDTO(userData.getAddress()));
 
         return userInfo;
     }

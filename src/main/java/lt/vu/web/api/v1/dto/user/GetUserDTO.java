@@ -28,7 +28,9 @@ public class GetUserDTO {
         dto.setLastName(user.getLastName());
         dto.setEmail(user.getEmail());
         dto.setPhoneNumber(user.getPhoneNumber());
-        dto.setAddress(GetAddressDTO.createFromEntity(user.getAddress()));
+        if (user.getAddress() != null) {
+            dto.setAddress(GetAddressDTO.createFromEntity(user.getAddress()));
+        }
 
         return dto;
     }

@@ -1,11 +1,14 @@
 package lt.vu.persistence.orm.repository;
 
+import lt.vu.application.attribute.exception.AttributeNotFoundException;
+import lt.vu.application.exception.NotFoundException;
 import lt.vu.persistence.orm.entities.Attribute;
 import lt.vu.persistence.orm.entities.AttributeType;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @RequestScoped
@@ -31,10 +34,14 @@ public class AttributeRepository {
                 .getResultList();
     }
 
-    public Attribute findOneByType(AttributeType type) {
-        return this.entityManager
-                .createNamedQuery("Attribute.findOneByType", Attribute.class)
-                .setParameter("type", type)
-                .getSingleResult();
+    public Attribute findOneByType(AttributeType type) throws NotFoundException {
+        try {
+            return this.entityManager
+                    .createNamedQuery("Attribute.findOneByType", Attribute.class)
+                    .setParameter("type", type)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new AttributeNotFoundException();
+        }
     }
 }
