@@ -33,6 +33,9 @@ export default function ParcelSizeSummaryCard(props) {
               ) : (
                 ""
               )}
+              {props.attributes.map((attr) => (
+                <li>{attr.label}</li>
+              ))}
             </ul>
           </Grid>
         </Grid>

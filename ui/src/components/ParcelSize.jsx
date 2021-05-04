@@ -3,6 +3,7 @@ import { Grid, Button } from "@material-ui/core";
 import BoxImage from "../images/box.png";
 import ParcelSizeCard from "./ParcelSizeCard";
 import "../styles/SendingInfo.css";
+import AttributesSelection from "./AttributesSelection";
 
 function ParcelSize(props) {
   return (
@@ -25,6 +26,11 @@ function ParcelSize(props) {
           </Grid>
         ))}
       </Grid>
+      <AttributesSelection
+        style={{ marginTop: 60, maxWidth: 180 }}
+        toggleAttribute={props.toggleAttribute}
+        selectedAttributes={props.selectedAttributes}
+      />
       <div className="d-flex">
         <Button
           color="primary"
