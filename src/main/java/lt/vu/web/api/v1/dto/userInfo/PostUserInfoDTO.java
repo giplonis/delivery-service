@@ -2,6 +2,7 @@ package lt.vu.web.api.v1.dto.userInfo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lt.vu.infrastructure.validators.PhoneNumber;
 import lt.vu.web.api.v1.dto.address.PostAddressDTO;
 
 import javax.validation.Valid;
@@ -27,7 +28,7 @@ public class PostUserInfoDTO {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "^(\\+?\\d{0,4})?\\s?-?\\s?(\\(?\\d{3}\\)?)\\s?-?\\s?(\\(?\\d{3}\\)?)\\s?-?\\s?(\\(?\\d{4}\\)?)?$")
+    @PhoneNumber
     @FormParam("phoneNumber")
     private String phoneNumber;
 
