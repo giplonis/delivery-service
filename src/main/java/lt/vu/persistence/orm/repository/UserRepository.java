@@ -20,6 +20,10 @@ public class UserRepository {
         this.entityManager.persist(user);
     }
 
+    public void update(User user) {
+        this.entityManager.merge(user);
+    }
+
     public List<User> findAll() {
         return this.entityManager
                 .createNamedQuery("User.findAll", User.class)
