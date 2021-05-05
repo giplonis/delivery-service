@@ -5,6 +5,7 @@ import "../styles/OrderHistory.css";
 import StatusIcon from "./StatusIcon";
 import { ORDERS } from "../config";
 import useMessage from "../hooks/messages";
+import axiosInstance from "../api/axiosInstance";
 
 export default function OrderHistory() {
   const [orders, setOrders] = useState([]);
@@ -12,16 +13,13 @@ export default function OrderHistory() {
   useEffect(() => {
     (async function fetchData() {
       try {
-        const response = await fetch(ORDERS);
-        if(!response.ok)
-          throw new Error()
-        let responseJson = await response.json();
-        for (let index in responseJson.data) {
-          responseJson.data[index].pickupDateTime = new Date(
-            responseJson.data[index].pickupDateTime
+        const response = await axiosInstance.get(ORDERS);
+        for (let index in response.data) {
+          response.data[index].pickupDateTime = new Date(
+            response.data[index].pickupDateTime
           );
         }
-        setOrders(responseJson.data);
+        setOrders(response.data);
       } catch (e) {
         displayError("Failed to load orders.");
       }

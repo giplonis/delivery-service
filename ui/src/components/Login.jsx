@@ -5,8 +5,13 @@ import { Container, Button } from "@material-ui/core";
 import Footer from "./Footer";
 import Header from "./Header";
 import Field from "./Field";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../styles/Login.css";
+import axiosInstance from "../api/axiosInstance";
+import { LOGIN } from "../config";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../store/UserAuthentication/actions";
+import useMessage from "../hooks/messages";
 
 function Login() {
   const validationSchema = yup.object({
@@ -17,6 +22,10 @@ function Login() {
       .max(50, "Your password is too long!")
       .min(8, "Password must be at least 8 characters long!"),
   });
+
+  const dispatch = useDispatch();
+  const { displayError } = useMessage()
+  const history = useHistory()
 
   return (
     <Container>
@@ -30,6 +39,32 @@ function Login() {
           validationSchema={validationSchema}
           onSubmit={(data) => {
             // Submit data here
+            const user = {
+                id: 0,
+                firstName: "string",
+                lastName: "string",
+                email: "string@string.string",
+                phoneNumber: "239823749",
+                address: {
+                  id: 0,
+                  city: "string",
+                  street: "string"
+                }
+            }
+            console.log("lkjdfgfdg");
+            (async function () {
+              try{
+                const response = await axiosInstance.post(LOGIN, data)
+                localStorage.setItem("token", response.data.token)
+                dispatch(updateUser(user))
+                history.push('/')
+              }
+              catch (e){
+                displayError("Failed to login.")
+              }
+
+
+            })()
           }}
         >
           <Form>

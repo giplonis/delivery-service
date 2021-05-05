@@ -1,9 +1,9 @@
-import { userReducer } from "./UserAuthentication/reducer";
+import { userAuthenticationReducer } from "./UserAuthentication/reducer";
 import thunk from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 
 const rootReducer = combineReducers({
-    user: userReducer
+    userAuthentication: userAuthenticationReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

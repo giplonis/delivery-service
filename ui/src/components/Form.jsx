@@ -11,6 +11,7 @@ import Summary from "./Summary";
 import useMessage from "../hooks/messages";
 import PaymentSuccess from "./PaymentSuccess";
 import { PACKAGE_OPTIONS } from "../config";
+import axiosInstance from "../api/axiosInstance";
 
 function Form() {
   const { displayError } = useMessage();
@@ -25,17 +26,11 @@ function Form() {
   const [selectedAttributes, setSelectedAttributes] = useState([])
 
   useEffect(() => {
-    const requestOptions = {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    };
     (async function () {
       try {
-        const response = await fetch(PACKAGE_OPTIONS, requestOptions);
-        if(!response.ok)
-          throw new Error()
-        const responseJson = await response.json();
-        setPackageOptions(responseJson.data);
+        const response = await axiosInstance.get(PACKAGE_OPTIONS);
+        console.log(response)
+        setPackageOptions(response.data);
       } catch (e) {
         displayError("Failed to load package sizes");
       }

@@ -4,6 +4,7 @@ import { ATTRIBUTES } from "../config";
 import React, { useEffect, useState } from "react";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import Skeleton from '@material-ui/lab/Skeleton';
+import axiosInstance from "../api/axiosInstance";
 
 export default function AttributesSelection(props){
   const { displayError } = useMessage()
@@ -14,11 +15,8 @@ export default function AttributesSelection(props){
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetch(ATTRIBUTES);
-        if(!response.ok)
-          throw new Error()
-        const responseJson = await response.json();
-        setAttributes(responseJson.data);
+        const response = await axiosInstance.get(ATTRIBUTES);
+        setAttributes(response.data);
       } catch (e) {
         displayError("Failed to load attributes");
       }
