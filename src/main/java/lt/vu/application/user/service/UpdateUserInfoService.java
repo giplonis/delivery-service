@@ -24,5 +24,4 @@ public class UpdateUserInfoService {
 
         this.userRepository.update(user);
     }
-
 }

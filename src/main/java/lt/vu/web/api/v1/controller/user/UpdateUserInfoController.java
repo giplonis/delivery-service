@@ -26,7 +26,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/user/details")
+@Path("/user-info")
 @RequestScoped
 public class UpdateUserInfoController extends CurrentUserAwareController {
 
@@ -40,33 +40,33 @@ public class UpdateUserInfoController extends CurrentUserAwareController {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     @Operation(
-            summary = "Change user's data",
-            description = "Changes user's data and returns updated info.",
-            tags = { "User details" },
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = GetTokenDTO.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "400",
-                            content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "500",
-                            content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-                    ),
-            }
+        summary = "Change user's data",
+        description = "Changes user's data and returns updated info.",
+        tags = { "User details" },
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                content = @Content(schema = @Schema(implementation = GetTokenDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "404",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            ),
+        }
     )
     public Response putAction(
-            @RequestBody(
-                    required = true,
-                    content = @Content(schema = @Schema(implementation = UpdateUserDTO.class))
-            ) @Valid UpdateUserDTO updateUserInfoDTO) throws BadRequestException, NotFoundException {
+        @RequestBody(
+                required = true,
+                content = @Content(schema = @Schema(implementation = UpdateUserDTO.class))
+        ) @Valid UpdateUserDTO updateUserInfoDTO) throws BadRequestException, NotFoundException {
 
         updateUserInfoService.updateUser(this.user, updateUserInfoDTO);
 
