@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/current-user")
 @RequestScoped
-public class GetCurrentUserInfoController extends CurrentUserAwareController {
+public class ShowCurrentUserController extends CurrentUserAwareController {
 
     @GET
     @Path("/")
@@ -33,10 +33,9 @@ public class GetCurrentUserInfoController extends CurrentUserAwareController {
                 content = @Content(schema = @Schema(implementation = GetUserDTO.class))
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-            )
-            ,
+                responseCode = "400",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            ),
             @ApiResponse(
                 responseCode = "500",
                 content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
