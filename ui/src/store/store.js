@@ -1,4 +1,4 @@
-import { userAuthenticationReducer } from "./UserAuthentication/reducer";
+import { userAuthenticationReducer } from "./UserAuthentication/user-authentication-reducers";
 import thunk from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 

@@ -1,22 +1,27 @@
-import axios from "axios"
+import axios from "axios";
+import store from "../store/store";
+import { logoutUser } from "../store/UserAuthentication/user-authentication-actions";
 
 const axiosInstance = axios.create({
-     timeout: 5000,
-     headers: {
-                'Authorization': localStorage.getItem('token') ? "JWT " + localStorage.getItem('token') : null,
-                'Content-Type': 'application/json',
-                'accept': 'application/json'
-     }
-})
+  timeout: 5000,
+});
+
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+  return config;
+});
+
 axiosInstance.interceptors.response.use(
-    response => response,
-    error => {
-        if(error.response.status === 401){
-            
-        }
-        return Promise.reject(error)
+  (response) => response.data,
+  (error) => {
+    if (error.response.status === 401) {
+      store.dispatch(logoutUser());
     }
+    return Promise.reject(error);
+  }
+);
 
-)
-
-export default axiosInstance
+export default axiosInstance;

@@ -10,7 +10,7 @@ import ParcelType from "./ParcelType";
 import Summary from "./Summary";
 import useMessage from "../hooks/messages";
 import PaymentSuccess from "./PaymentSuccess";
-import { PACKAGE_OPTIONS } from "../config";
+import { PACKAGE_OPTIONS } from "../api/config";
 import axiosInstance from "../api/axiosInstance";
 
 function Form() {
@@ -29,7 +29,6 @@ function Form() {
     (async function () {
       try {
         const response = await axiosInstance.get(PACKAGE_OPTIONS);
-        console.log(response)
         setPackageOptions(response.data);
       } catch (e) {
         displayError("Failed to load package sizes");

@@ -10,7 +10,7 @@ import RecipientSummaryCard from "./SummaryCards/RecipientSummaryCard";
 import ParcelSizeSummaryCard from "./SummaryCards/ParcelSizeSummaryCard";
 import CreditCardModal from "./CreditCardModal";
 import useMessage from "../hooks/messages";
-import { ORDERS } from "../config";
+import { ORDERS } from "../api/config";
 import LoadingButton from "./LoadingButton";
 import axiosInstance from "../api/axiosInstance";
 
@@ -32,7 +32,7 @@ function Summary(props) {
       let success = true
       setIsPostingOrder(true)
       try {
-        const response = await axiosInstance.post(ORDERS, orderObject);
+        await axiosInstance.post(ORDERS, orderObject);
       } catch (e) {
         success = false
         displayError("Failed to place order");

@@ -1,8 +1,6 @@
-import axiosInstance from "../../api/axiosInstance"
-import { LOGIN } from "../../config"
+import history from "../../history"
 
 export const UPDATE_USER = "UPDATE_USER"
-export const TOGGLE_AUTHENTICATION = "TOGGLE_AUTHENTICATION"
 
 export function updateUser(user){
     return {
@@ -15,5 +13,6 @@ export function logoutUser(){
     return dispatch => {
         localStorage.removeItem('token')
         dispatch(updateUser(null))
+        history.push('/')
     }
 }

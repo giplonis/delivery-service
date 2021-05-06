@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import OrderModal from "./OrderModal";
 import "../styles/OrderHistory.css";
 import StatusIcon from "./StatusIcon";
-import { ORDERS } from "../config";
+import { ORDERS } from "../api/config";
 import useMessage from "../hooks/messages";
 import axiosInstance from "../api/axiosInstance";
 

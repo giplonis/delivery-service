@@ -8,9 +8,9 @@ import Field from "./Field";
 import { Link, useHistory } from "react-router-dom";
 import "../styles/Login.css";
 import axiosInstance from "../api/axiosInstance";
-import { LOGIN } from "../config";
+import { CURRENT_USER, LOGIN } from "../api/config";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../store/UserAuthentication/actions";
+import { updateUser } from "../store/UserAuthentication/user-authentication-actions";
 import useMessage from "../hooks/messages";
 
 function Login() {
@@ -39,31 +39,17 @@ function Login() {
           validationSchema={validationSchema}
           onSubmit={(data) => {
             // Submit data here
-            const user = {
-                id: 0,
-                firstName: "string",
-                lastName: "string",
-                email: "string@string.string",
-                phoneNumber: "239823749",
-                address: {
-                  id: 0,
-                  city: "string",
-                  street: "string"
-                }
-            }
-            console.log("lkjdfgfdg");
             (async function () {
               try{
-                const response = await axiosInstance.post(LOGIN, data)
-                localStorage.setItem("token", response.data.token)
-                dispatch(updateUser(user))
+                const responseToken = await axiosInstance.post(LOGIN, data)
+                localStorage.setItem("token", responseToken.token)
+                const responseUser = await axiosInstance.get(CURRENT_USER)
+                dispatch(updateUser(responseUser))
                 history.push('/')
               }
               catch (e){
                 displayError("Failed to login.")
               }
-
-
             })()
           }}
         >

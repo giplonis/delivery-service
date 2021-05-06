@@ -5,7 +5,7 @@ import { Divider } from "@material-ui/core";
 import "../styles/Header.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../store/UserAuthentication/actions";
+import { logoutUser } from "../store/UserAuthentication/user-authentication-actions";
 
 function Header() {
   const user = useSelector(state => state.userAuthentication.user)

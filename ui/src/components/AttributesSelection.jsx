@@ -1,6 +1,5 @@
-
 import useMessage from "../hooks/messages";
-import { ATTRIBUTES } from "../config";
+import { ATTRIBUTES } from "../api/config";
 import React, { useEffect, useState } from "react";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import Skeleton from '@material-ui/lab/Skeleton';
