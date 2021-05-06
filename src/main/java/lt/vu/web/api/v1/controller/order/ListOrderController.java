@@ -60,4 +60,33 @@ public class ListOrderController extends CurrentUserAwareController {
                 .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))
                 .build();
     }
+
+    @GET
+    @Path("/all")
+    @Authorized //todo make it admin-only
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(
+            summary = "Fetch list of all orders",
+            tags = { "Order" },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+                    )
+            }
+    )
+    public Response listAllAction() {
+        // This acts as a fake cronjob to update old order statuses into DELIVERED
+        this.orderStatusUpdater.updateNewOrders();
+
+        List<Order> orders = this.orderRepository.findAll();
+
+        return Response
+                .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))
+                .build();
+    }
 }
