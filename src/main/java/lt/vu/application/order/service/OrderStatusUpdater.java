@@ -22,7 +22,7 @@ public class OrderStatusUpdater {
                 .forEach(this::updateStatus);
     }
 
-    private void updateStatus(Order order) {
+    public void updateStatus(Order order) {
         order.setStatus(OrderStatus.DELIVERED);
         this.orderRepository.update(order);
     }
