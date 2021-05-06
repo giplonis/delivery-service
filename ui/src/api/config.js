@@ -5,4 +5,4 @@ export const PACKAGE_OPTIONS = API_HOME + "package-options";
 export const ATTRIBUTES = API_HOME + "attributes";
 export const LOGIN = API_HOME + "login";
 export const REGISTER = API_HOME + "register";
-export const CURRENT_USER = API_HOME + "currentUser";
+export const CURRENT_USER = API_HOME + "current-user";

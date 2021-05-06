@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
-import { Container, Button } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import Footer from "./Footer";
 import Header from "./Header";
 import Field from "./Field";
@@ -12,6 +12,7 @@ import { CURRENT_USER, LOGIN } from "../api/config";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../store/UserAuthentication/user-authentication-actions";
 import useMessage from "../hooks/messages";
+import LoadingButton from "./LoadingButton";
 
 function Login() {
   const validationSchema = yup.object({
@@ -24,8 +25,9 @@ function Login() {
   });
 
   const dispatch = useDispatch();
-  const { displayError } = useMessage()
-  const history = useHistory()
+  const { displayError } = useMessage();
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   return (
     <Container>
@@ -40,17 +42,19 @@ function Login() {
           onSubmit={(data) => {
             // Submit data here
             (async function () {
-              try{
-                const responseToken = await axiosInstance.post(LOGIN, data)
-                localStorage.setItem("token", responseToken.token)
-                const responseUser = await axiosInstance.get(CURRENT_USER)
-                dispatch(updateUser(responseUser))
-                history.push('/')
+              setLoading(true);
+              try {
+                const responseToken = await axiosInstance.post(LOGIN, data);
+                localStorage.setItem("token", responseToken.token);
+                const responseUser = await axiosInstance.get(CURRENT_USER);
+                dispatch(updateUser(responseUser));
+                history.push("/");
+              } catch (e) {
+                displayError("Failed to login.");
+              } finally {
+                setLoading(false);
               }
-              catch (e){
-                displayError("Failed to login.")
-              }
-            })()
+            })();
           }}
         >
           <Form>
@@ -68,14 +72,16 @@ function Login() {
                   </Link>
                   <span className="ml-auto auth-link">Forgot password?</span>
                 </div>
-                <Button
+                <LoadingButton
                   color="primary"
                   variant="contained"
                   type="submit"
                   className="auth-button"
+                  loading={loading}
+                  disabled={loading}
                 >
                   Login
-                </Button>
+                </LoadingButton>
               </div>
             </div>
           </Form>

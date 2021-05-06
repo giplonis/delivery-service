@@ -3,9 +3,9 @@ import thunk from "redux-thunk";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 
 const rootReducer = combineReducers({
-    userAuthentication: userAuthenticationReducer
-})
+  userAuthentication: userAuthenticationReducer,
+});
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
-export default store
+export default store;
