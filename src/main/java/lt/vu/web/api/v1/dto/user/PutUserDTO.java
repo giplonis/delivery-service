@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 
 @Getter @Setter
-public class UpdateUserDTO implements UserInfoDTO {
+public class PutUserDTO implements UserInfoDTO {
     @Size(max = 50)
     @NotNull
     @FormParam("firstName")

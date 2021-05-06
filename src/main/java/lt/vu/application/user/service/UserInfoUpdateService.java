@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class UpdateUserInfoService {
+public class UserInfoUpdateService {
     @Inject
     private AddressFactory addressFactory;
 
