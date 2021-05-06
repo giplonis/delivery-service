@@ -44,4 +44,11 @@ public class OrderRepository {
                 .setParameter("date", date)
                 .getResultList();
     }
+
+    public List<Order> findById(int id) {
+        return this.entityManager
+                .createNamedQuery("Order.findById", Order.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
 }
