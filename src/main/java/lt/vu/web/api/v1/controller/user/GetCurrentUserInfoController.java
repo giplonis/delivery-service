@@ -16,7 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/currentUser")
+@Path("/current-user")
 @RequestScoped
 public class GetCurrentUserInfoController extends CurrentUserAwareController {
 
@@ -25,22 +25,26 @@ public class GetCurrentUserInfoController extends CurrentUserAwareController {
     @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
-            summary = "Fetch data of user",
-            tags = { "User" },
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = GetUserDTO.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "500",
-                            content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-                    )
-            }
+        summary = "Fetch data of user",
+        tags = { "User" },
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                content = @Content(schema = @Schema(implementation = GetUserDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            )
+        }
     )
     public Response getAction() {
         return Response
-                .ok(GetUserDTO.createFromEntity(user))
+                .ok(GetUserDTO.createFromEntity(this.user))
                 .build();
     }
 }
