@@ -33,12 +33,13 @@ public class GetCurrentUserInfoController extends CurrentUserAwareController {
                 content = @Content(schema = @Schema(implementation = GetUserDTO.class))
             ),
             @ApiResponse(
-                responseCode = "500",
-                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-            ),
-            @ApiResponse(
                     responseCode = "400",
                     content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            )
+            ,
+            @ApiResponse(
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             )
         }
     )
