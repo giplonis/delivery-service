@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
-import { Container, Button } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import Footer from "./Footer";
 import Header from "./Header";
 import Field from "./Field";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../styles/Login.css";
+import axiosInstance from "../api/axiosInstance";
+import { CURRENT_USER, LOGIN } from "../api/config";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../store/UserAuthentication/user-authentication-actions";
+import useMessage from "../hooks/messages";
+import LoadingButton from "./LoadingButton";
 
 function Login() {
   const validationSchema = yup.object({
@@ -17,6 +23,11 @@ function Login() {
       .max(50, "Your password is too long!")
       .min(8, "Password must be at least 8 characters long!"),
   });
+
+  const dispatch = useDispatch();
+  const { displayError } = useMessage();
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   return (
     <Container>
@@ -30,6 +41,20 @@ function Login() {
           validationSchema={validationSchema}
           onSubmit={(data) => {
             // Submit data here
+            (async function () {
+              setLoading(true);
+              try {
+                const responseToken = await axiosInstance.post(LOGIN, data);
+                localStorage.setItem("token", responseToken.token);
+                const responseUser = await axiosInstance.get(CURRENT_USER);
+                dispatch(updateUser(responseUser));
+                history.push("/");
+              } catch (e) {
+                displayError("Failed to login.");
+              } finally {
+                setLoading(false);
+              }
+            })();
           }}
         >
           <Form>
@@ -47,14 +72,16 @@ function Login() {
                   </Link>
                   <span className="ml-auto auth-link">Forgot password?</span>
                 </div>
-                <Button
+                <LoadingButton
                   color="primary"
                   variant="contained"
                   type="submit"
                   className="auth-button"
+                  loading={loading}
+                  disabled={loading}
                 >
                   Login
-                </Button>
+                </LoadingButton>
               </div>
             </div>
           </Form>

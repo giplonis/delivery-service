@@ -10,8 +10,9 @@ import RecipientSummaryCard from "./SummaryCards/RecipientSummaryCard";
 import ParcelSizeSummaryCard from "./SummaryCards/ParcelSizeSummaryCard";
 import CreditCardModal from "./CreditCardModal";
 import useMessage from "../hooks/messages";
-import { ORDERS } from "../config";
+import { ORDERS } from "../api/config";
 import LoadingButton from "./LoadingButton";
+import axiosInstance from "../api/axiosInstance";
 
 function Summary(props) {
   const date = props.formData.pickUpDate;
@@ -27,18 +28,11 @@ function Summary(props) {
   }
 
   const placeOrder = () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderObject),
-    };
     (async function () {
       let success = true
       setIsPostingOrder(true)
       try {
-        const response = await fetch(ORDERS, requestOptions);
-        if(!response.ok)
-          throw new Error(response.message)
+        await axiosInstance.post(ORDERS, orderObject);
       } catch (e) {
         success = false
         displayError("Failed to place order");
