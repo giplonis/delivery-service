@@ -21,9 +21,7 @@ function Header() {
             <Link to="/profile" className="remove-link-decoration d-flex">
               <div className=" mr-2 header-item">
                 <PersonIcon />
-                {user
-                  ? `${user.firstName} ${user.lastName}`
-                  : "Vardenis Pavardenis"}
+                {`${user.firstName} ${user.lastName}`}
               </div>
             </Link>
           )}
