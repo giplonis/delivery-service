@@ -24,7 +24,7 @@ export default function DataLoader({ children }) {
         setLoading(false);
       }
     })();
-  }, [displayError]);
+  }, [displayError, dispatch]);
   if (loading) {
     return <></>;
   }
