@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { Container, Grid, Button } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import Field from "./Field";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../styles/Register.css";
+import { CURRENT_USER, REGISTER } from "../api/config";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../store/UserAuthentication/user-authentication-actions";
+import useMessage from "../hooks/messages";
+import LoadingButton from "./LoadingButton";
+import axiosInstance from "../api/axiosInstance";
 
 function Register() {
+  const dispatch = useDispatch();
+  const { displayError } = useMessage();
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
   const labels = [
     { label: "First Name", name: "name", type: "text" },
     { label: "City", name: "city", type: "text" },
@@ -65,6 +76,24 @@ function Register() {
           validationSchema={validationSchema}
           onSubmit={(data) => {
             // Submit data here
+            (async function () {
+              setLoading(true);
+              try {
+                const responseToken = await axiosInstance.post(REGISTER, data);
+                localStorage.setItem("token", responseToken.token);
+                try {
+                  const responseUser = await axiosInstance.get(CURRENT_USER);
+                  dispatch(updateUser(responseUser));
+                  history.push("/");
+                } catch (e) {
+                  displayError("Failed to update user.");
+                }
+              } catch (e) {
+                displayError("Failed to register.");
+              } finally {
+                setLoading(false);
+              }
+            })();
           }}
         >
           <Form>
@@ -98,14 +127,16 @@ function Register() {
                     <span className="auth-link">Log in here!</span>
                   </Link>
                 </div>
-                <Button
+                <LoadingButton
                   color="primary"
                   variant="contained"
                   type="submit"
                   className="auth-button"
+                  loading={loading}
+                  disabled={loading}
                 >
                   Register
-                </Button>
+                </LoadingButton>
               </div>
             </div>
           </Form>
