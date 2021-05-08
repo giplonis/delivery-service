@@ -1,51 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import Field from "./Field";
-import { Button } from "@material-ui/core";
 import * as yup from "yup";
+import axiosInstance from "../api/axiosInstance";
+import useMessage from "../hooks/messages";
+import { USER_PASSWORD } from "../api/config";
+import LoadingButton from "./LoadingButton";
 
 function PasswordChange() {
+  const { displayError, displaySuccess } = useMessage();
+  const [loading, setLoading] = useState(false);
+
   const labels = [
-    { label: "Current Password", name: "password" },
-    { label: "New Password", name: "newPassword" },
-    { label: "Confirm Password", name: "confirmPassword" },
+    { label: "Current Password", name: "oldPassword" },
+    { label: "New Password", name: "password" },
+    { label: "Confirm Password", name: "passwordConfirm" },
   ];
 
   const validationSchema = yup.object({
-    password: yup.string().required("Required").max(50, "Your password is too long!").min(8, "Password must be at least 8 characters long!"),
-    newPassword: yup
+    oldPassword: yup.string().required("Required").max(50, "Your password is too long!").min(8, "Password must be at least 8 characters long!"),
+    password: yup
       .string()
       .required("Required")
       .max(50, "Your password is too long!")
       .min(8, "Password must be at least 8 characters long!")
-      .notOneOf([yup.ref("password"), null], "Password must not match your current one!"),
-    confirmPassword: yup
+      .notOneOf([yup.ref("oldPassword"), null], "Password must not match your current one!"),
+    passwordConfirm: yup
       .string()
       .required("Required")
-      .oneOf([yup.ref("newPassword"), null], "Passwords don't match!"),
+      .oneOf([yup.ref("password"), null], "Passwords don't match!"),
   });
 
   return (
     <Formik
       initialValues={{
+        oldPassword: "",
         password: "",
-        newPassword: "",
-        confirmPassword: "",
+        passwordConfirm: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(data) => {
         // Submit data to <Profile /> here
-      }}>
+        (async function () {
+          setLoading(true);
+          try {
+            const response = await axiosInstance.put(USER_PASSWORD, data);
+            localStorage.setItem("token", response.token);
+            displaySuccess("Password changed successfully.");
+          } catch (e) {
+            displayError("Failed to change password.");
+          } finally {
+            setLoading(false);
+          }
+        })();
+      }}
+    >
       <Form>
         <div className="form-wrapper">
           <div className="form-inner">
             <div className="form-header">Change Password</div>
             {labels.map((label, key) => (
-              <Field key={key} label={label.label} name={label.name} type="password" />
+              <Field
+                key={key}
+                label={label.label}
+                name={label.name}
+                type="password"
+              />
             ))}
-            <Button color="primary" variant="contained" className="form-button save-personal-data-button" type="submit">
+            <LoadingButton
+              color="primary"
+              variant="contained"
+              className="form-button save-personal-data-button"
+              type="submit"
+              loading={loading}
+              disabled={loading}
+            >
               Change Password
-            </Button>
+            </LoadingButton>
           </div>
         </div>
       </Form>
