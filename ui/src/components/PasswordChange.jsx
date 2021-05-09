@@ -18,13 +18,20 @@ function PasswordChange() {
   ];
 
   const validationSchema = yup.object({
-    oldPassword: yup.string().required("Required").max(50, "Your password is too long!").min(8, "Password must be at least 8 characters long!"),
+    oldPassword: yup
+      .string()
+      .required("Required")
+      .max(50, "Your password is too long!")
+      .min(8, "Password must be at least 8 characters long!"),
     password: yup
       .string()
       .required("Required")
       .max(50, "Your password is too long!")
       .min(8, "Password must be at least 8 characters long!")
-      .notOneOf([yup.ref("oldPassword"), null], "Password must not match your current one!"),
+      .notOneOf(
+        [yup.ref("oldPassword"), null],
+        "Password must not match your current one!"
+      ),
     passwordConfirm: yup
       .string()
       .required("Required")
@@ -40,7 +47,6 @@ function PasswordChange() {
       }}
       validationSchema={validationSchema}
       onSubmit={(data) => {
-        // Submit data to <Profile /> here
         (async function () {
           setLoading(true);
           try {
@@ -48,7 +54,9 @@ function PasswordChange() {
             localStorage.setItem("token", response.token);
             displaySuccess("Password changed successfully.");
           } catch (e) {
-            displayError("Failed to change password.");
+            if (e.response.data.message === "Password is incorrect")
+              displayError("Password is incorrect!");
+            else displayError("Failed to change password.");
           } finally {
             setLoading(false);
           }
