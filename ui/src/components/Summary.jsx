@@ -18,33 +18,30 @@ function Summary(props) {
   const date = props.formData.pickUpDate;
   const [creditCardModalOpen, setCreditCardModalOpen] = useState(false);
   const { displayError } = useMessage();
-  const [isPostingOrder, setIsPostingOrder] = useState(false)
-
+  const [isPostingOrder, setIsPostingOrder] = useState(false);
 
   const orderObject = {
     ...props.formData,
     packageOptionId: props.selectedPackage.id,
-    attributes: props.selectedAttributes.map(attribute => attribute.id),
-  }
+    attributes: props.selectedAttributes.map((attribute) => attribute.id),
+  };
 
   const placeOrder = () => {
     (async function () {
-      let success = true
-      setIsPostingOrder(true)
+      let success = true;
+      setIsPostingOrder(true);
       try {
         await axiosInstance.post(ORDERS, orderObject);
       } catch (e) {
-        success = false
+        success = false;
         displayError("Failed to place order");
+      } finally {
+        setIsPostingOrder(false);
       }
-      finally {
-        setIsPostingOrder(false)
-      }
-      if(success){
+      if (success) {
         props.onOrderSuccess();
       }
     })();
-    
   };
 
   const handleConfirmOrder = () => {
@@ -62,6 +59,13 @@ function Summary(props) {
   const toggleCreditCardModal = () => {
     setCreditCardModalOpen((prevState) => !prevState);
   };
+
+  var additionalPrice = 0;
+  additionalPrice = props.selectedAttributes.map((attribute) => {
+    return additionalPrice + attribute.additionalPrice;
+  });
+  if (additionalPrice.length !== 0) additionalPrice = parseInt(additionalPrice);
+  else additionalPrice = 0;
 
   return (
     <div className="form-wrapper">
@@ -100,6 +104,7 @@ function Summary(props) {
                 selectedPackageSize={props.selectedPackage.packageSize}
                 selectedPackageType={props.selectedPackageType}
                 attributes={props.selectedAttributes}
+                price={props.selectedPackage.price + additionalPrice}
               />
             </div>
           </ButtonBase>

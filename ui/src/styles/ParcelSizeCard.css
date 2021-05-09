@@ -13,3 +13,41 @@
   font-size: 18px;
   color: var(--gray);
 }
+
+.form-inner-parcel {
+  border: 1px solid var(--primary);
+  padding: 10px 30px 15px 30px;
+  height: 100%;
+}
+
+.form-header-parcel {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 25px;
+  text-align: left;
+  background-color: var(--dark);
+  width: max-content;
+  padding: 0 10px;
+  margin: -27px 0 10px -16px;
+  font-weight: 500;
+}
+
+.selected-card .form-header-parcel {
+  position: relative;
+  background: none;
+}
+
+.selected-card .form-inner-parcel {
+  z-index: 1;
+}
+
+.selected-card .form-header-parcel:after {
+  background-color: var(--dark);
+  height: 1px;
+  content: "";
+  width: 100%;
+  position: absolute;
+  bottom: 13px;
+  left: 0;
+  z-index: -1;
+}
