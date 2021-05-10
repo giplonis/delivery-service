@@ -46,12 +46,13 @@ function PasswordChange() {
         passwordConfirm: "",
       }}
       validationSchema={validationSchema}
-      onSubmit={(data) => {
+      onSubmit={(data, { resetForm }) => {
         (async function () {
           setLoading(true);
           try {
             const response = await axiosInstance.put(USER_PASSWORD, data);
             localStorage.setItem("token", response.token);
+            resetForm();
             displaySuccess("Password changed successfully.");
           } catch (e) {
             if (e.response.data.message === "Password is incorrect")
