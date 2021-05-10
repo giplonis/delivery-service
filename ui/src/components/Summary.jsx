@@ -133,6 +133,7 @@ function Summary(props) {
           open={creditCardModalOpen}
           toggleModal={toggleCreditCardModal}
           placeOrder={placeOrder}
+          price={props.selectedPackage.price + additionalPrice}
         />
       </div>
     </div>
