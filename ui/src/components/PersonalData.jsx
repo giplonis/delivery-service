@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import Field from "./Field";
-import { Grid, Button } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import * as yup from "yup";
 import "../styles/PersonalData.css";
 import { useSelector } from "react-redux";
+import axiosInstance from "../api/axiosInstance";
+import { USER_INFO } from "../api/config";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../store/UserAuthentication/user-authentication-actions";
+import useMessage from "../hooks/messages";
+import LoadingButton from "./LoadingButton";
 
 function PersonalData() {
   const user = useSelector((state) => state.userAuthentication.user);
-
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const {displayError, displaySuccess} = useMessage();
+  
   const labels = [
     { label: "First Name", name: "firstName" },
     { label: "Last Name", name: "lastName" },
@@ -46,9 +55,20 @@ function PersonalData() {
         },
       }}
       validationSchema={validationSchema}
-      onSubmit={(data) => {
+      onSubmit={async (data) => {
         // Submit data to <Profile /> here
-      }}>
+        setLoading(true);
+        try {
+          const responseUser = await axiosInstance.put(USER_INFO, data);
+          dispatch(updateUser(responseUser));
+          displaySuccess("Personal data updated successfully!");
+        } catch (e) {
+          displayError("Failed to update profile data.");
+        } finally {
+          setLoading(false);
+        }
+      }}
+    >
       <Form>
         <div className="form-wrapper">
           <div className="form-inner">
@@ -65,9 +85,16 @@ function PersonalData() {
                 ))}
               </Grid>
             </Grid>
-            <Button color="primary" variant="contained" className="form-button save-personal-data-button" type="submit">
+            <LoadingButton
+              color="primary"
+              variant="contained"
+              className="form-button save-personal-data-button"
+              type="submit"
+              loading={loading}
+              disabled={loading}
+            >
               Save
-            </Button>
+            </LoadingButton>
           </div>
         </div>
       </Form>
