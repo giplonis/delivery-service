@@ -22,13 +22,8 @@ public class OrderStatusUpdater {
                 .forEach(this::updateStatus);
     }
 
-    public void updateStatus(Order order) {
+    private void updateStatus(Order order) {
         order.setStatus(OrderStatus.DELIVERED);
-        this.orderRepository.update(order);
-    }
-
-    public void forceStatus(Order order, OrderStatus orderStatus) {
-        order.setStatus(orderStatus);
         this.orderRepository.update(order);
     }
 }

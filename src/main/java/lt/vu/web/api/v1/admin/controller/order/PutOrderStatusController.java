@@ -1,4 +1,4 @@
-package lt.vu.web.api.v1.admin.order;
+package lt.vu.web.api.v1.admin.controller.order;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -7,12 +7,11 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.exception.BadRequestException;
 import lt.vu.application.exception.NotFoundException;
-import lt.vu.application.order.service.OrderStatusUpdater;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.entities.OrderStatus;
+import lt.vu.persistence.orm.entities.UserRole;
 import lt.vu.persistence.orm.repository.OrderRepository;
-import lt.vu.web.api.v1.controller.security.CurrentUserAwareController;
 import lt.vu.web.api.v1.admin.dto.order.PutOrderStatusDTO;
 import lt.vu.web.api.v1.dto.order.GetOrderDTO;
 import lt.vu.web.api.v1.dto.security.GetTokenDTO;
@@ -26,19 +25,16 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/admin/orders/{id}/change-status")
+@Path("/admin/orders")
 @RequestScoped
-public class PutOrderStatusController extends CurrentUserAwareController {
+public class PutOrderStatusController {
 
     @Inject
     private OrderRepository orderRepository;
 
-    @Inject
-    private OrderStatusUpdater orderStatusUpdater;
-
     @PUT
-    @Path("/")
-    @Authorized //todo only for admin
+    @Path("/{id}/status")
+    @Authorized(role = UserRole.ADMIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
@@ -72,9 +68,12 @@ public class PutOrderStatusController extends CurrentUserAwareController {
         ) @Valid PutOrderStatusDTO putOrderStatusDTO,
         @PathParam("id") Integer orderId) throws BadRequestException, NotFoundException {
 
-        Order order = orderRepository.findById(orderId);
-        orderStatusUpdater.forceStatus(order, OrderStatus.valueOf(putOrderStatusDTO.getOrderStatus()));
-        order = orderRepository.findById(order.getId());
-        return Response.ok(GetOrderDTO.createFromEntity(order)).build();
+        Order order = this.orderRepository.findById(orderId);
+        order.setStatus(OrderStatus.valueOf(putOrderStatusDTO.getStatus()));
+        this.orderRepository.update(order);
+
+        return Response
+                .ok(GetOrderDTO.createFromEntity(order))
+                .build();
     }
 }
