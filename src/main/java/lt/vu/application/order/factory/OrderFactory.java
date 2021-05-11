@@ -38,7 +38,9 @@ public class OrderFactory {
         order.setPackageOption(packageOption);
         order.setAttributes(this.attributeRepository.findAllByIds(orderDTO.getAttributes()));
         order.setTotalPrice(this.priceCalculator.calculate(order));
-        order.setSender(sender);
+        if (sender != null) {
+            order.setSender(sender);
+        }
 
         return order;
     }
