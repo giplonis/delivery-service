@@ -13,6 +13,7 @@ function DocumentSize(props) {
             <DocumentSizeCard
               onClick={props.onChange}
               image={Letter}
+              price={size.price}
               dimensions={{
                 weight: size.packageSize.maxWeight,
                 length: size.packageSize.length,
