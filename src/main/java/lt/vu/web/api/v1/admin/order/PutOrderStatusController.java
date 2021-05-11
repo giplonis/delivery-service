@@ -72,11 +72,9 @@ public class PutOrderStatusController extends CurrentUserAwareController {
         ) @Valid PutOrderStatusDTO putOrderStatusDTO,
         @PathParam("id") Integer orderId) throws BadRequestException, NotFoundException {
 
-
         Order order = orderRepository.findById(orderId);
         orderStatusUpdater.forceStatus(order, OrderStatus.valueOf(putOrderStatusDTO.getOrderStatus()));
         order = orderRepository.findById(order.getId());
         return Response.ok(GetOrderDTO.createFromEntity(order)).build();
     }
-
 }
