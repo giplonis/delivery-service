@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.PackageType;
 import lt.vu.persistence.orm.repository.PackageTypeRepository;
 import lt.vu.web.api.v1.dto.packageType.ListPackageTypeDTO;
@@ -29,7 +28,6 @@ public class ListPackageTypeController {
 
     @GET
     @Path("/")
-    @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
         summary = "Fetch list of package types available",
