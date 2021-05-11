@@ -50,5 +50,4 @@ public class PostRegisterDTO implements PasswordDTO {
     @FormParam("address")
     @Valid
     private PostAddressDTO address;
-
 }
