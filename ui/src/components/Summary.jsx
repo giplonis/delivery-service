@@ -13,6 +13,7 @@ import useMessage from "../hooks/messages";
 import { ORDERS } from "../api/config";
 import LoadingButton from "./LoadingButton";
 import axiosInstance from "../api/axiosInstance";
+import { getAdditionalPrice } from "../services/priceCalculation";
 
 function Summary(props) {
   const date = props.formData.pickUpDate;
@@ -60,13 +61,6 @@ function Summary(props) {
     setCreditCardModalOpen((prevState) => !prevState);
   };
 
-  var additionalPrice = 0;
-  additionalPrice = props.selectedAttributes.map((attribute) => {
-    return additionalPrice + attribute.additionalPrice;
-  });
-  if (additionalPrice.length !== 0) additionalPrice = parseInt(additionalPrice);
-  else additionalPrice = 0;
-
   return (
     <div className="form-wrapper">
       <Grid container spacing={9}>
@@ -104,7 +98,10 @@ function Summary(props) {
                 selectedPackageSize={props.selectedPackage.packageSize}
                 selectedPackageType={props.selectedPackageType}
                 attributes={props.selectedAttributes}
-                price={props.selectedPackage.price + additionalPrice}
+                price={
+                  props.selectedPackage.price +
+                  getAdditionalPrice(props.selectedAttributes)
+                }
               />
             </div>
           </ButtonBase>
@@ -133,7 +130,10 @@ function Summary(props) {
           open={creditCardModalOpen}
           toggleModal={toggleCreditCardModal}
           placeOrder={placeOrder}
-          price={props.selectedPackage.price + additionalPrice}
+          price={
+            props.selectedPackage.price +
+            getAdditionalPrice(props.selectedAttributes)
+          }
         />
       </div>
     </div>
