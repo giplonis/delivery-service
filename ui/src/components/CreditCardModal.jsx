@@ -6,7 +6,7 @@ import "../styles/CreditCardModal.css";
 import { Formik, Form } from "formik";
 import Field from "./Field";
 import * as yup from "yup";
-import LoadingButton from './LoadingButton';
+import LoadingButton from "./LoadingButton";
 
 const stripePromise = loadStripe(
   "pk_test_51IfQyPIHDg9f7KlHkMcHHqEsqWeYWHIBr6gKv2YSkcXQLGepH1GVe4M3DxnrmU201jQZXolYLNgjZHGw4LRSo0Bw00sxArXSdt"
@@ -24,7 +24,7 @@ const CARD_OPTIONS = {
       },
       ":focus": {
         iconColor: "#cee002",
-      }
+      },
     },
     invalid: {
       color: "#f44336",
@@ -34,33 +34,28 @@ const CARD_OPTIONS = {
 };
 
 const CreditCardSchema = yup.object().shape({
-  firstname: yup.string()
-    .max(50, 'Too Long!')
-    .required('Required'),
-  lastname: yup.string()
-    .max(50, 'Too Long!')
-    .required('Required'),
+  firstname: yup.string().max(50, "Too Long!").required("Required"),
+  lastname: yup.string().max(50, "Too Long!").required("Required"),
 });
 
 const CheckoutForm = (props) => {
   const stripe = useStripe();
   const [error, setError] = useState(null);
   const [cardNumberEmpty, setCardNumberEmpty] = useState(true);
-  const [isPaying, setIsPaying] = useState(false)
+  const [isPaying, setIsPaying] = useState(false);
   const cardElement = useCallback(
     (props) => (
       <CardElement
         {...props}
         options={CARD_OPTIONS}
         onChange={(e) => {
-          setCardNumberEmpty(e.empty)
+          setCardNumberEmpty(e.empty);
           setError(e.error);
         }}
       />
     ),
     []
   );
-  
 
   return (
     <Formik
@@ -123,7 +118,7 @@ const CheckoutForm = (props) => {
             }
           }}
         >
-          Pay 25€
+          Pay {props.price / 100 + "€"}
         </LoadingButton>
       </Form>
     </Formik>
@@ -135,7 +130,11 @@ export default function CreditCardModal(props) {
     <Dialog open={props.open} onClose={props.toggleModal}>
       <div className="credit-card-modal-wrapper">
         <Elements stripe={stripePromise}>
-          <CheckoutForm toggleModal={props.toggleModal} placeOrder={props.placeOrder}/>
+          <CheckoutForm
+            price={props.price}
+            toggleModal={props.toggleModal}
+            placeOrder={props.placeOrder}
+          />
         </Elements>
       </div>
     </Dialog>

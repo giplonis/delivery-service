@@ -1,5 +1,6 @@
 package lt.vu.application.user.factory;
 
+import lt.vu.application.address.factory.AddressFactory;
 import lt.vu.application.security.service.PasswordHasher;
 import lt.vu.persistence.orm.entities.User;
 import lt.vu.persistence.orm.entities.UserRole;
@@ -15,6 +16,9 @@ public class UserFactory {
     @Inject
     private PasswordHasher passwordHasher;
 
+    @Inject
+    private AddressFactory addressFactory;
+
     public User create(PostRegisterDTO registerDTO) {
         User user = new User();
 
@@ -23,6 +27,7 @@ public class UserFactory {
         user.setPhoneNumber(registerDTO.getPhoneNumber());
         user.setEmail(registerDTO.getEmail());
         user.setPassword(this.passwordHasher.hash(registerDTO.getPassword()));
+        user.setAddress(this.addressFactory.createFromDTO(registerDTO.getAddress()));
         user.setRoles(Collections.singletonList(UserRole.USER));
 
         return user;
