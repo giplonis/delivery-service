@@ -3,10 +3,12 @@ package lt.vu.application.user.factory;
 import lt.vu.application.address.factory.AddressFactory;
 import lt.vu.application.security.service.PasswordHasher;
 import lt.vu.persistence.orm.entities.User;
+import lt.vu.persistence.orm.entities.UserRole;
 import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.util.Collections;
 
 @RequestScoped
 public class UserFactory {
@@ -26,6 +28,7 @@ public class UserFactory {
         user.setEmail(registerDTO.getEmail());
         user.setPassword(this.passwordHasher.hash(registerDTO.getPassword()));
         user.setAddress(this.addressFactory.createFromDTO(registerDTO.getAddress()));
+        user.setRoles(Collections.singletonList(UserRole.USER));
 
         return user;
     }
