@@ -21,38 +21,40 @@ function Register() {
   const [loading, setLoading] = useState(false);
 
   const labels = [
-    { label: "First Name", name: "name", type: "text" },
-    { label: "City", name: "city", type: "text" },
+    { label: "First Name", name: "firstName", type: "text" },
+    { label: "City", name: "address.city", type: "text" },
     { label: "E-mail", name: "email", type: "text" },
     { label: "Password", name: "password", type: "password" },
-    { label: "Last Name", name: "surname", type: "text" },
-    { label: "Address", name: "address", type: "text" },
-    { label: "Phone Number", name: "number", type: "text" },
-    { label: "Confirm Password", name: "confirmPassword", type: "password" },
+    { label: "Last Name", name: "lastName", type: "text" },
+    { label: "Address", name: "address.street", type: "text" },
+    { label: "Phone Number", name: "phoneNumber", type: "text" },
+    { label: "Confirm Password", name: "passwordConfirm", type: "password" },
   ];
 
   const validationSchema = yup.object({
-    name: yup.string().required("Required").max(30, "First Name is too long!"),
-    surname: yup
+    firstName: yup.string().required("Required").max(30, "First Name is too long!"),
+    lastName: yup
       .string()
       .required("Required")
       .max(30, "Last Name is too long!"),
-    number: yup
+    phoneNumber: yup
       .string()
       .required("Required")
       .matches(
         /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
         "Invalid Phone Number!"
       ),
-    city: yup.string().required("Required").max(30, "City Name is too long!"),
-    address: yup.string().required("Required").max(50, "Address is too long!"),
+    address: yup.object({
+      city: yup.string().required("Required").max(30, "City Name is too long!"),
+      street: yup.string().required("Required").max(50, "Address is too long!"),
+    }),        
     email: yup.string().required("Required").email("Invalid E-mail"),
     password: yup
       .string()
       .required("Required")
       .max(50, "Your password is too long!")
       .min(8, "Password must be at least 8 characters long!"),
-    confirmPassword: yup
+    passwordConfirm: yup
       .string()
       .required("Required")
       .oneOf([yup.ref("password"), null], "Passwords don't match!"),
@@ -64,14 +66,16 @@ function Register() {
         <Header />
         <Formik
           initialValues={{
-            name: "",
-            surname: "",
-            city: "",
-            address: "",
+            firstName: "",
+            lastName: "",
+            address: {
+              city: "",
+              street: "",
+            },
             email: "",
-            number: "",
+            phoneNumber: "",
             password: "",
-            confirmPassword: "",
+            passwordConfirm: "",
           }}
           validationSchema={validationSchema}
           onSubmit={(data) => {
