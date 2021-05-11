@@ -71,15 +71,8 @@ function SendingInfo(props) {
       .typeError("Invalid date")
       .min(new Date(Date.now() - 86400000), "Back to the future!"),
   });
-  
-  const senderInfoObject = {
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    phoneNumber: user.phoneNumber,
-    address: { city: user.address.city, street: user.address.street },
-  };
-  const recipientInfoObject = {
+
+  const emptyUserInfoObject = {
     firstName: "",
     lastName: "",
     email: "",
@@ -87,14 +80,25 @@ function SendingInfo(props) {
     address: { city: "", street: "" },
   };
 
+  const userInfoObject = user
+    ? {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        address: { city: user.address.city, street: user.address.street },
+      }
+    : emptyUserInfoObject;
+  
+
   return (
     <Formik
       initialValues={
         !!props.formData
           ? props.formData
           : {
-              sender: senderInfoObject,
-              recipient: recipientInfoObject,
+              sender: userInfoObject,
+              recipient: emptyUserInfoObject,
               pickUpDate: selectedDate,
             }
       }
