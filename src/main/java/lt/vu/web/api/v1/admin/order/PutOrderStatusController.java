@@ -1,4 +1,4 @@
-package lt.vu.web.api.v1.controller.order;
+package lt.vu.web.api.v1.admin.order;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,9 +10,11 @@ import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.order.service.OrderStatusUpdater;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
+import lt.vu.persistence.orm.entities.OrderStatus;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.controller.security.CurrentUserAwareController;
-import lt.vu.web.api.v1.dto.order.PutOrderStatusDTO;
+import lt.vu.web.api.v1.admin.dto.order.PutOrderStatusDTO;
+import lt.vu.web.api.v1.dto.order.GetOrderDTO;
 import lt.vu.web.api.v1.dto.security.GetTokenDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
 
@@ -20,15 +22,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
-@Path("/update-order-status")
+@Path("/admin/orders/{id}/change-status")
 @RequestScoped
 public class PutOrderStatusController extends CurrentUserAwareController {
 
@@ -71,15 +69,14 @@ public class PutOrderStatusController extends CurrentUserAwareController {
         @RequestBody(
             required = true,
             content = @Content(schema = @Schema(implementation = PutOrderStatusDTO.class))
-        ) @Valid PutOrderStatusDTO putOrderStatusDTO) throws BadRequestException, NotFoundException {
+        ) @Valid PutOrderStatusDTO putOrderStatusDTO,
+        @PathParam("id") Integer orderId) throws BadRequestException, NotFoundException {
 
-        List<Order> orders = orderRepository.findById(putOrderStatusDTO.getId());
-        if(orders.size() < 1) {
-            //throw new NotFoundException();
-            return Response.status(404).build();
-        }
-        orderStatusUpdater.updateStatus(orders.get(0));
-        return Response.ok().build();
+
+        Order order = orderRepository.findById(orderId);
+        orderStatusUpdater.forceStatus(order, OrderStatus.valueOf(putOrderStatusDTO.getOrderStatus()));
+        order = orderRepository.findById(order.getId());
+        return Response.ok(GetOrderDTO.createFromEntity(order)).build();
     }
 
 }
