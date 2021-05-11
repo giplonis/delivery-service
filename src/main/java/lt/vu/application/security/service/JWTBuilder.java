@@ -17,6 +17,7 @@ public class JWTBuilder {
     public Token build(User user) {
         String jwt = Jwts.builder()
                 .claim(Claims.USER_ID, user.getId())
+                .claim(Claims.ROLES, user.getRoles())
                 .setIssuedAt(new Date())
                 .setIssuer(Claims.ISSUER)
                 // Expires after 30 minutes
