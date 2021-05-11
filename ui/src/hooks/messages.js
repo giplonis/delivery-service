@@ -19,6 +19,10 @@ export default function useMessage() {
     displayMessage(errorMessage, "error");
   }, [displayMessage])
 
-  return { displayError };
+  const displaySuccess = useCallback((successMessage) => {
+    displayMessage(successMessage, "success");
+  }, [displayMessage])
+
+  return { displayError, displaySuccess };
 }
 
