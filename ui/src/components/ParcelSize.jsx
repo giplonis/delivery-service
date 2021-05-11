@@ -4,18 +4,20 @@ import BoxImage from "../images/box.png";
 import ParcelSizeCard from "./ParcelSizeCard";
 import "../styles/SendingInfo.css";
 import AttributesSelection from "./AttributesSelection";
+import { getAdditionalPrice } from "../services/priceCalculation";
 
 function ParcelSize(props) {
   return (
     <div className="form-wrapper">
-      <Grid container justify="space-between" spacing={9}>
+      <Grid container justify="space-between" spacing={5}>
         {props.boxSizes.map((size, index) => (
-          <Grid item xs={4} key={index}>
+          <Grid item xs={3} key={index}>
             <ParcelSizeCard
               image={BoxImage}
               name={size.packageSize.title}
               selectedPackageSize={props.selectedBoxSize}
               onClick={props.onChange}
+              price={size.price + getAdditionalPrice(props.selectedAttributes)}
               dimensions={{
                 width: size.packageSize.width,
                 height: size.packageSize.height,

@@ -1,9 +1,9 @@
-package lt.vu.web.api.v1.dto.security;
+package lt.vu.web.api.v1.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.vu.infrastructure.validators.PasswordsMatch;
 import lt.vu.infrastructure.validators.PhoneNumber;
+import lt.vu.application.user.service.UserInfoDTO;
 import lt.vu.web.api.v1.dto.address.PostAddressDTO;
 
 import javax.validation.Valid;
@@ -13,24 +13,7 @@ import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 
 @Getter @Setter
-@PasswordsMatch
-public class PostRegisterDTO implements PasswordDTO {
-
-    @NotNull
-    @Email
-    @FormParam("email")
-    private String email;
-
-    @NotNull
-    @Size(min = 8)
-    @FormParam("password")
-    private String password;
-
-    @NotNull
-    @Size(min = 8)
-    @FormParam("passwordConfirm")
-    private String passwordConfirm;
-
+public class PutUserDTO implements UserInfoDTO {
     @Size(max = 50)
     @NotNull
     @FormParam("firstName")
@@ -40,6 +23,11 @@ public class PostRegisterDTO implements PasswordDTO {
     @NotNull
     @FormParam("lastName")
     private String lastName;
+
+    @NotNull
+    @Email
+    @FormParam("email")
+    private String email;
 
     @NotNull
     @PhoneNumber

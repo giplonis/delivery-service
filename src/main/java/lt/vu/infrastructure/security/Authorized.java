@@ -1,5 +1,7 @@
 package lt.vu.infrastructure.security;
 
+import lt.vu.persistence.orm.entities.UserRole;
+
 import javax.ws.rs.NameBinding;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,4 +15,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Authorized {
+
+    String role() default UserRole.USER;
 }

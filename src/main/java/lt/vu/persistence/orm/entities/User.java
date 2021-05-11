@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -39,6 +40,11 @@ public class User implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
+
+    @ElementCollection(targetClass = String.class)
+    @Column(name = "ROLE")
+    @CollectionTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") })
+    private List<String> roles;
 
     public User() {
     }
