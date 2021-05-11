@@ -3,10 +3,12 @@ import Form from "./components/Form";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import history from "./history";
+import DataLoader from "./components/DataLoader";
 
 function App() {
   const theme = createMuiTheme({
@@ -33,22 +35,24 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <SnackbarProvider>
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <Form />
-              </Route>
-              <Route path="/profile">
-                <Profile />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
-            </Switch>
-          </Router>
+          <DataLoader>
+            <Router history={history}>
+              <Switch>
+                <Route exact path="/">
+                  <Form />
+                </Route>
+                <Route path="/profile">
+                  <Profile />
+                </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route path="/register">
+                  <Register />
+                </Route>
+              </Switch>
+            </Router>
+          </DataLoader>
         </SnackbarProvider>
       </ThemeProvider>
     </div>

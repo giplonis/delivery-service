@@ -1,32 +1,28 @@
-
 import useMessage from "../hooks/messages";
-import { ATTRIBUTES } from "../config";
+import { ATTRIBUTES } from "../api/config";
 import React, { useEffect, useState } from "react";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from "@material-ui/lab/Skeleton";
+import axiosInstance from "../api/axiosInstance";
 
-export default function AttributesSelection(props){
-  const { displayError } = useMessage()
-  const [attributes, setAttributes] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const {toggleAttribute, selectedAttributes, ...rest} = props
+export default function AttributesSelection(props) {
+  const { displayError } = useMessage();
+  const [attributes, setAttributes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { toggleAttribute, selectedAttributes, ...rest } = props;
 
   useEffect(() => {
     (async function () {
       try {
-        const response = await fetch(ATTRIBUTES);
-        if(!response.ok)
-          throw new Error()
-        const responseJson = await response.json();
-        setAttributes(responseJson.data);
+        const response = await axiosInstance.get(ATTRIBUTES);
+        setAttributes(response.data);
       } catch (e) {
         displayError("Failed to load attributes");
-      }
-      finally {
-        setIsLoading(false)
+      } finally {
+        setIsLoading(false);
       }
     })();
-  }, [displayError])
+  }, [displayError]);
   return (
     <div className="form-inner" {...rest}>
       <div className="form-header">Select Attributes</div>
@@ -44,6 +40,7 @@ export default function AttributesSelection(props){
               ))
           : attributes.map((attribute) => (
               <FormControlLabel
+                style={{ color: "var(--gray)" }}
                 control={
                   <Checkbox
                     color="primary"
@@ -55,7 +52,9 @@ export default function AttributesSelection(props){
                     )}
                   />
                 }
-                label={attribute.label}
+                label={
+                  attribute.label + " +" + attribute.additionalPrice / 100 + "€"
+                }
               />
             ))}
       </div>

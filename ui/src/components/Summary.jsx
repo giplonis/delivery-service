@@ -10,47 +10,39 @@ import RecipientSummaryCard from "./SummaryCards/RecipientSummaryCard";
 import ParcelSizeSummaryCard from "./SummaryCards/ParcelSizeSummaryCard";
 import CreditCardModal from "./CreditCardModal";
 import useMessage from "../hooks/messages";
-import { ORDERS } from "../config";
+import { ORDERS } from "../api/config";
 import LoadingButton from "./LoadingButton";
+import axiosInstance from "../api/axiosInstance";
+import { getAdditionalPrice } from "../services/priceCalculation";
 
 function Summary(props) {
   const date = props.formData.pickUpDate;
   const [creditCardModalOpen, setCreditCardModalOpen] = useState(false);
   const { displayError } = useMessage();
-  const [isPostingOrder, setIsPostingOrder] = useState(false)
-
+  const [isPostingOrder, setIsPostingOrder] = useState(false);
 
   const orderObject = {
     ...props.formData,
     packageOptionId: props.selectedPackage.id,
-    attributes: props.selectedAttributes.map(attribute => attribute.id),
-  }
+    attributes: props.selectedAttributes.map((attribute) => attribute.id),
+  };
 
   const placeOrder = () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderObject),
-    };
     (async function () {
-      let success = true
-      setIsPostingOrder(true)
+      let success = true;
+      setIsPostingOrder(true);
       try {
-        const response = await fetch(ORDERS, requestOptions);
-        if(!response.ok)
-          throw new Error(response.message)
+        await axiosInstance.post(ORDERS, orderObject);
       } catch (e) {
-        success = false
+        success = false;
         displayError("Failed to place order");
+      } finally {
+        setIsPostingOrder(false);
       }
-      finally {
-        setIsPostingOrder(false)
-      }
-      if(success){
+      if (success) {
         props.onOrderSuccess();
       }
     })();
-    
   };
 
   const handleConfirmOrder = () => {
@@ -106,6 +98,10 @@ function Summary(props) {
                 selectedPackageSize={props.selectedPackage.packageSize}
                 selectedPackageType={props.selectedPackageType}
                 attributes={props.selectedAttributes}
+                price={
+                  props.selectedPackage.price +
+                  getAdditionalPrice(props.selectedAttributes)
+                }
               />
             </div>
           </ButtonBase>
@@ -134,6 +130,10 @@ function Summary(props) {
           open={creditCardModalOpen}
           toggleModal={toggleCreditCardModal}
           placeOrder={placeOrder}
+          price={
+            props.selectedPackage.price +
+            getAdditionalPrice(props.selectedAttributes)
+          }
         />
       </div>
     </div>

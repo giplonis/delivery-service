@@ -5,8 +5,13 @@ import ImageBox from "./ImageBox";
 function DocumentSizeCard(props) {
   return (
     <ButtonBase
-      className={props.selectedDocumentSize === props.name ? "selected-card w-100" : "w-100 scale-down"}
-      onClick={() => props.onClick(props.name)}>
+      className={
+        props.selectedDocumentSize === props.name
+          ? "selected-card w-100"
+          : "w-100 scale-down"
+      }
+      onClick={() => props.onClick(props.name)}
+    >
       <div className="form-inner form-inner-document w-100">
         <div className="form-header">{props.name}</div>
         <Grid container justify="flex-start" alignItems="center" spacing={3}>
@@ -18,6 +23,7 @@ function DocumentSizeCard(props) {
               <li>Max weight: {props.dimensions.weight}g</li>
               <li>Max length: {props.dimensions.length}cm</li>
               <li>Max width: {props.dimensions.width}cm</li>
+              <li>Price: {props.price / 100}€</li>
             </ul>
           </Grid>
         </Grid>

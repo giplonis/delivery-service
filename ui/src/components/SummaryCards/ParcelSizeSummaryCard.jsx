@@ -36,6 +36,7 @@ export default function ParcelSizeSummaryCard(props) {
               {props.attributes.map((attr) => (
                 <li>{attr.label}</li>
               ))}
+              <li>{props.price / 100}€</li>
             </ul>
           </Grid>
         </Grid>

@@ -7,6 +7,7 @@ import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import * as yup from "yup";
 import { Formik, Form, useField } from "formik";
+import { useSelector } from "react-redux";
 
 const CustomKeyboardDateTimePicker = ({ variant, format, margin, label, onChange, className, ...props }) => {
   const [fields, meta] = useField(props);
@@ -42,6 +43,7 @@ function SendingInfo(props) {
   ];
 
   const [selectedDate, setSelectedDate] = useState(null);
+  const user = useSelector((state) => state.userAuthentication.user);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -69,8 +71,21 @@ function SendingInfo(props) {
       .typeError("Invalid date")
       .min(new Date(Date.now() - 86400000), "Back to the future!"),
   });
-
-  const userInfoObject = { firstName: "", lastName: "", email: "", phoneNumber: "", address: {city: "", street: ""} };
+  
+  const senderInfoObject = {
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    address: { city: user.address.city, street: user.address.street },
+  };
+  const recipientInfoObject = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    address: { city: "", street: "" },
+  };
 
   return (
     <Formik
@@ -78,8 +93,8 @@ function SendingInfo(props) {
         !!props.formData
           ? props.formData
           : {
-              sender: userInfoObject,
-              recipient: userInfoObject,
+              sender: senderInfoObject,
+              recipient: recipientInfoObject,
               pickUpDate: selectedDate,
             }
       }
