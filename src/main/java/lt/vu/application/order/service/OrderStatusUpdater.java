@@ -26,4 +26,9 @@ public class OrderStatusUpdater {
         order.setStatus(OrderStatus.DELIVERED);
         this.orderRepository.update(order);
     }
+
+    public void forceStatus(Order order, OrderStatus orderStatus) {
+        order.setStatus(orderStatus);
+        this.orderRepository.update(order);
+    }
 }
