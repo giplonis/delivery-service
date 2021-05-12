@@ -32,7 +32,10 @@ function Register() {
   ];
 
   const validationSchema = yup.object({
-    firstName: yup.string().required("Required").max(30, "First Name is too long!"),
+    firstName: yup
+      .string()
+      .required("Required")
+      .max(30, "First Name is too long!"),
     lastName: yup
       .string()
       .required("Required")
@@ -47,7 +50,7 @@ function Register() {
     address: yup.object({
       city: yup.string().required("Required").max(30, "City Name is too long!"),
       street: yup.string().required("Required").max(50, "Address is too long!"),
-    }),        
+    }),
     email: yup.string().required("Required").email("Invalid E-mail"),
     password: yup
       .string()
@@ -93,7 +96,11 @@ function Register() {
                   displayError("Failed to update user.");
                 }
               } catch (e) {
-                displayError("Failed to register.");
+                if (e.response.data.message === "User already exists") {
+                  displayError("E-mail is already taken!");
+                } else {
+                  displayError("Failed to register.");
+                }
               } finally {
                 setLoading(false);
               }
