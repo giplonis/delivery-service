@@ -1,46 +1,62 @@
-import React from "react";
-import { Grid, Button } from "@material-ui/core";
+import React, { useState } from "react";
+import { Grid } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import Field from "./Field";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../styles/Register.css";
-import { getLoginPath } from "../services/navigation/paths";
+import { CURRENT_USER, REGISTER } from "../api/config";
+import { useDispatch } from "react-redux";
+import { setAuthToken, updateUser } from "../store/UserAuthentication/user-authentication-actions";
+import useMessage from "../hooks/messages";
+import LoadingButton from "./LoadingButton";
+import axiosInstance from "../api/axiosInstance";
+import { getLoginPath, getProfilePath } from "../services/navigation/paths";
 
 function Register() {
+  const dispatch = useDispatch();
+  const { displayError } = useMessage();
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
   const labels = [
-    { label: "First Name", name: "name", type: "text" },
-    { label: "City", name: "city", type: "text" },
+    { label: "First Name", name: "firstName", type: "text" },
+    { label: "City", name: "address.city", type: "text" },
     { label: "E-mail", name: "email", type: "text" },
     { label: "Password", name: "password", type: "password" },
-    { label: "Last Name", name: "surname", type: "text" },
-    { label: "Address", name: "address", type: "text" },
-    { label: "Phone Number", name: "number", type: "text" },
-    { label: "Confirm Password", name: "confirmPassword", type: "password" },
+    { label: "Last Name", name: "lastName", type: "text" },
+    { label: "Address", name: "address.street", type: "text" },
+    { label: "Phone Number", name: "phoneNumber", type: "text" },
+    { label: "Confirm Password", name: "passwordConfirm", type: "password" },
   ];
 
   const validationSchema = yup.object({
-    name: yup.string().required("Required").max(30, "First Name is too long!"),
-    surname: yup
+    firstName: yup
+      .string()
+      .required("Required")
+      .max(30, "First Name is too long!"),
+    lastName: yup
       .string()
       .required("Required")
       .max(30, "Last Name is too long!"),
-    number: yup
+    phoneNumber: yup
       .string()
       .required("Required")
       .matches(
         /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
         "Invalid Phone Number!"
       ),
-    city: yup.string().required("Required").max(30, "City Name is too long!"),
-    address: yup.string().required("Required").max(50, "Address is too long!"),
+    address: yup.object({
+      city: yup.string().required("Required").max(30, "City Name is too long!"),
+      street: yup.string().required("Required").max(50, "Address is too long!"),
+    }),
     email: yup.string().required("Required").email("Invalid E-mail"),
     password: yup
       .string()
       .required("Required")
       .max(50, "Your password is too long!")
       .min(8, "Password must be at least 8 characters long!"),
-    confirmPassword: yup
+    passwordConfirm: yup
       .string()
       .required("Required")
       .oneOf([yup.ref("password"), null], "Passwords don't match!"),
@@ -49,18 +65,42 @@ function Register() {
   return (
     <Formik
       initialValues={{
-        name: "",
-        surname: "",
-        city: "",
-        address: "",
+        firstName: "",
+        lastName: "",
+        address: {
+          city: "",
+          street: "",
+        },
         email: "",
-        number: "",
+        phoneNumber: "",
         password: "",
-        confirmPassword: "",
+        passwordConfirm: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(data) => {
         // Submit data here
+        (async function () {
+          setLoading(true);
+          try {
+            const responseToken = await axiosInstance.post(REGISTER, data);
+            dispatch(setAuthToken(responseToken.token));
+            try {
+              const responseUser = await axiosInstance.get(CURRENT_USER);
+              dispatch(updateUser(responseUser));
+              history.push(getProfilePath());
+            } catch (e) {
+              displayError("Failed to update user.");
+            }
+          } catch (e) {
+            if (e.response.data.message === "User already exists") {
+              displayError("E-mail is already taken!");
+            } else {
+              displayError("Failed to register.");
+            }
+          } finally {
+            setLoading(false);
+          }
+        })();
       }}
     >
       <Form>
@@ -97,14 +137,16 @@ function Register() {
                 <span className="auth-link">Log in here!</span>
               </Link>
             </div>
-            <Button
+            <LoadingButton
               color="primary"
               variant="contained"
               type="submit"
               className="auth-button"
+              loading={loading}
+              disabled={loading}
             >
               Register
-            </Button>
+            </LoadingButton>
           </div>
         </div>
       </Form>
