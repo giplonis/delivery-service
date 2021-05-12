@@ -1,7 +1,7 @@
 import React from "react";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import LocalShippingOutlinedIcon from "@material-ui/icons/LocalShippingOutlined";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import { Divider } from "@material-ui/core";
@@ -22,7 +22,7 @@ function Header() {
         <div className="d-flex ">
           <Link to="/order" className="remove-link-decoration d-flex">
             <div className="header-item mr-2">
-              <LocalShippingIcon />
+              <LocalShippingOutlinedIcon />
               Order
             </div>
           </Link>
