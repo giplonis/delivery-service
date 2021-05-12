@@ -3,6 +3,7 @@ import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 import "../styles/PaymentSuccess.css";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { getProfilePath } from "../services/navigation/paths";
 
 export default function PaymentSuccess() {
   return (
@@ -18,7 +19,7 @@ export default function PaymentSuccess() {
         color="primary"
         variant="contained"
         style={{ marginTop: 130 }}
-        component={(props) => <Link {...props} to={"/profile"} exact />}
+        component={(props) => <Link {...props} to={getProfilePath()} exact />}
       >
         Go To Orders
       </Button>

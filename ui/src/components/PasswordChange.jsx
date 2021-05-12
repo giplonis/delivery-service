@@ -6,10 +6,13 @@ import axiosInstance from "../api/axiosInstance";
 import useMessage from "../hooks/messages";
 import { USER_PASSWORD } from "../api/config";
 import LoadingButton from "./LoadingButton";
+import { useDispatch } from "react-redux";
+import { setAuthToken } from "../store/UserAuthentication/user-authentication-actions";
 
 function PasswordChange() {
   const { displayError, displaySuccess } = useMessage();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const labels = [
     { label: "Current Password", name: "oldPassword" },
@@ -51,7 +54,7 @@ function PasswordChange() {
           setLoading(true);
           try {
             const response = await axiosInstance.put(USER_PASSWORD, data);
-            localStorage.setItem("token", response.token);
+            dispatch(setAuthToken(response.token));
             resetForm();
             displaySuccess("Password changed successfully.");
           } catch (e) {

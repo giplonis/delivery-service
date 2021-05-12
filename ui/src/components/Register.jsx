@@ -1,12 +1,11 @@
 import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import { Container, Grid, Button } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import Field from "./Field";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import "../styles/Register.css";
+import { getLoginPath } from "../services/navigation/paths";
 
 function Register() {
   const labels = [
@@ -48,71 +47,68 @@ function Register() {
   });
 
   return (
-    <Container>
-      <div className="content-wrapper">
-        <Header />
-        <Formik
-          initialValues={{
-            name: "",
-            surname: "",
-            city: "",
-            address: "",
-            email: "",
-            number: "",
-            password: "",
-            confirmPassword: "",
-          }}
-          validationSchema={validationSchema}
-          onSubmit={(data) => {
-            // Submit data here
-          }}
-        >
-          <Form>
-            <div className="form-wrapper center-form">
-              <div className="form-inner">
-                <div className="form-header">Register</div>
-                <Grid container spacing={7}>
-                  <Grid item xs={6}>
-                    {labels.slice(0, 4).map((label, key) => (
-                      <Field
-                        key={key}
-                        name={label.name}
-                        label={label.label}
-                        type={label.type}
-                      />
-                    ))}
-                  </Grid>
-                  <Grid item xs={6}>
-                    {labels.slice(4, 8).map((label, key) => (
-                      <Field
-                        key={key}
-                        name={label.name}
-                        label={label.label}
-                        type={label.type}
-                      />
-                    ))}
-                  </Grid>
-                </Grid>
-                <div className="mt-2">
-                  <Link to="/login" className="remove-link-decoration d-flex">
-                    <span className="auth-link">Log in here!</span>
-                  </Link>
-                </div>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                  className="auth-button"
-                >
-                  Register
-                </Button>
-              </div>
+    <Formik
+      initialValues={{
+        name: "",
+        surname: "",
+        city: "",
+        address: "",
+        email: "",
+        number: "",
+        password: "",
+        confirmPassword: "",
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(data) => {
+        // Submit data here
+      }}
+    >
+      <Form>
+        <div className="form-wrapper center-form">
+          <div className="form-inner">
+            <div className="form-header">Register</div>
+            <Grid container spacing={7}>
+              <Grid item xs={6}>
+                {labels.slice(0, 4).map((label, key) => (
+                  <Field
+                    key={key}
+                    name={label.name}
+                    label={label.label}
+                    type={label.type}
+                  />
+                ))}
+              </Grid>
+              <Grid item xs={6}>
+                {labels.slice(4, 8).map((label, key) => (
+                  <Field
+                    key={key}
+                    name={label.name}
+                    label={label.label}
+                    type={label.type}
+                  />
+                ))}
+              </Grid>
+            </Grid>
+            <div className="mt-2">
+              <Link
+                to={getLoginPath()}
+                className="remove-link-decoration d-flex"
+              >
+                <span className="auth-link">Log in here!</span>
+              </Link>
             </div>
-          </Form>
-        </Formik>
-      </div>
-      <Footer />
-    </Container>
+            <Button
+              color="primary"
+              variant="contained"
+              type="submit"
+              className="auth-button"
+            >
+              Register
+            </Button>
+          </div>
+        </div>
+      </Form>
+    </Formik>
   );
 }
 

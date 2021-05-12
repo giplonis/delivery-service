@@ -9,6 +9,13 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import history from "./history";
 import DataLoader from "./components/DataLoader";
+import { UserRoute } from "./components/routes/UserRoute";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { Container } from "@material-ui/core";
+import { getAdminPath, getHomePath, getLoginPath, getProfilePath, getRegisterPath } from "./services/navigation/paths";
+import { AdminRoute } from "./components/routes/AdminRoute";
+
 
 function App() {
   const theme = createMuiTheme({
@@ -35,24 +42,33 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <SnackbarProvider>
-          <DataLoader>
-            <Router history={history}>
-              <Switch>
-                <Route exact path="/">
-                  <Form />
-                </Route>
-                <Route path="/profile">
-                  <Profile />
-                </Route>
-                <Route path="/login">
-                  <Login />
-                </Route>
-                <Route path="/register">
-                  <Register />
-                </Route>
-              </Switch>
-            </Router>
-          </DataLoader>
+          <Router history={history}>
+            <DataLoader>
+              <Container>
+                <div className="content-wrapper">
+                  <Header />
+                  <Switch>
+                    <Route exact path={getHomePath()}>
+                      <Form />
+                    </Route>
+                    <UserRoute path={getProfilePath()}>
+                      <Profile />
+                    </UserRoute>
+                    <Route path={getLoginPath()}>
+                      <Login />
+                    </Route>
+                    <Route path={getRegisterPath()}>
+                      <Register />
+                    </Route>
+                    <AdminRoute path={getAdminPath()}>
+                      
+                    </AdminRoute>
+                  </Switch>
+                </div>
+                <Footer />
+              </Container>
+            </DataLoader>
+          </Router>
         </SnackbarProvider>
       </ThemeProvider>
     </div>

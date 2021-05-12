@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
 import { CURRENT_USER } from "../api/config";
 import useMessage from "../hooks/messages";
-import { updateUser } from "../store/UserAuthentication/user-authentication-actions";
+import { setAuthToken, updateUser } from "../store/UserAuthentication/user-authentication-actions";
 
 export default function DataLoader({ children }) {
   const dispatch = useDispatch();
@@ -13,6 +13,10 @@ export default function DataLoader({ children }) {
   useEffect(() => {
     (async function () {
       setLoading(true);
+      const token = localStorage.getItem("token");
+      if (token) {
+        dispatch(setAuthToken(token));
+      }
       try {
         const response = await axiosInstance.get(CURRENT_USER);
         dispatch(updateUser(response));
