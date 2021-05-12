@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import history from "./history";
 import DataLoader from "./components/DataLoader";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const theme = createMuiTheme({
@@ -39,6 +40,9 @@ function App() {
             <Router history={history}>
               <Switch>
                 <Route exact path="/">
+                  <LandingPage />
+                </Route>
+                <Route path="/order">
                   <Form />
                 </Route>
                 <Route path="/profile">
