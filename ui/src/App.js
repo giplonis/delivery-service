@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import history from "./history";
 import DataLoader from "./components/DataLoader";
+import Admin from "./components/Admin";
 
 function App() {
   const theme = createMuiTheme({
@@ -49,6 +50,9 @@ function App() {
                 </Route>
                 <Route path="/register">
                   <Register />
+                </Route>
+                <Route path="/admin">
+                  <Admin />
                 </Route>
               </Switch>
             </Router>
