@@ -5,7 +5,7 @@ import { Container, Button } from "@material-ui/core";
 import LandingCarousel from "./LandingCarousel";
 import LandingPoints from "./LandingPoints";
 import LandingAboutUs from "./LandingAboutUs";
-import LandingPackageSizes from "./LandingPackageSIzes";
+import LandingPackageSizes from "./LandingPackageSizes";
 import { Link } from "react-router-dom";
 import "../styles/LandingPage.css";
 
