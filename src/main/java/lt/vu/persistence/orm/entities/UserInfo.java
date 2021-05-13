@@ -13,6 +13,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "USER_INFO")
+@NamedQueries({
+        @NamedQuery(name = "UserInfo.findOneByEmail", query = "select u from UserInfo u where u.email = :email"),
+})
 @Getter @Setter
 public class UserInfo implements Serializable {
 

@@ -2,19 +2,18 @@ package lt.vu.application.user.service;
 
 import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.user.exception.UserAlreadyExistsException;
-import lt.vu.persistence.orm.entities.User;
-import lt.vu.persistence.orm.repository.UserInfoRepository;
 import lt.vu.persistence.orm.repository.UserRepository;
-import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-public class EmailVerificator {
+@ApplicationScoped
+public class EmailValidator {
 
     @Inject
     UserRepository userRepository;
 
-    public void verify(String email) throws UserAlreadyExistsException {
+    public void validate(String email) throws UserAlreadyExistsException {
         try {
             this.userRepository.findOneByEmail(email);
 

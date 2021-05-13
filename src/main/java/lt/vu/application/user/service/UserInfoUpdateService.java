@@ -1,7 +1,7 @@
 package lt.vu.application.user.service;
 
+import lombok.SneakyThrows;
 import lt.vu.application.address.factory.AddressFactory;
-import lt.vu.application.user.exception.UserAlreadyExistsException;
 import lt.vu.persistence.orm.entities.User;
 import lt.vu.persistence.orm.repository.UserRepository;
 
@@ -17,10 +17,11 @@ public class UserInfoUpdateService {
     private UserRepository userRepository;
 
     @Inject
-    private EmailVerificator emailVerificator;
+    private EmailValidator emailValidator;
 
-    public void updateUser(User user, UserInfoDTO userInfoDTO) throws UserAlreadyExistsException {
-        this.emailVerificator.verify(userInfoDTO.getEmail());
+    @SneakyThrows
+    public void updateUser(User user, UserInfoDTO userInfoDTO) {
+        this.emailValidator.validate(userInfoDTO.getEmail());
 
         user.setEmail(userInfoDTO.getEmail());
         user.setFirstName(userInfoDTO.getFirstName());
