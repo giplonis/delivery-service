@@ -1,12 +1,18 @@
 import React from "react";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { Button, Divider } from "@material-ui/core";
+import SupervisedUserCircleOutlinedIcon from "@material-ui/icons/SupervisedUserCircleOutlined";
+import { Divider } from "@material-ui/core";
 import "../styles/Header.css";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../store/UserAuthentication/user-authentication-actions";
-import { getAdminPath, getHomePath, getLoginPath, getProfilePath } from "../services/navigation/paths";
+import {
+  getAdminPath,
+  getHomePath,
+  getLoginPath,
+  getProfilePath,
+} from "../services/navigation/paths";
 import { ADMIN_ROLE } from "../services/authentication/roles";
 
 function Header() {
@@ -23,19 +29,16 @@ function Header() {
         </Link>
         <div className="d-flex ">
           {roles.includes(ADMIN_ROLE) && (
-            <Button
-              color="primary"
-              variant="contained"
-              style={{
-                height:"32px",
-                width:"120px",
-                alignSelf: "center",
-                marginRight:"30px",
-              }}
-              component={(props) => <Link {...props} to={getAdminPath()} exact />}
+            <Link
+              to={getAdminPath()}
+              exact
+              className="remove-link-decoration d-flex"
             >
-              ADMIN
-            </Button>
+              <div className="mr-2 header-item">
+                <SupervisedUserCircleOutlinedIcon />
+                Admin
+              </div>
+            </Link>
           )}
           {user && (
             <Link
