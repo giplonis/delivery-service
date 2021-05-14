@@ -24,14 +24,10 @@
 
 .admin-modal-save {
   margin-left: auto !important;
+  padding: 2px 50px !important;
 }
 
 .admin-modal-buttons {
   display: flex !important;
   margin-bottom: 30px;
-}
-
-.admin-modal-delete {
-  border-color: red !important;
-  color: red !important;
 }

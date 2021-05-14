@@ -63,9 +63,6 @@ export default function OrderModal(props) {
           </Select>
         </div>
         <div className="admin-modal-buttons">
-          <Button variant="outlined" className="form-button admin-modal-delete">
-            Delete Order
-          </Button>
           <Button
             color="primary"
             variant="contained"
