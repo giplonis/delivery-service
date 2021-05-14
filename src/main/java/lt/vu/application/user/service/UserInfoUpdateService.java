@@ -1,5 +1,6 @@
 package lt.vu.application.user.service;
 
+import lombok.SneakyThrows;
 import lt.vu.application.address.factory.AddressFactory;
 import lt.vu.persistence.orm.entities.User;
 import lt.vu.persistence.orm.repository.UserRepository;
@@ -15,7 +16,13 @@ public class UserInfoUpdateService {
     @Inject
     private UserRepository userRepository;
 
-    public void updateUser(User user, UserInfoDTO userInfoDTO){
+    @Inject
+    private EmailValidator emailValidator;
+
+    @SneakyThrows
+    public void updateUser(User user, UserInfoDTO userInfoDTO) {
+        this.emailValidator.validate(userInfoDTO.getEmail());
+
         user.setEmail(userInfoDTO.getEmail());
         user.setFirstName(userInfoDTO.getFirstName());
         user.setLastName(userInfoDTO.getLastName());
