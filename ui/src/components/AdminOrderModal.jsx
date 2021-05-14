@@ -60,6 +60,7 @@ export default function OrderModal(props) {
           >
             <MenuItem value={"NEW"}>NEW</MenuItem>
             <MenuItem value={"DELIVERED"}>DELIVERED</MenuItem>
+            <MenuItem value={"CANCELED"}>CANCELED</MenuItem>
           </Select>
         </div>
         <div className="admin-modal-buttons">
