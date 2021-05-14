@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
-import { Container } from "@material-ui/core";
-import Footer from "./Footer";
-import Header from "./Header";
 import Field from "./Field";
 import { Link, useHistory } from "react-router-dom";
 import "../styles/Login.css";
 import axiosInstance from "../api/axiosInstance";
 import { CURRENT_USER, LOGIN } from "../api/config";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../store/UserAuthentication/user-authentication-actions";
+import { setAuthToken, updateUser } from "../store/UserAuthentication/user-authentication-actions";
 import useMessage from "../hooks/messages";
 import LoadingButton from "./LoadingButton";
+import { getHomePath, getRegisterPath } from "../services/navigation/paths";
 
 function Login() {
   const validationSchema = yup.object({
@@ -30,9 +28,6 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   return (
-    <Container>
-      <div className="content-wrapper">
-        <Header />
         <Formik
           initialValues={{
             email: "",
@@ -45,10 +40,10 @@ function Login() {
               setLoading(true);
               try {
                 const responseToken = await axiosInstance.post(LOGIN, data);
-                localStorage.setItem("token", responseToken.token);
+                dispatch(setAuthToken(responseToken.token));
                 const responseUser = await axiosInstance.get(CURRENT_USER);
                 dispatch(updateUser(responseUser));
-                history.push("/");
+                history.push(getHomePath());
               } catch (e) {
                 displayError("Failed to login.");
               } finally {
@@ -65,7 +60,7 @@ function Login() {
                 <Field label="Password" name="password" type="password" />
                 <div className="d-flex mt-2">
                   <Link
-                    to="/register"
+                    to={getRegisterPath()}
                     className="remove-link-decoration d-flex"
                   >
                     <span className="auth-link">Sign up here!</span>
@@ -86,9 +81,6 @@ function Login() {
             </div>
           </Form>
         </Formik>
-      </div>
-      <Footer />
-    </Container>
   );
 }
 
