@@ -16,8 +16,8 @@ function PersonalData() {
   const user = useSelector((state) => state.userAuthentication.user);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const {displayError, displaySuccess} = useMessage();
-  
+  const { displayError, displaySuccess } = useMessage();
+
   const labels = [
     { label: "First Name", name: "firstName" },
     { label: "Last Name", name: "lastName" },
@@ -28,13 +28,22 @@ function PersonalData() {
   ];
 
   const validationSchema = yup.object({
-    firstName: yup.string().required("Required").max(30, "First Name is too long!"),
-    lastName: yup.string().required("Required").max(30, "Last Name is too long!"),
+    firstName: yup
+      .string()
+      .required("Required")
+      .max(30, "First Name is too long!"),
+    lastName: yup
+      .string()
+      .required("Required")
+      .max(30, "Last Name is too long!"),
     email: yup.string().required("Required").email("Invalid E-mail"),
     phoneNumber: yup
       .string()
       .required("Required")
-      .matches(/^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/, "Invalid Phone Number!"),
+      .matches(
+        /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/,
+        "Invalid Phone Number!"
+      ),
     address: yup.object({
       city: yup.string().required("Required").max(30, "City Name is too long!"),
       street: yup.string().required("Required").max(50, "Address is too long!"),
@@ -63,7 +72,11 @@ function PersonalData() {
           dispatch(updateUser(responseUser));
           displaySuccess("Personal data updated successfully!");
         } catch (e) {
-          displayError("Failed to update profile data.");
+          if (e.response.data.message === "User already exists") {
+            displayError("E-mail is already in use!");
+          } else {
+            displayError("Failed to update profile data.");
+          }
         } finally {
           setLoading(false);
         }
