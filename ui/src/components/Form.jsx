@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SendingInfo from "./SendingInfo";
-import Header from "./Header";
-import Footer from "./Footer";
 import DocumentSize from "./DocumentSize";
-import { Container, LinearProgress } from "@material-ui/core";
+import { LinearProgress } from "@material-ui/core";
 import "../styles/Form.css";
 import ParcelSize from "./ParcelSize";
 import ParcelType from "./ParcelType";
@@ -186,15 +184,7 @@ function Form() {
     }
   }
   return (
-    <div>
-      <Container>
-        <div className="content-wrapper">
-          <Header />
-          {selectPage()}
-        </div>
-        <Footer />
-      </Container>
-    </div>
+    selectPage()
   );
 }
 
