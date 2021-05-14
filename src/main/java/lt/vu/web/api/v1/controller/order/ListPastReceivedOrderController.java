@@ -37,18 +37,18 @@ public class ListPastReceivedOrderController extends CurrentUserAwareController 
     @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
-            summary = "Fetch list of user's past received orders",
-            tags = { "Order" },
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "500",
-                            content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
-                    )
-            }
+        summary = "Fetch list of user's past received orders",
+        tags = { "Order" },
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+            )
+        }
     )
     public Response listAction() {
         // This acts as a fake cronjob to update old order statuses into DELIVERED
