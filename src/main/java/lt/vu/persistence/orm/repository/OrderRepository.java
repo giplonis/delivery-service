@@ -2,6 +2,7 @@ package lt.vu.persistence.orm.repository;
 
 import lt.vu.application.order.exception.OrderNotFoundException;
 import lt.vu.persistence.orm.entities.Order;
+import lt.vu.persistence.orm.entities.OrderStatus;
 import lt.vu.persistence.orm.entities.User;
 
 import javax.enterprise.context.RequestScoped;
@@ -56,5 +57,13 @@ public class OrderRepository {
         } catch (NoResultException e) {
             throw new OrderNotFoundException();
         }
+    }
+
+    public List<Order> findPastOrdersByRecipient(User recipient) {
+        return this.entityManager
+                .createNamedQuery("Order.findByRecipient", Order.class)
+                .setParameter("email", recipient.getEmail())
+                .setParameter("status", OrderStatus.DELIVERED)
+                .getResultList();
     }
 }
