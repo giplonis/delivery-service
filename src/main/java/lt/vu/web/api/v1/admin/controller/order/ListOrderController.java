@@ -1,14 +1,13 @@
-package lt.vu.web.api.v1.controller.order;
+package lt.vu.web.api.v1.admin.controller.order;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lt.vu.application.order.service.OrderStatusUpdater;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
+import lt.vu.persistence.orm.entities.UserRole;
 import lt.vu.persistence.orm.repository.OrderRepository;
-import lt.vu.web.api.v1.controller.security.CurrentUserAwareController;
 import lt.vu.web.api.v1.dto.order.ListOrderDTO;
 import lt.vu.web.api.v1.dto.order.GetOrderDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
@@ -22,22 +21,19 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/orders")
+@Path("/admin/orders")
 @RequestScoped
-public class ListOrderController extends CurrentUserAwareController {
+public class ListOrderController {
 
     @Inject
     private OrderRepository orderRepository;
 
-    @Inject
-    private OrderStatusUpdater orderStatusUpdater;
-
     @GET
     @Path("/")
-    @Authorized
+    @Authorized(role = UserRole.ADMIN)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
-        summary = "Fetch list of user's orders",
+        summary = "Fetch a complete list of all orders",
         tags = { "Order" },
         responses = {
             @ApiResponse(
@@ -45,20 +41,17 @@ public class ListOrderController extends CurrentUserAwareController {
                 content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
             ),
             @ApiResponse(
-                responseCode = "500",
+                responseCode = "400",
                 content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             )
         }
     )
     public Response listAction() {
-        // This acts as a fake cronjob to update old order statuses into DELIVERED
-        this.orderStatusUpdater.updateNewOrders();
-
-        List<Order> orders = this.orderRepository.findByUser(this.user);
+        List<Order> orders = this.orderRepository.findAll();
 
         return Response
                 .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))
