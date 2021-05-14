@@ -2,161 +2,36 @@ import React, { useEffect, useState } from "react";
 import { Divider, Grid, List, ListItem, Typography } from "@material-ui/core";
 import StatusIcon from "./StatusIcon";
 import useMessage from "../hooks/messages";
-import OrderModal from "./OrderModal";
+import AdminOrderModal from "./AdminOrderModal";
+import { ADMIN_ORDERS } from "../api/config";
+import axiosInstance from "../api/axiosInstance";
+import "../styles/Admin.css";
 
 function AdminOrders() {
-  var orders = [
-    {
-      id: 1,
-      createdAt: 1620919721388,
-      status: "DELIVERED",
-      pickupDateTime: 1621092521388,
-      totalPrice: 42069,
-      senderInfo: {
-        id: 1,
-        firstName: "Jonas",
-        lastName: "Jonauskas",
-        email: "jonas@gmail.com",
-        phoneNumber: "862594785",
-        address: {
-          id: 1,
-          city: "Vilnius",
-          street: "Antakalnio g., 32",
-        },
-      },
-      recipientInfo: {
-        id: 1,
-        firstName: "Jonas",
-        lastName: "Jonauskas",
-        email: "jonas@gmail.com",
-        phoneNumber: "862594785",
-        address: {
-          id: 1,
-          city: "Vilnius",
-          street: "Antakalnio g., 32",
-        },
-      },
-      sender: null,
-      packageOption: {
-        id: 1,
-        price: 80,
-        packageSize: {
-          id: 4,
-          title: "Small Letter",
-          maxWeight: 100,
-          length: 165,
-          height: 240,
-          width: 5,
-        },
-        packageType: {
-          id: 1,
-          title: "Document",
-          description: "Send a document",
-        },
-      },
-      attributes: [],
-    },
-    {
-      id: 3,
-      createdAt: 1620919721388,
-      status: "DELIVERED",
-      pickupDateTime: 1621092521388,
-      totalPrice: 42069,
-      senderInfo: {
-        id: 1,
-        firstName: "Jonas",
-        lastName: "Jonauskas",
-        email: "jonas@gmail.com",
-        phoneNumber: "862594785",
-        address: {
-          id: 1,
-          city: "Vilnius",
-          street: "Antakalnio g., 32",
-        },
-      },
-      recipientInfo: {
-        id: 1,
-        firstName: "Jonas",
-        lastName: "Jonauskas",
-        email: "jonas@gmail.com",
-        phoneNumber: "862594785",
-        address: {
-          id: 1,
-          city: "Vilnius",
-          street: "Antakalnio g., 32",
-        },
-      },
-      sender: null,
-      packageOption: {
-        id: 1,
-        price: 80,
-        packageSize: {
-          id: 4,
-          title: "Small Letter",
-          maxWeight: 100,
-          length: 165,
-          height: 240,
-          width: 5,
-        },
-        packageType: {
-          id: 1,
-          title: "Document",
-          description: "Send a document",
-        },
-      },
-      attributes: [],
-    },
-    {
-      id: 1,
-      createdAt: 1620919721388,
-      status: "DELIVERED",
-      pickupDateTime: 1621092521388,
-      totalPrice: 42069,
-      senderInfo: {
-        id: 1,
-        firstName: "Jonas",
-        lastName: "Jonauskas",
-        email: "jonas@gmail.com",
-        phoneNumber: "862594785",
-        address: {
-          id: 1,
-          city: "Vilnius",
-          street: "Antakalnio g., 32",
-        },
-      },
-      recipientInfo: {
-        id: 1,
-        firstName: "Jonas",
-        lastName: "Jonauskas",
-        email: "jonas@gmail.com",
-        phoneNumber: "862594785",
-        address: {
-          id: 1,
-          city: "Vilnius",
-          street: "Antakalnio g., 32",
-        },
-      },
-      sender: null,
-      packageOption: {
-        id: 1,
-        price: 80,
-        packageSize: {
-          id: 4,
-          title: "Small Letter",
-          maxWeight: 100,
-          length: 165,
-          height: 240,
-          width: 5,
-        },
-        packageType: {
-          id: 1,
-          title: "Document",
-          description: "Send a document",
-        },
-      },
-      attributes: [],
-    },
-  ];
+  const [orders, setOrders] = useState([]);
+  const { displayError } = useMessage();
+
+  const handleStatusChange = (id, status) => {
+    const orderArray = [...orders];
+    orderArray.find((o) => o.id === id).status = status;
+    setOrders(orderArray);
+  };
+
+  useEffect(() => {
+    (async function fetchData() {
+      try {
+        const response = await axiosInstance.get(ADMIN_ORDERS);
+        for (let index in response.data) {
+          response.data[index].pickupDateTime = new Date(
+            response.data[index].pickupDateTime
+          );
+        }
+        setOrders(response.data);
+      } catch (e) {
+        displayError("Failed to load orders.");
+      }
+    })();
+  }, [displayError]);
 
   function OrderInfo(props) {
     return (
@@ -180,27 +55,42 @@ function AdminOrders() {
     <div className="form-wrapper">
       <div className="form-inner">
         <div className="form-header">Orders</div>
-        <List>
+        <List className="admin-list">
           {orders.length > 0 ? (
             orders.map((order, index) => (
               <div key={index}>
                 <ListItem button onClick={() => selectOrder(order)}>
                   <Grid container>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                       <OrderInfo title="Status" description={order.status}>
                         <StatusIcon status={order.status} />
                       </OrderInfo>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
+                      <OrderInfo
+                        title="Sender"
+                        description={`${order.senderInfo.firstName} ${order.senderInfo.lastName}`}
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
                       <OrderInfo
                         title="Recipient"
                         description={`${order.recipientInfo.firstName} ${order.recipientInfo.lastName}`}
                       />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                       <OrderInfo
-                        title="Package"
-                        description={order.packageOption.packageType.title}
+                        title="Ordered"
+                        description={new Date(
+                          order.createdAt
+                        ).toLocaleDateString("lt", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}
                       />
                     </Grid>
                   </Grid>
@@ -213,7 +103,8 @@ function AdminOrders() {
           )}
         </List>
         {selectedOrder && (
-          <OrderModal
+          <AdminOrderModal
+            handleStatusChange={handleStatusChange}
             order={selectedOrder}
             open={selectedOrder !== null}
             onClose={selectOrder}

@@ -8,3 +8,4 @@ export const REGISTER = API_HOME + "register";
 export const CURRENT_USER = API_HOME + "current-user";
 export const USER_PASSWORD = API_HOME + "user/password";
 export const USER_INFO = API_HOME + "user-info";
+export const ADMIN_ORDERS = API_HOME + "admin/orders";

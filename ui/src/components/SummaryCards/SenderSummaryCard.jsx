@@ -18,7 +18,7 @@ export default function SenderSummaryCard(props) {
               <li>Phone Number: {props.sender.phoneNumber}</li>
               <li>
                 Pick Up Date:{" "}
-                {props.pickUpDate.toLocaleString("en-US", {
+                {props.pickUpDate.toLocaleString("lt", {
                   year: "numeric",
                   month: "2-digit",
                   day: "2-digit",
