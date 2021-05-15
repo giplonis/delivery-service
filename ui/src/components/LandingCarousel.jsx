@@ -7,6 +7,7 @@ import Courier3 from "../images/courier3.jpg";
 import "../styles/LandingCarousel.css";
 import { Button, Divider } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { getOrderPath } from "../services/navigation/paths";
 
 function LandingCarousel() {
   return (
@@ -25,7 +26,7 @@ function LandingCarousel() {
               Adding Speed to your Deliveries
               <Divider className="carousel-divider" />
             </div>
-            <Link to="/order" className="remove-link-decoration">
+            <Link to={getOrderPath()} className="remove-link-decoration">
               <Button
                 color="primary"
                 variant="contained"
@@ -43,7 +44,7 @@ function LandingCarousel() {
               When Trust is a Must
               <Divider className="carousel-divider" />
             </div>
-            <Link to="/order" className="remove-link-decoration">
+            <Link to={getOrderPath()} className="remove-link-decoration">
               <Button
                 color="primary"
                 variant="contained"
@@ -61,7 +62,7 @@ function LandingCarousel() {
               Always on time
               <Divider className="carousel-divider" />
             </div>
-            <Link to="/order" className="remove-link-decoration">
+            <Link to={getOrderPath()} className="remove-link-decoration">
               <Button
                 color="primary"
                 variant="contained"
