@@ -5,6 +5,8 @@ import useMessage from "../hooks/messages";
 import AdminOrderModal from "./AdminOrderModal";
 import { ADMIN_ORDERS } from "../api/config";
 import axiosInstance from "../api/axiosInstance";
+import OrderInfo from "./OrderInfo";
+import { getDateString } from "../services/dateFormat";
 import "../styles/Admin.css";
 
 function AdminOrders() {
@@ -32,16 +34,6 @@ function AdminOrders() {
       }
     })();
   }, [displayError]);
-
-  function OrderInfo(props) {
-    return (
-      <span className="order-info-field-wrapper">
-        <span className="order-info-field-title">{props.title}:</span>
-        {props.children}
-        <span className="order-description">{props.description}</span>
-      </span>
-    );
-  }
 
   const [selectedOrder, setSelectedOrder] = useState(null);
   const selectOrder = (order) => {
@@ -81,16 +73,7 @@ function AdminOrders() {
                     <Grid item xs={3}>
                       <OrderInfo
                         title="Ordered"
-                        description={new Date(
-                          order.createdAt
-                        ).toLocaleDateString("lt", {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: false,
-                        })}
+                        description={getDateString(order.createdAt)}
                       />
                     </Grid>
                   </Grid>

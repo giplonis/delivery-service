@@ -6,6 +6,7 @@ import StatusIcon from "./StatusIcon";
 import { ORDERS } from "../api/config";
 import useMessage from "../hooks/messages";
 import axiosInstance from "../api/axiosInstance";
+import OrderInfo from "./OrderInfo";
 
 export default function OrderHistory() {
   const [orders, setOrders] = useState([]);
@@ -33,16 +34,6 @@ export default function OrderHistory() {
       return null;
     });
   };
-
-  function OrderInfo(props) {
-    return (
-      <span className="order-info-field-wrapper">
-        <span className="order-info-field-title">{props.title}:</span>
-        {props.children}
-        <span className="order-description">{props.description}</span>
-      </span>
-    );
-  }
 
   return (
     <div className="form-wrapper">

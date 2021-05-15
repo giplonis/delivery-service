@@ -2,6 +2,7 @@
   max-height: 300px;
   overflow-y: scroll;
   padding-right: 30px !important;
+  overflow: auto;
 }
 
 .admin-modal-status {
