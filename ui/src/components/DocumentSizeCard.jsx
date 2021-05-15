@@ -11,7 +11,7 @@ function DocumentSizeCard(props) {
           : "w-100 scale-down"
       }
       onClick={() =>
-        props.onClick !== undefined ? props.onClick(props.name) : ""
+        props.onClick !== undefined ? props.onClick(props.name) : undefined
       }
     >
       <div className="form-inner form-inner-document w-100">

@@ -43,23 +43,22 @@ function LandingPackageSizes() {
         </h2>
         <div className="form-wrapper">
           <Grid container justify="space-between" spacing={5}>
-            {parcelSizes === undefined
-              ? ""
-              : parcelSizes.map((size, index) => (
-                  <Grid item xs={3} key={index}>
-                    <ParcelSizeCard
-                      image={BoxImage}
-                      name={size.packageSize.title}
-                      price={size.price}
-                      dimensions={{
-                        width: size.packageSize.width,
-                        height: size.packageSize.height,
-                        length: size.packageSize.length,
-                        weight: size.packageSize.maxWeight / 1000,
-                      }}
-                    />
-                  </Grid>
-                ))}
+            {!!parcelSizes &&
+              parcelSizes.map((size, index) => (
+                <Grid item xs={3} key={index}>
+                  <ParcelSizeCard
+                    image={BoxImage}
+                    name={size.packageSize.title}
+                    price={size.price}
+                    dimensions={{
+                      width: size.packageSize.width,
+                      height: size.packageSize.height,
+                      length: size.packageSize.length,
+                      weight: size.packageSize.maxWeight / 1000,
+                    }}
+                  />
+                </Grid>
+              ))}
           </Grid>
         </div>
       </div>
@@ -75,22 +74,21 @@ function LandingPackageSizes() {
         </h2>
         <div className="form-wrapper">
           <Grid container justify="space-between" spacing={9}>
-            {letterSizes === undefined
-              ? ""
-              : letterSizes.map((size, index) => (
-                  <Grid item xs={6} key={index}>
-                    <DocumentSizeCard
-                      image={LetterImage}
-                      name={size.packageSize.title}
-                      price={size.price}
-                      dimensions={{
-                        weight: size.packageSize.maxWeight,
-                        length: size.packageSize.length,
-                        width: size.packageSize.width,
-                      }}
-                    />
-                  </Grid>
-                ))}
+            {!!letterSizes &&
+              letterSizes.map((size, index) => (
+                <Grid item xs={6} key={index}>
+                  <DocumentSizeCard
+                    image={LetterImage}
+                    name={size.packageSize.title}
+                    price={size.price}
+                    dimensions={{
+                      weight: size.packageSize.maxWeight,
+                      length: size.packageSize.length,
+                      width: size.packageSize.width,
+                    }}
+                  />
+                </Grid>
+              ))}
           </Grid>
         </div>
       </div>
