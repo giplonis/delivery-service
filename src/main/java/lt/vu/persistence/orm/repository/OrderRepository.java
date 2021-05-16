@@ -5,15 +5,19 @@ import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.entities.OrderStatus;
 import lt.vu.persistence.orm.entities.User;
 
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
 @RequestScoped
 public class OrderRepository {
+
+    private boolean needsToUploadData = false;
 
     @Inject
     private EntityManager entityManager;
@@ -23,6 +27,7 @@ public class OrderRepository {
     }
 
     public void update(Order instance) {
+        this.needsToUploadData = true;
         this.entityManager.merge(instance);
     }
 
@@ -65,5 +70,12 @@ public class OrderRepository {
                 .setParameter("email", recipient.getEmail())
                 .setParameter("status", OrderStatus.DELIVERED)
                 .getResultList();
+    }
+
+    @PreDestroy
+    @Transactional
+    public void saveChangesToDatabaseIfNeeded() {
+        if (needsToUploadData)
+            this.entityManager.flush();
     }
 }
