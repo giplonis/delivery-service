@@ -1,20 +1,28 @@
+import React, { useEffect, useState } from "react";
 import { Divider, Grid, List, ListItem, Typography } from "@material-ui/core";
-import { useEffect, useState } from "react";
-import OrderModal from "./OrderModal";
-import "../styles/OrderHistory.css";
 import StatusIcon from "./StatusIcon";
-import { ORDERS } from "../api/config";
 import useMessage from "../hooks/messages";
+import AdminOrderModal from "./AdminOrderModal";
+import { ADMIN_ORDERS } from "../api/config";
 import axiosInstance from "../api/axiosInstance";
 import OrderInfo from "./OrderInfo";
+import { getDateString } from "../services/dateFormat";
+import "../styles/Admin.css";
 
-export default function OrderHistory() {
+function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const { displayError } = useMessage();
+
+  const handleStatusChange = (id, status) => {
+    const orderArray = [...orders];
+    orderArray.find((o) => o.id === id).status = status;
+    setOrders(orderArray);
+  };
+
   useEffect(() => {
     (async function fetchData() {
       try {
-        const response = await axiosInstance.get(ORDERS);
+        const response = await axiosInstance.get(ADMIN_ORDERS);
         for (let index in response.data) {
           response.data[index].pickupDateTime = new Date(
             response.data[index].pickupDateTime
@@ -38,28 +46,34 @@ export default function OrderHistory() {
   return (
     <div className="form-wrapper">
       <div className="form-inner">
-        <div className="form-header">Order History</div>
-        <List>
+        <div className="form-header">Orders</div>
+        <List className="admin-list">
           {orders.length > 0 ? (
             orders.map((order, index) => (
               <div key={index}>
                 <ListItem button onClick={() => selectOrder(order)}>
                   <Grid container>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                       <OrderInfo title="Status" description={order.status}>
                         <StatusIcon status={order.status} />
                       </OrderInfo>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
+                      <OrderInfo
+                        title="Sender"
+                        description={`${order.senderInfo.firstName} ${order.senderInfo.lastName}`}
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
                       <OrderInfo
                         title="Recipient"
                         description={`${order.recipientInfo.firstName} ${order.recipientInfo.lastName}`}
                       />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                       <OrderInfo
-                        title="Package"
-                        description={order.packageOption.packageType.title}
+                        title="Ordered"
+                        description={getDateString(order.createdAt)}
                       />
                     </Grid>
                   </Grid>
@@ -72,7 +86,8 @@ export default function OrderHistory() {
           )}
         </List>
         {selectedOrder && (
-          <OrderModal
+          <AdminOrderModal
+            handleStatusChange={handleStatusChange}
             order={selectedOrder}
             open={selectedOrder !== null}
             onClose={selectOrder}
@@ -82,3 +97,5 @@ export default function OrderHistory() {
     </div>
   );
 }
+
+export default AdminOrders;

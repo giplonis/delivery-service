@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
+import { getDateString } from "../../services/dateFormat";
 
 export default function SenderSummaryCard(props) {
   return (
@@ -16,17 +17,7 @@ export default function SenderSummaryCard(props) {
                 {props.sender.address.street}, {props.sender.address.city}
               </li>
               <li>Phone Number: {props.sender.phoneNumber}</li>
-              <li>
-                Pick Up Date:{" "}
-                {props.pickUpDate.toLocaleString("en-US", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: false,
-                })}
-              </li>
+              <li>Pick Up Date: {getDateString(props.pickUpDate)}</li>
             </ul>
           </Grid>
         </Grid>

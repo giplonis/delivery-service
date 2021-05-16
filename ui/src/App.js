@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import history from "./history";
 import DataLoader from "./components/DataLoader";
+import Admin from "./components/Admin";
 import LandingPage from "./components/LandingPage";
 import { UserRoute } from "./components/routes/UserRoute";
 import Header from "./components/Header";
@@ -70,7 +71,9 @@ function App() {
                     <Route path={getRegisterPath()}>
                       <Register />
                     </Route>
-                    <AdminRoute path={getAdminPath()}></AdminRoute>
+                    <AdminRoute path={getAdminPath()}>
+                      <Admin />
+                    </AdminRoute>
                   </Switch>
                 </div>
                 <Footer />

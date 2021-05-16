@@ -34,11 +34,7 @@ function Header() {
         </Link>
         <div className="d-flex ">
           {roles.includes(ADMIN_ROLE) && (
-            <Link
-              to={getAdminPath()}
-              exact
-              className="remove-link-decoration d-flex"
-            >
+            <Link to={getAdminPath()} className="remove-link-decoration d-flex">
               <div className="mr-2 header-item">
                 <SupervisedUserCircleOutlinedIcon />
                 Admin
