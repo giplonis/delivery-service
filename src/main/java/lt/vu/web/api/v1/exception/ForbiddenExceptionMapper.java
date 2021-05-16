@@ -16,7 +16,7 @@ public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenExcept
 
     @Override
     public Response toResponse(ForbiddenException e) {
-        this.logger.error(e);
+        this.logger.warning(e);
 
         return Response
                 .status(Response.Status.FORBIDDEN)

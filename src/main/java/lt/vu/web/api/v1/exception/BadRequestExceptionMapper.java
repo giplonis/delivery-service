@@ -16,7 +16,7 @@ public class BadRequestExceptionMapper implements ExceptionMapper<BadRequestExce
 
     @Override
     public Response toResponse(BadRequestException e) {
-        this.logger.error(e);
+        this.logger.warning(e);
 
         return Response
                 .status(Response.Status.BAD_REQUEST)
