@@ -1,6 +1,9 @@
 import React from "react";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import LocalShippingOutlinedIcon from "@material-ui/icons/LocalShippingOutlined";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import SupervisedUserCircleOutlinedIcon from "@material-ui/icons/SupervisedUserCircleOutlined";
 import { Divider } from "@material-ui/core";
 import "../styles/Header.css";
@@ -12,6 +15,8 @@ import {
   getHomePath,
   getLoginPath,
   getProfilePath,
+  getOrderPath,
+  getRegisterPath,
 } from "../services/navigation/paths";
 import { ADMIN_ROLE } from "../services/authentication/roles";
 
@@ -36,6 +41,12 @@ function Header() {
               </div>
             </Link>
           )}
+          <Link to={getOrderPath()} className="remove-link-decoration d-flex">
+            <div className="header-item mr-2">
+              <LocalShippingOutlinedIcon />
+              Order
+            </div>
+          </Link>
           {user && (
             <Link
               to={getProfilePath()}
@@ -62,12 +73,26 @@ function Header() {
               </div>
             </Link>
           ) : (
-            <Link to={getLoginPath()} className="remove-link-decoration d-flex">
-              <div className=" header-item">
-                <ExitToAppIcon />
-                Log In
-              </div>
-            </Link>
+            <>
+              <Link
+                to={getLoginPath()}
+                className="remove-link-decoration d-flex"
+              >
+                <div className=" header-item mr-2">
+                  <LockOpenIcon />
+                  Log In
+                </div>
+              </Link>
+              <Link
+                to={getRegisterPath()}
+                className="remove-link-decoration d-flex"
+              >
+                <div className=" header-item">
+                  <PersonAddIcon />
+                  Sign In
+                </div>
+              </Link>
+            </>
           )}
         </div>
       </div>
