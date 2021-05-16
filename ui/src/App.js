@@ -9,13 +9,21 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import history from "./history";
 import DataLoader from "./components/DataLoader";
+import Admin from "./components/Admin";
+import LandingPage from "./components/LandingPage";
 import { UserRoute } from "./components/routes/UserRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Container } from "@material-ui/core";
-import { getAdminPath, getHomePath, getLoginPath, getProfilePath, getRegisterPath } from "./services/navigation/paths";
+import {
+  getAdminPath,
+  getHomePath,
+  getLoginPath,
+  getProfilePath,
+  getRegisterPath,
+  getOrderPath,
+} from "./services/navigation/paths";
 import { AdminRoute } from "./components/routes/AdminRoute";
-
 
 function App() {
   const theme = createMuiTheme({
@@ -49,6 +57,9 @@ function App() {
                   <Header />
                   <Switch>
                     <Route exact path={getHomePath()}>
+                      <LandingPage />
+                    </Route>
+                    <Route exact path={getOrderPath()}>
                       <Form />
                     </Route>
                     <UserRoute path={getProfilePath()}>
@@ -61,7 +72,7 @@ function App() {
                       <Register />
                     </Route>
                     <AdminRoute path={getAdminPath()}>
-                      
+                      <Admin />
                     </AdminRoute>
                   </Switch>
                 </div>

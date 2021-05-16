@@ -1,5 +1,6 @@
 package lt.vu.persistence.orm.repository;
 
+import lt.vu.application.config.AppConfig;
 import lt.vu.application.order.exception.OrderNotFoundException;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.entities.OrderStatus;
@@ -32,7 +33,9 @@ public class OrderRepository {
     }
 
     public List<Order> findAll() {
-        return this.entityManager.createNamedQuery("Order.findAll", Order.class).getResultList();
+        return this.entityManager
+                .createNamedQuery("Order.findAll", Order.class)
+                .getResultList();
     }
 
     public List<Order> findByUser(User user) {
@@ -45,7 +48,7 @@ public class OrderRepository {
 
     public List<Order> findNew() {
         // Older than past 2 minutes
-        Date date = new Date(System.currentTimeMillis() - 2 * 60 * 1000);
+        Date date = new Date(System.currentTimeMillis() - AppConfig.ORDER_DELIVERY_TIME_MINUTES * 60 * 1000);
 
         return this.entityManager
                 .createNamedQuery("Order.findNew", Order.class)

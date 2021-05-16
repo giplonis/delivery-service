@@ -20,7 +20,6 @@ public class OrderStatusUpdater {
     @Transactional
     public void updateNewOrders() {
         this.orderRepository.findNew()
-                .stream()
                 .forEach(this::updateStatus);
     }
 

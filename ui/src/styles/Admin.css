@@ -1,0 +1,34 @@
+.admin-list {
+  max-height: 300px;
+  overflow-y: scroll;
+  padding-right: 30px !important;
+  overflow: auto;
+}
+
+.admin-modal-status {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  text-align: left;
+  font-weight: 500;
+  margin-right: 20px;
+}
+
+.admin-modal-select {
+  width: 100%;
+}
+
+.admin-status {
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.admin-modal-save {
+  margin-left: auto !important;
+  padding: 2px 50px !important;
+}
+
+.admin-modal-buttons {
+  display: flex !important;
+  margin-bottom: 30px;
+}
