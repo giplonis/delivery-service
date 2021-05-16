@@ -16,7 +16,7 @@ public class UnauthorizedExceptionMapper implements ExceptionMapper<Unauthorized
 
     @Override
     public Response toResponse(UnauthorizedException e) {
-        this.logger.error(e);
+        this.logger.warning(e);
 
         return Response
                 .status(Response.Status.UNAUTHORIZED)

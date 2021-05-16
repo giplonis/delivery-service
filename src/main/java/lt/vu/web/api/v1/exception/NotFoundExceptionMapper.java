@@ -16,7 +16,7 @@ public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundExceptio
 
     @Override
     public Response toResponse(NotFoundException e) {
-        this.logger.error(e);
+        this.logger.warning(e);
 
         return Response
                 .status(Response.Status.NOT_FOUND)

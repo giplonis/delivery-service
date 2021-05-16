@@ -9,8 +9,8 @@ import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
 import lt.vu.web.api.v1.controller.security.CurrentUserAwareController;
-import lt.vu.web.api.v1.dto.order.ListOrderDTO;
 import lt.vu.web.api.v1.dto.order.GetOrderDTO;
+import lt.vu.web.api.v1.dto.order.ListOrderDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
 
 import javax.enterprise.context.RequestScoped;
@@ -22,9 +22,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/orders")
+@Path("/orders/received")
 @RequestScoped
-public class ListOrderController extends CurrentUserAwareController {
+public class ListReceivedOrderController extends CurrentUserAwareController {
 
     @Inject
     private OrderRepository orderRepository;
@@ -37,7 +37,7 @@ public class ListOrderController extends CurrentUserAwareController {
     @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
-        summary = "Fetch list of user's orders",
+        summary = "Fetch list of user's received orders",
         tags = { "Order" },
         responses = {
             @ApiResponse(
@@ -45,12 +45,12 @@ public class ListOrderController extends CurrentUserAwareController {
                 content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
             ),
             @ApiResponse(
-                responseCode = "500",
+                responseCode = "400",
                 content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             )
         }
     )
@@ -58,7 +58,7 @@ public class ListOrderController extends CurrentUserAwareController {
         // This acts as a fake cronjob to update old order statuses into DELIVERED
         this.orderStatusUpdater.updateNewOrders();
 
-        List<Order> orders = this.orderRepository.findByUser(this.user);
+        List<Order> orders = this.orderRepository.findByRecipient(this.user);
 
         return Response
                 .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))
