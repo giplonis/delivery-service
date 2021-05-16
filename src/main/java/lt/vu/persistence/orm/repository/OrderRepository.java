@@ -1,5 +1,6 @@
 package lt.vu.persistence.orm.repository;
 
+import lt.vu.application.config.AppConfig;
 import lt.vu.application.order.exception.OrderNotFoundException;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.entities.User;
@@ -41,7 +42,7 @@ public class OrderRepository {
 
     public List<Order> findNew() {
         // Older than past 2 minutes
-        Date date = new Date(System.currentTimeMillis() - 1 * 60 * 1000);
+        Date date = new Date(System.currentTimeMillis() - AppConfig.ORDER_DELIVERY_TIME_MINUTES * 60 * 1000);
 
         return this.entityManager
                 .createNamedQuery("Order.findNew", Order.class)
