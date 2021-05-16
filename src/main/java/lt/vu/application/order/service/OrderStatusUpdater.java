@@ -6,6 +6,7 @@ import lt.vu.persistence.orm.repository.OrderRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 /**
  * Acts as a fake cronjob which changes orders statuses to DELIVERED after some time.
@@ -16,6 +17,7 @@ public class OrderStatusUpdater {
     @Inject
     private OrderRepository orderRepository;
 
+    @Transactional
     public void updateNewOrders() {
         this.orderRepository.findNew()
                 .stream()
