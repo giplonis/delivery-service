@@ -1,0 +1,5 @@
+.landing-button {
+  display: flex !important;
+  margin: 70px auto 30px auto !important;
+  padding: 2px 50px !important;
+}

@@ -1,0 +1,25 @@
+.carousel-slide {
+  position: relative;
+}
+
+.carousel-slide-content-wrapper {
+  position: absolute;
+  text-align: left;
+  top: 200px;
+  left: 140px;
+}
+
+.carousel-slide-text {
+  padding-bottom: 30px;
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+}
+
+.carousel-divider {
+  margin-top: 10px !important;
+  width: 70%;
+}
+
+.carousel-button {
+  padding: 2px 50px !important;
+}
