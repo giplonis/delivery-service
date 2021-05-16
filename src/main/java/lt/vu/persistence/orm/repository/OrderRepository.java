@@ -3,22 +3,17 @@ package lt.vu.persistence.orm.repository;
 import lt.vu.application.config.AppConfig;
 import lt.vu.application.order.exception.OrderNotFoundException;
 import lt.vu.persistence.orm.entities.Order;
-import lt.vu.persistence.orm.entities.OrderStatus;
 import lt.vu.persistence.orm.entities.User;
 
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
 @RequestScoped
 public class OrderRepository {
-
-    private boolean needsToUploadData = false;
 
     @Inject
     private EntityManager entityManager;
@@ -28,7 +23,6 @@ public class OrderRepository {
     }
 
     public void update(Order instance) {
-        this.needsToUploadData = true;
         this.entityManager.merge(instance);
     }
 
@@ -38,9 +32,9 @@ public class OrderRepository {
                 .getResultList();
     }
 
-    public List<Order> findByUser(User user) {
+    public List<Order> findBySender(User user) {
         return this.entityManager
-                .createNamedQuery("Order.findByUser", Order.class)
+                .createNamedQuery("Order.findBySender", Order.class)
                 .setParameter("sender", user)
                 .setParameter("email", user.getEmail())
                 .getResultList();
@@ -56,10 +50,10 @@ public class OrderRepository {
                 .getResultList();
     }
 
-    public Order findById(int id) throws OrderNotFoundException {
+    public Order findOneById(int id) throws OrderNotFoundException {
         try {
             return this.entityManager
-                    .createNamedQuery("Order.findById", Order.class)
+                    .createNamedQuery("Order.findOneById", Order.class)
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (NoResultException e) {
@@ -67,18 +61,10 @@ public class OrderRepository {
         }
     }
 
-    public List<Order> findPastOrdersByRecipient(User recipient) {
+    public List<Order> findByRecipient(User recipient) {
         return this.entityManager
                 .createNamedQuery("Order.findByRecipient", Order.class)
                 .setParameter("email", recipient.getEmail())
-                .setParameter("status", OrderStatus.DELIVERED)
                 .getResultList();
-    }
-
-    @PreDestroy
-    @Transactional
-    public void saveChangesToDatabaseIfNeeded() {
-        if (needsToUploadData)
-            this.entityManager.flush();
     }
 }

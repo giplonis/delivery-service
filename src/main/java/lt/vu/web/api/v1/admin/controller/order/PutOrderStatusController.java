@@ -68,7 +68,7 @@ public class PutOrderStatusController {
         ) @Valid PutOrderStatusDTO putOrderStatusDTO,
         @PathParam("id") Integer orderId) throws BadRequestException, NotFoundException {
 
-        Order order = this.orderRepository.findById(orderId);
+        Order order = this.orderRepository.findOneById(orderId);
         order.setStatus(OrderStatus.valueOf(putOrderStatusDTO.getStatus()));
         this.orderRepository.update(order);
 

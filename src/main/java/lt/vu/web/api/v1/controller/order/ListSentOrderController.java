@@ -22,9 +22,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/orders")
+@Path("/orders/sent")
 @RequestScoped
-public class ListOrderController extends CurrentUserAwareController {
+public class ListSentOrderController extends CurrentUserAwareController {
 
     @Inject
     private OrderRepository orderRepository;
@@ -37,7 +37,7 @@ public class ListOrderController extends CurrentUserAwareController {
     @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
-        summary = "Fetch list of user's orders",
+        summary = "Fetch list of user's sent orders",
         tags = { "Order" },
         responses = {
             @ApiResponse(
@@ -45,12 +45,12 @@ public class ListOrderController extends CurrentUserAwareController {
                 content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
             ),
             @ApiResponse(
-                responseCode = "500",
+                responseCode = "400",
                 content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             )
         }
     )
@@ -58,7 +58,7 @@ public class ListOrderController extends CurrentUserAwareController {
         // This acts as a fake cronjob to update old order statuses into DELIVERED
         this.orderStatusUpdater.updateNewOrders();
 
-        List<Order> orders = this.orderRepository.findByUser(this.user);
+        List<Order> orders = this.orderRepository.findBySender(this.user);
 
         return Response
                 .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))

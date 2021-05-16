@@ -22,9 +22,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/orders/as-past-recipient")
+@Path("/orders/received")
 @RequestScoped
-public class ListPastReceivedOrderController extends CurrentUserAwareController {
+public class ListReceivedOrderController extends CurrentUserAwareController {
 
     @Inject
     private OrderRepository orderRepository;
@@ -37,12 +37,16 @@ public class ListPastReceivedOrderController extends CurrentUserAwareController 
     @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
-        summary = "Fetch list of user's past received orders",
+        summary = "Fetch list of user's received orders",
         tags = { "Order" },
         responses = {
             @ApiResponse(
                 responseCode = "200",
                 content = @Content(schema = @Schema(implementation = ListOrderDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             ),
             @ApiResponse(
                 responseCode = "500",
@@ -54,7 +58,7 @@ public class ListPastReceivedOrderController extends CurrentUserAwareController 
         // This acts as a fake cronjob to update old order statuses into DELIVERED
         this.orderStatusUpdater.updateNewOrders();
 
-        List<Order> orders = this.orderRepository.findPastOrdersByRecipient(this.user);
+        List<Order> orders = this.orderRepository.findByRecipient(this.user);
 
         return Response
                 .ok(new ListOrderDTO(GetOrderDTO.createMany(orders)))
