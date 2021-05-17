@@ -34,7 +34,7 @@ public class ListOrderController {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
         summary = "Fetch a complete list of all orders",
-        tags = { "Order" },
+        tags = { "Admin-Order" },
         responses = {
             @ApiResponse(
                 responseCode = "200",

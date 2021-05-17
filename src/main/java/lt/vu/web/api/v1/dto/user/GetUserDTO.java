@@ -5,6 +5,9 @@ import lombok.Setter;
 import lt.vu.persistence.orm.entities.User;
 import lt.vu.web.api.v1.dto.address.GetAddressDTO;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter @Setter
 public class GetUserDTO {
 
@@ -33,5 +36,12 @@ public class GetUserDTO {
         }
 
         return dto;
+    }
+
+    public static List<GetUserDTO> createMany(List<User> users) {
+        return users
+                .stream()
+                .map(GetUserDTO::createFromEntity)
+                .collect(Collectors.toList());
     }
 }

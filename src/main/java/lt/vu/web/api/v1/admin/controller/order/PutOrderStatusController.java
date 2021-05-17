@@ -41,7 +41,7 @@ public class PutOrderStatusController {
     @Operation(
         summary = "Change order's status",
         description = "Changes order status to given.",
-        tags = { "Order" },
+        tags = { "Admin-Order" },
         responses = {
             @ApiResponse(
                 responseCode = "200",

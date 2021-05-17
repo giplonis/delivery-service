@@ -3,6 +3,7 @@ package lt.vu.persistence.orm.repository;
 import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.user.exception.UserNotFoundException;
 import lt.vu.persistence.orm.entities.User;
+import lt.vu.persistence.orm.entities.UserRole;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -50,5 +51,12 @@ public class UserRepository {
         } catch (NoResultException e) {
             throw new UserNotFoundException();
         }
+    }
+
+    public List<User> findByRole(String role) {
+        return this.entityManager
+                .createNamedQuery("User.findByRole", User.class)
+                .setParameter("role", role)
+                .getResultList();
     }
 }
