@@ -10,6 +10,7 @@ import lt.vu.persistence.orm.entities.UserRole;
 import lt.vu.persistence.orm.repository.UserRepository;
 import lt.vu.web.api.v1.dto.user.GetUserDTO;
 import lt.vu.web.api.v1.dto.user.ListUserDTO;
+import lt.vu.web.api.v1.exception.ExceptionDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -38,6 +39,10 @@ public class ListUserController {
             @ApiResponse(
                 responseCode = "200",
                 content = @Content(schema = @Schema(implementation = ListUserDTO.class))
+            ),
+            @ApiResponse(
+                responseCode = "500",
+                content = @Content(schema = @Schema(implementation = ExceptionDTO.class))
             )
         }
     )
