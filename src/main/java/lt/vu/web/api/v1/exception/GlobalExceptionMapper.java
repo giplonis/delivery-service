@@ -19,7 +19,7 @@ public class GlobalExceptionMapper implements ExceptionMapper<Exception> {
 
         return Response
                 .status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(ExceptionDTO.create(e))
+                .entity(ExceptionDTO.create(new Exception("Unexpected error occurred")))
                 .build();
     }
 }
