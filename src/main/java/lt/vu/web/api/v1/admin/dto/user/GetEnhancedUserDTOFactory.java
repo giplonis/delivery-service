@@ -24,6 +24,7 @@ public class GetEnhancedUserDTOFactory {
         dto.setLastName(user.getLastName());
         dto.setEmail(user.getEmail());
         dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setLastLoginDate(user.getLastLogin());
         if (user.getAddress() != null) {
             dto.setAddress(GetAddressDTO.createFromEntity(user.getAddress()));
         }

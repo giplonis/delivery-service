@@ -24,4 +24,6 @@ public class GetEnhancedUserDTO {
     private int totalOrders;
 
     private Date lastOrderDate;
+
+    private Date lastLoginDate;
 }
