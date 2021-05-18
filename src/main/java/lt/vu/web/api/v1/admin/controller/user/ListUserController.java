@@ -8,8 +8,8 @@ import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.User;
 import lt.vu.persistence.orm.entities.UserRole;
 import lt.vu.persistence.orm.repository.UserRepository;
-import lt.vu.web.api.v1.dto.user.GetUserDTO;
-import lt.vu.web.api.v1.dto.user.ListUserDTO;
+import lt.vu.web.api.v1.admin.dto.user.GetEnhancedUserDTOFactory;
+import lt.vu.web.api.v1.admin.dto.user.ListEnhancedUserDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
 
 import javax.enterprise.context.RequestScoped;
@@ -28,6 +28,9 @@ public class ListUserController {
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private GetEnhancedUserDTOFactory dtoFactory;
+
     @GET
     @Path("/")
     @Authorized(role = UserRole.ADMIN)
@@ -38,7 +41,7 @@ public class ListUserController {
         responses = {
             @ApiResponse(
                 responseCode = "200",
-                content = @Content(schema = @Schema(implementation = ListUserDTO.class))
+                content = @Content(schema = @Schema(implementation = ListEnhancedUserDTO.class))
             ),
             @ApiResponse(
                 responseCode = "500",
@@ -50,7 +53,7 @@ public class ListUserController {
         List<User> users = this.userRepository.findByRole(UserRole.USER);
 
         return Response
-                .ok(new ListUserDTO(GetUserDTO.createMany(users)))
+                .ok(new ListEnhancedUserDTO(this.dtoFactory.createMany(users)))
                 .build();
     }
 }
