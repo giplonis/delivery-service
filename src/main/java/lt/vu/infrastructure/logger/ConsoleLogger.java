@@ -24,6 +24,8 @@ public class ConsoleLogger implements Logger {
     @Override
     public void error(Exception e) {
         System.out.println(this.getPrefix(LogLevel.ERROR) + e.toString());
+        System.out.print(e.getMessage());
+        e.printStackTrace();
     }
 
     private String getPrefix(LogLevel logLevel) {

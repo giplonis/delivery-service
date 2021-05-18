@@ -14,6 +14,7 @@ import java.util.Objects;
     @NamedQuery(name = "User.findAll", query = "select u from User u"),
     @NamedQuery(name = "User.findOneByEmail", query = "select u from User u where u.email = :email"),
     @NamedQuery(name = "User.findOneById", query = "select u from User u where u.id = :id"),
+    @NamedQuery(name = "User.findByRole", query = "select u from User u inner join u.roles r where r = :role"),
 })
 @Getter @Setter
 public class User implements Serializable {
