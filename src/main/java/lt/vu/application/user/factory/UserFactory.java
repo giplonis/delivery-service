@@ -9,6 +9,7 @@ import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.Collections;
+import java.util.Date;
 
 @RequestScoped
 public class UserFactory {
@@ -29,6 +30,7 @@ public class UserFactory {
         user.setPassword(this.passwordHasher.hash(registerDTO.getPassword()));
         user.setAddress(this.addressFactory.createFromDTO(registerDTO.getAddress()));
         user.setRoles(Collections.singletonList(UserRole.USER));
+        user.setLastLogin(new Date());
 
         return user;
     }

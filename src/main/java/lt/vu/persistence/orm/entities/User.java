@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,6 +47,9 @@ public class User implements Serializable {
     @Column(name = "ROLE")
     @CollectionTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") })
     private List<String> roles;
+
+    @Column(name = "LAST_LOGIN", nullable = false)
+    private Date lastLogin;
 
     public User() {
     }

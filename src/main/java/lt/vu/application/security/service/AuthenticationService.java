@@ -12,6 +12,7 @@ import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.Date;
 
 @ApplicationScoped
 public class AuthenticationService {
@@ -33,6 +34,8 @@ public class AuthenticationService {
         User user = this.userRepository.findOneByEmail(email);
 
         this.passwordVerificator.verify(user, password);
+
+        this.updateLastLoginDate(user);
 
         return jwtBuilder.build(user);
     }
@@ -58,5 +61,10 @@ public class AuthenticationService {
         } catch (NotFoundException e) {
             // User does not exist - all good
         }
+    }
+
+    private void updateLastLoginDate(User user) {
+        user.setLastLogin(new Date());
+        this.userRepository.update(user);
     }
 }
