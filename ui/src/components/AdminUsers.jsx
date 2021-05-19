@@ -5,8 +5,9 @@ import useMessage from "../hooks/messages";
 import axiosInstance from "../api/axiosInstance";
 import OrderInfo from "./OrderInfo";
 import AdminUserModal from "./AdminUserModal";
+import { getDateString } from "../services/dateFormat";
 
-function AdminUsers() {
+function AdminUsers(props) {
   const [users, setUsers] = useState([]);
   const { displayError } = useMessage();
 
@@ -37,7 +38,6 @@ function AdminUsers() {
           {users.length > 0 ? (
             users.map((user, index) => (
               <div key={index}>
-                {console.log(user.orders)}
                 <ListItem button onClick={() => selectUser(user)}>
                   <Grid container>
                     <Grid item xs={3}>
@@ -46,14 +46,28 @@ function AdminUsers() {
                         description={`${user.firstName} ${user.lastName}`}
                       />
                     </Grid>
+
                     <Grid item xs={3}>
-                      <OrderInfo title="E-mail" description={user.email} />
+                      <OrderInfo
+                        title="Orders"
+                        description={user.totalOrders}
+                      />
                     </Grid>
                     <Grid item xs={3}>
-                      <OrderInfo title="Orders" />
+                      <OrderInfo
+                        title="Last Order"
+                        description={
+                          !!user.lastOrderDate
+                            ? getDateString(user.lastOrderDate)
+                            : "No orders made"
+                        }
+                      />
                     </Grid>
                     <Grid item xs={3}>
-                      <OrderInfo title="Last Order" />
+                      <OrderInfo
+                        title="Last Login"
+                        description={getDateString(user.lastLoginDate)}
+                      />
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -69,6 +83,7 @@ function AdminUsers() {
             user={selectedUser}
             open={selectedUser !== null}
             onClose={selectUser}
+            handleStatusChange={props.handleStatusChange}
           />
         )}
       </div>

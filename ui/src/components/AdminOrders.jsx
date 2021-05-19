@@ -1,40 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Divider, Grid, List, ListItem, Typography } from "@material-ui/core";
 import StatusIcon from "./StatusIcon";
-import useMessage from "../hooks/messages";
+
 import AdminOrderModal from "./AdminOrderModal";
-import { ADMIN_ORDERS } from "../api/config";
-import axiosInstance from "../api/axiosInstance";
+
 import OrderInfo from "./OrderInfo";
 import { getDateString } from "../services/dateFormat";
 import "../styles/Admin.css";
 
-function AdminOrders() {
-  const [orders, setOrders] = useState([]);
-  const { displayError } = useMessage();
-
-  const handleStatusChange = (id, status) => {
-    const orderArray = [...orders];
-    orderArray.find((o) => o.id === id).status = status;
-    setOrders(orderArray);
-  };
-
-  useEffect(() => {
-    (async function fetchData() {
-      try {
-        const response = await axiosInstance.get(ADMIN_ORDERS);
-        for (let index in response.data) {
-          response.data[index].pickupDateTime = new Date(
-            response.data[index].pickupDateTime
-          );
-        }
-        setOrders(response.data);
-      } catch (e) {
-        displayError("Failed to load orders.");
-      }
-    })();
-  }, [displayError]);
-
+function AdminOrders(props) {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const selectOrder = (order) => {
     setSelectedOrder((prevState) => {
@@ -48,8 +22,8 @@ function AdminOrders() {
       <div className="form-inner">
         <div className="form-header">Orders</div>
         <List className="admin-list">
-          {orders.length > 0 ? (
-            orders.map((order, index) => (
+          {props.orders.length > 0 ? (
+            props.orders.map((order, index) => (
               <div key={index}>
                 <ListItem button onClick={() => selectOrder(order)}>
                   <Grid container>
@@ -78,7 +52,7 @@ function AdminOrders() {
                     </Grid>
                   </Grid>
                 </ListItem>
-                {index + 1 < orders.length && <Divider />}
+                {index + 1 < props.orders.length && <Divider />}
               </div>
             ))
           ) : (
@@ -87,7 +61,7 @@ function AdminOrders() {
         </List>
         {selectedOrder && (
           <AdminOrderModal
-            handleStatusChange={handleStatusChange}
+            handleStatusChange={props.handleStatusChange}
             order={selectedOrder}
             open={selectedOrder !== null}
             onClose={selectOrder}
