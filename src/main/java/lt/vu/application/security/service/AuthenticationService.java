@@ -65,6 +65,6 @@ public class AuthenticationService {
 
     private void updateLastLoginDate(User user) {
         user.setLastLogin(new Date());
-        this.userRepository.update(user);
+        this.userRepository.persist(user);
     }
 }
