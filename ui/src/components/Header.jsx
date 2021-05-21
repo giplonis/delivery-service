@@ -89,7 +89,7 @@ function Header() {
               >
                 <div className=" header-item">
                   <PersonAddIcon />
-                  Sign In
+                  Sign Up
                 </div>
               </Link>
             </>

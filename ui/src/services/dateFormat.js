@@ -8,3 +8,11 @@ export function getDateString(date) {
     hour12: false,
   });
 }
+
+export function getDateStringNoHours(date) {
+  return new Date(date).toLocaleDateString("lt", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+}

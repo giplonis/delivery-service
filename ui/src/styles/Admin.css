@@ -1,5 +1,5 @@
 .admin-list {
-  max-height: 300px;
+  max-height: 260px;
   overflow-y: scroll;
   padding-right: 30px !important;
   overflow: auto;
@@ -31,4 +31,27 @@
 .admin-modal-buttons {
   display: flex !important;
   margin-bottom: 30px;
+}
+
+.admin-card {
+  margin-bottom: 50px;
+}
+
+.admin-info-label {
+  color: var(--white);
+}
+
+.form-inner-admin-orders {
+  padding: 10px 15px 15px 10px;
+}
+
+.admin-user-orders-list {
+  max-height: 250px;
+  overflow: auto;
+  padding-right: 10px !important;
+}
+
+.admin-user-orders-item {
+  padding-left: 10px !important;
+  padding-right: 0 !important;
 }
