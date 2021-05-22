@@ -1,15 +1,17 @@
-package lt.vu.application.user.service;
+package lt.vu.application.userInfo.service;
 
 import lombok.SneakyThrows;
 import lt.vu.application.address.factory.AddressFactory;
 import lt.vu.persistence.entities.User;
 import lt.vu.persistence.repository.UserRepository;
+import lt.vu.web.api.v1.dto.userInfo.UserInfoDTO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
 public class UserInfoUpdateService {
+
     @Inject
     private AddressFactory addressFactory;
 
@@ -17,11 +19,11 @@ public class UserInfoUpdateService {
     private UserRepository userRepository;
 
     @Inject
-    private EmailValidator emailValidator;
+    private UniqueUserValidator uniqueUserValidator;
 
     @SneakyThrows
     public void updateUser(User user, UserInfoDTO userInfoDTO) {
-        this.emailValidator.validate(userInfoDTO.getEmail());
+        this.uniqueUserValidator.validate(userInfoDTO.getEmail());
 
         user.setEmail(userInfoDTO.getEmail());
         user.setFirstName(userInfoDTO.getFirstName());

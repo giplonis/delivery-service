@@ -2,7 +2,7 @@ package lt.vu.application.userInfo.factory;
 
 import lt.vu.application.address.factory.AddressFactory;
 import lt.vu.persistence.entities.UserInfo;
-import lt.vu.application.user.service.UserInfoDTO;
+import lt.vu.web.api.v1.dto.userInfo.UserInfoDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
