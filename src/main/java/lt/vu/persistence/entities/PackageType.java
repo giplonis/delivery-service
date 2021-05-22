@@ -39,6 +39,6 @@ public class PackageType implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.title);
+        return Objects.hash(this.id);
     }
 }

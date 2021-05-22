@@ -70,27 +70,11 @@ public class Order implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
 
-        return order.id == this.id
-            && order.totalPrice == this.totalPrice
-            && order.status.equals(this.status)
-            && order.pickupDateTime.equals(this.pickupDateTime)
-            && order.packageOption.equals(this.packageOption)
-            && order.senderInfo.equals(this.senderInfo)
-            && order.recipientInfo.equals(this.recipientInfo)
-            && order.sender.equals(this.sender);
+        return order.id == this.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            this.id,
-            this.status,
-            this.pickupDateTime,
-            this.totalPrice,
-            this.packageOption,
-            this.senderInfo,
-            this.recipientInfo,
-            this.sender
-        );
+        return Objects.hash(this.id);
     }
 }

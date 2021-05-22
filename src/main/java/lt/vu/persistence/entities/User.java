@@ -30,7 +30,7 @@ public class User implements Serializable {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
     @Column(name = "PHONE_NUMBER", nullable = false)
@@ -60,25 +60,11 @@ public class User implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
 
-        return user.id == this.id
-            && user.firstName.equals(this.firstName)
-            && user.lastName.equals(this.lastName)
-            && user.email.equals(this.email)
-            && user.phoneNumber.equals(this.phoneNumber)
-            && user.password.equals(this.password)
-            && user.address.equals(this.address);
+        return user.id == this.id && user.email.equals(this.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            this.id,
-            this.firstName,
-            this.lastName,
-            this.email,
-            this.phoneNumber,
-            this.password,
-            this.address
-        );
+        return Objects.hash(this.id, this.email);
     }
 }
