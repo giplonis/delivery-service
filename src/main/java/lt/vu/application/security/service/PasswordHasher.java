@@ -2,9 +2,9 @@ package lt.vu.application.security.service;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 
-@ApplicationScoped
+@RequestScoped
 public class PasswordHasher {
 
     public String hash(String password) {

@@ -3,10 +3,10 @@ package lt.vu.application.security.service;
 import lt.vu.application.security.exception.PasswordIncorrectException;
 import lt.vu.persistence.orm.entities.User;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-@ApplicationScoped
+@RequestScoped
 public class PasswordVerificator {
 
     @Inject

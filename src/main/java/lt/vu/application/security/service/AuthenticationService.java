@@ -10,11 +10,11 @@ import lt.vu.persistence.orm.entities.User;
 import lt.vu.persistence.orm.repository.UserRepository;
 import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.Date;
 
-@ApplicationScoped
+@RequestScoped
 public class AuthenticationService {
 
     @Inject

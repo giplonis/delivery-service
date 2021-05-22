@@ -14,8 +14,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-@RequestScoped
 @Path("/api-doc")
+@RequestScoped
 @Hidden
 public class ApiDocController {
 
