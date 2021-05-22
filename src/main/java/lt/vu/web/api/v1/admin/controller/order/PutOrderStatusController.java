@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.exception.BadRequestException;
 import lt.vu.application.exception.NotFoundException;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.entities.OrderStatus;
@@ -34,6 +35,7 @@ public class PutOrderStatusController {
 
     @PUT
     @Path("/{id}/status")
+    @LoggedAction
     @Authorized(role = UserRole.ADMIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

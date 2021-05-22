@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.order.service.OrderStatusUpdater;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.repository.OrderRepository;
@@ -34,6 +35,7 @@ public class ListSentOrderController extends CurrentUserAwareController {
 
     @GET
     @Path("/")
+    @LoggedAction
     @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(

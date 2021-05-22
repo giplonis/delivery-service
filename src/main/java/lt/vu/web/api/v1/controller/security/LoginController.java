@@ -9,6 +9,7 @@ import lt.vu.application.exception.BadRequestException;
 import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.security.model.Token;
 import lt.vu.application.security.service.AuthenticationService;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.web.api.v1.dto.security.GetTokenDTO;
 import lt.vu.web.api.v1.dto.security.PostLoginDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
@@ -33,6 +34,7 @@ public class LoginController {
 
     @POST
     @Path("/")
+    @LoggedAction
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
