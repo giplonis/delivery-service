@@ -1,11 +1,11 @@
 package lt.vu.infrastructure.logger;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@ApplicationScoped
+@RequestScoped
 @Default
 public class ConsoleLogger implements Logger {
 

@@ -9,7 +9,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 /**
- * Allows currently logged in User object to be injected inside CurrentUserAwareController
+ * Allows currently logged in User object to be injected inside services.
  */
 @RequestScoped
 @LoggedInUser
