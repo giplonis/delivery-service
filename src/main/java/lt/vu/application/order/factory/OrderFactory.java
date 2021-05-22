@@ -1,7 +1,7 @@
 package lt.vu.application.order.factory;
 
 import lt.vu.application.exception.NotFoundException;
-import lt.vu.application.order.service.PriceCalculator;
+import lt.vu.application.order.service.calculator.PriceCalculator;
 import lt.vu.persistence.entities.*;
 import lt.vu.persistence.repository.AttributeRepository;
 import lt.vu.persistence.repository.PackageOptionRepository;

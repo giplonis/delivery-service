@@ -9,4 +9,8 @@
     <interceptors>
         <class>lt.vu.infrastructure.interceptors.MethodLogger</class>
     </interceptors>
+
+    <alternatives>
+        <class>lt.vu.application.order.service.calculator.DiscountedPriceCalculator</class>
+    </alternatives>
 </beans>

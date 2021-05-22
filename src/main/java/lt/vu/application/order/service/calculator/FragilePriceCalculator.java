@@ -1,14 +1,14 @@
-package lt.vu.application.order.service;
+package lt.vu.application.order.service.calculator;
 
 import lombok.SneakyThrows;
 import lt.vu.persistence.entities.AttributeType;
 import lt.vu.persistence.entities.Order;
 import lt.vu.persistence.repository.AttributeRepository;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-@ApplicationScoped
+@RequestScoped
 public class FragilePriceCalculator implements ChainablePriceCalculator {
 
     @Inject
