@@ -6,8 +6,8 @@ import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.security.model.Token;
 import lt.vu.application.user.exception.UserAlreadyExistsException;
 import lt.vu.application.user.factory.UserFactory;
-import lt.vu.persistence.orm.entities.User;
-import lt.vu.persistence.orm.repository.UserRepository;
+import lt.vu.persistence.entities.User;
+import lt.vu.persistence.repository.UserRepository;
 import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 
 import javax.enterprise.context.ApplicationScoped;

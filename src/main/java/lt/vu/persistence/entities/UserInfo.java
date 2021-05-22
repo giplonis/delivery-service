@@ -1,4 +1,4 @@
-package lt.vu.persistence.orm.entities;
+package lt.vu.persistence.entities;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

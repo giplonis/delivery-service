@@ -1,9 +1,9 @@
-package lt.vu.persistence.orm.repository;
+package lt.vu.persistence.repository;
 
 import lt.vu.application.attribute.exception.AttributeNotFoundException;
 import lt.vu.application.exception.NotFoundException;
-import lt.vu.persistence.orm.entities.Attribute;
-import lt.vu.persistence.orm.entities.AttributeType;
+import lt.vu.persistence.entities.Attribute;
+import lt.vu.persistence.entities.AttributeType;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

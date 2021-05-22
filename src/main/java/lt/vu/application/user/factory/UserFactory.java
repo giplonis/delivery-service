@@ -2,8 +2,8 @@ package lt.vu.application.user.factory;
 
 import lt.vu.application.address.factory.AddressFactory;
 import lt.vu.application.security.service.PasswordHasher;
-import lt.vu.persistence.orm.entities.User;
-import lt.vu.persistence.orm.entities.UserRole;
+import lt.vu.persistence.entities.User;
+import lt.vu.persistence.entities.UserRole;
 import lt.vu.web.api.v1.dto.security.PostRegisterDTO;
 
 import javax.enterprise.context.RequestScoped;

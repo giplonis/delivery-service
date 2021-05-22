@@ -2,8 +2,8 @@ package lt.vu.application.user.service;
 
 import lombok.SneakyThrows;
 import lt.vu.application.address.factory.AddressFactory;
-import lt.vu.persistence.orm.entities.User;
-import lt.vu.persistence.orm.repository.UserRepository;
+import lt.vu.persistence.entities.User;
+import lt.vu.persistence.repository.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

@@ -2,7 +2,7 @@ package lt.vu.web.api.v1.dto.packageType;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.vu.persistence.orm.entities.PackageType;
+import lt.vu.persistence.entities.PackageType;
 
 import java.util.List;
 import java.util.stream.Collectors;

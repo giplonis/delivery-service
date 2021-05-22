@@ -1,8 +1,8 @@
 package lt.vu.infrastructure.security;
 
 import lombok.SneakyThrows;
-import lt.vu.persistence.orm.entities.User;
-import lt.vu.persistence.orm.repository.UserRepository;
+import lt.vu.persistence.entities.User;
+import lt.vu.persistence.repository.UserRepository;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;

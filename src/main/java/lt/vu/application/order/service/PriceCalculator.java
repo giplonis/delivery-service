@@ -1,6 +1,6 @@
 package lt.vu.application.order.service;
 
-import lt.vu.persistence.orm.entities.Order;
+import lt.vu.persistence.entities.Order;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

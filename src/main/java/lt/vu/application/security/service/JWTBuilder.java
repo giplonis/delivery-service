@@ -6,7 +6,7 @@ import io.jsonwebtoken.impl.TextCodec;
 import lt.vu.application.security.config.SecurityConfig;
 import lt.vu.application.security.config.Claims;
 import lt.vu.application.security.model.Token;
-import lt.vu.persistence.orm.entities.User;
+import lt.vu.persistence.entities.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Date;

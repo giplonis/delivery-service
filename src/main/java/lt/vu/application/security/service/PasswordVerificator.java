@@ -1,7 +1,7 @@
 package lt.vu.application.security.service;
 
 import lt.vu.application.security.exception.PasswordIncorrectException;
-import lt.vu.persistence.orm.entities.User;
+import lt.vu.persistence.entities.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

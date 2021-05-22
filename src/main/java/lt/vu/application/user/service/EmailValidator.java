@@ -2,7 +2,7 @@ package lt.vu.application.user.service;
 
 import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.user.exception.UserAlreadyExistsException;
-import lt.vu.persistence.orm.repository.UserRepository;
+import lt.vu.persistence.repository.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

@@ -2,7 +2,7 @@ package lt.vu.web.api.v1.dto.order;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.vu.persistence.orm.entities.Order;
+import lt.vu.persistence.entities.Order;
 import lt.vu.web.api.v1.dto.attribute.GetAttributeDTO;
 import lt.vu.web.api.v1.dto.packageOption.GetPackageOptionDTO;
 import lt.vu.web.api.v1.dto.user.GetUserDTO;
