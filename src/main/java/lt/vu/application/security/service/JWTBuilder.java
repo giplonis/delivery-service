@@ -8,10 +8,10 @@ import lt.vu.application.security.config.Claims;
 import lt.vu.application.security.model.Token;
 import lt.vu.persistence.orm.entities.User;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import java.util.Date;
 
-@ApplicationScoped
+@RequestScoped
 public class JWTBuilder {
 
     public Token build(User user) {

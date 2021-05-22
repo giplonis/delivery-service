@@ -5,10 +5,10 @@ import lt.vu.persistence.orm.entities.User;
 import lt.vu.persistence.orm.repository.UserRepository;
 import lt.vu.web.api.v1.dto.security.PutPasswordDTO;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-@ApplicationScoped
+@RequestScoped
 public class PasswordChangeService {
 
     @Inject
