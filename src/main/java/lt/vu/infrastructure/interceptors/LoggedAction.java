@@ -6,5 +6,5 @@ import java.lang.annotation.*;
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-public @interface LoggedInvocation {
+public @interface LoggedAction {
 }

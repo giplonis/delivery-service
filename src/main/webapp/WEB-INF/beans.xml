@@ -7,6 +7,6 @@
         bean-discovery-mode="annotated">
 
     <interceptors>
-        <class>lt.vu.infrastructure.interceptors.MethodLogger</class>
+        <class>lt.vu.infrastructure.interceptors.ActionLogger</class>
     </interceptors>
 </beans>
