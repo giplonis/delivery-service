@@ -4,10 +4,10 @@ import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.user.exception.UserAlreadyExistsException;
 import lt.vu.persistence.repository.UserRepository;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-@ApplicationScoped
+@RequestScoped
 public class UniqueUserValidator {
 
     @Inject

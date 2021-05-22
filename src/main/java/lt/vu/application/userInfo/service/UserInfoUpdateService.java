@@ -6,10 +6,10 @@ import lt.vu.persistence.entities.User;
 import lt.vu.persistence.repository.UserRepository;
 import lt.vu.web.api.v1.dto.userInfo.UserInfoDTO;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-@ApplicationScoped
+@RequestScoped
 public class UserInfoUpdateService {
 
     @Inject
