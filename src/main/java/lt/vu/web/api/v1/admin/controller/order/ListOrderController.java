@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.exception.NotFoundException;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.entities.UserRole;
@@ -36,6 +37,7 @@ public class ListOrderController {
 
     @GET
     @Path("/")
+    @LoggedAction
     @Authorized(role = UserRole.ADMIN)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
