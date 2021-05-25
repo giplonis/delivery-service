@@ -35,6 +35,8 @@ public class GetOrderDTO {
 
     private List<GetAttributeDTO> attributes;
 
+    private long version;
+
     public static GetOrderDTO createFromEntity(Order order) {
         GetOrderDTO dto = new GetOrderDTO();
 
@@ -47,6 +49,7 @@ public class GetOrderDTO {
         dto.setRecipientInfo(GetUserInfoDTO.createFromEntity(order.getRecipientInfo()));
         dto.setPackageOption(GetPackageOptionDTO.createFromEntity(order.getPackageOption()));
         dto.setAttributes(GetAttributeDTO.createMany(order.getAttributes()));
+        dto.setVersion(order.getVersion());
 
         if (order.getSender() != null) {
             dto.setSender(GetUserDTO.createFromEntity(order.getSender()));

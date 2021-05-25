@@ -31,12 +31,12 @@ insert into ATTRIBUTE (ID, LABEL, TYPE, ADDITIONAL_PRICE) values (1, 'Fragile', 
 insert into USER_INFO (ID, FIRST_NAME, LAST_NAME, ADDRESS_ID, EMAIL, PHONE_NUMBER) values (1, 'Jonas', 'Jonauskas', 1, 'jonas@gmail.com', 862594785);
 
 -- Orders
-insert into `ORDER` (ID, CREATED_AT, STATUS, PICKUP_DATE_TIME, TOTAL_PRICE, PACKAGE_OPTION_ID, SENDER_INFO_ID, RECIPIENT_INFO_ID, USER_ID) values (1, current_timestamp(), 0, dateadd('DAY', 2, current_timestamp()), 42069, 1, 1, 1, null);
+insert into `ORDER` (ID, CREATED_AT, STATUS, PICKUP_DATE_TIME, TOTAL_PRICE, PACKAGE_OPTION_ID, SENDER_INFO_ID, RECIPIENT_INFO_ID, USER_ID, VERSION) values (1, current_timestamp(), 0, dateadd('DAY', 2, current_timestamp()), 42069, 1, 1, 1, null, 0);
 
 -- Users
 -- PASSWORD = password
 insert into `USER` (ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, ADDRESS_ID, PASSWORD, LAST_LOGIN) values (1, 'jonas@gmail.com', 'Jonas', 'Jonauskas', 862598745, 1, '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', current_timestamp());
-insert into `USER` (ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, ADDRESS_ID, PASSWORD, LAST_LOGIN) values (2, 'admin@gmail.com', 'Admin', 'Admin', 862598745, 1, '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', current_timestamp());
+insert into `USER` (ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, ADDRESS_ID, PASSWORD, LAST_LOGIN) values (2, 'admin@delivery.com', 'John', 'Administrator', 862598745, 1, '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', current_timestamp());
 
 -- Demo user roles
 insert into USER_ROLE (USER_ID, `ROLE`) values (1, 'USER');

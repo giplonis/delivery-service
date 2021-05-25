@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.entities.PackageSize;
 import lt.vu.persistence.repository.PackageSizeRepository;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.web.api.v1.dto.packageSize.ListPackageSizeDTO;
 import lt.vu.web.api.v1.dto.packageSize.GetPackageSizeDTO;
 import lt.vu.web.api.v1.exception.ExceptionDTO;
@@ -28,6 +29,7 @@ public class ListPackageSizeController {
 
     @GET
     @Path("/")
+    @LoggedAction
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
         summary = "Fetch list of package sizes available",

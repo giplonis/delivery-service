@@ -10,6 +10,7 @@ import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.security.model.Token;
 import lt.vu.application.security.service.AuthenticationService;
 import lt.vu.application.security.service.PasswordChangeService;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.web.api.v1.dto.security.GetTokenDTO;
 import lt.vu.web.api.v1.dto.security.PutPasswordDTO;
@@ -35,6 +36,7 @@ public class ChangePasswordController extends CurrentUserAwareController {
 
     @PUT
     @Path("/")
+    @LoggedAction
     @Authorized
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

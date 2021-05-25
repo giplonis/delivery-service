@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.persistence.entities.Attribute;
 import lt.vu.persistence.repository.AttributeRepository;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.web.api.v1.dto.attribute.GetAttributeDTO;
 import lt.vu.web.api.v1.dto.attribute.ListAttributeDTO;
 
@@ -27,6 +28,7 @@ public class ListAttributeController {
 
     @GET
     @Path("/")
+    @LoggedAction
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
         summary = "Fetch list of available order attributes",

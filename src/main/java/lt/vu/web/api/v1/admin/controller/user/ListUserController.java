@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.entities.User;
 import lt.vu.persistence.entities.UserRole;
@@ -33,6 +34,7 @@ public class ListUserController {
 
     @GET
     @Path("/")
+    @LoggedAction
     @Authorized(role = UserRole.ADMIN)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(

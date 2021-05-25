@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.web.api.v1.controller.security.CurrentUserAwareController;
 import lt.vu.web.api.v1.dto.user.GetUserDTO;
@@ -22,6 +23,7 @@ public class ShowCurrentUserController extends CurrentUserAwareController {
 
     @GET
     @Path("/")
+    @LoggedAction
     @Authorized
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(
