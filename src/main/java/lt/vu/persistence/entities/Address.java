@@ -1,4 +1,4 @@
-package lt.vu.persistence.orm.entities;
+package lt.vu.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,13 +31,11 @@ public class Address implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
 
-        return address.id == this.id
-            && address.city.equals(this.city)
-            && address.street.equals(this.street);
+        return address.id == this.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.city, this.street);
+        return Objects.hash(this.id);
     }
 }

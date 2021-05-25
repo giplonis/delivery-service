@@ -1,4 +1,4 @@
-package lt.vu.application.user.service;
+package lt.vu.web.api.v1.dto.userInfo;
 
 import lt.vu.web.api.v1.dto.address.PostAddressDTO;
 

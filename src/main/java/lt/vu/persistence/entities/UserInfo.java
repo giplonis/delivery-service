@@ -1,4 +1,4 @@
-package lt.vu.persistence.orm.entities;
+package lt.vu.persistence.entities;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,21 +45,11 @@ public class UserInfo implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         UserInfo userInfo = (UserInfo) o;
 
-        return userInfo.id == this.id
-            && userInfo.firstName.equals(this.firstName)
-            && userInfo.lastName.equals(this.lastName)
-            && userInfo.email.equals(this.email)
-            && userInfo.phoneNumber.equals(this.phoneNumber);
+        return userInfo.id == this.id && userInfo.email.equals(this.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            this.id,
-            this.firstName,
-            this.lastName,
-            this.email,
-            this.phoneNumber
-        );
+        return Objects.hash(this.id, this.email);
     }
 }

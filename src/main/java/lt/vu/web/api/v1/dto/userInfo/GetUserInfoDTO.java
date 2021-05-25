@@ -2,7 +2,7 @@ package lt.vu.web.api.v1.dto.userInfo;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.vu.persistence.orm.entities.UserInfo;
+import lt.vu.persistence.entities.UserInfo;
 import lt.vu.web.api.v1.dto.address.GetAddressDTO;
 
 @Getter @Setter

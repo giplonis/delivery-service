@@ -1,6 +1,6 @@
-package lt.vu.persistence.orm.repository;
+package lt.vu.persistence.repository;
 
-import lt.vu.persistence.orm.entities.PackageType;
+import lt.vu.persistence.entities.PackageType;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

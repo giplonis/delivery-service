@@ -1,6 +1,6 @@
 package lt.vu.infrastructure.security;
 
-import lt.vu.persistence.orm.entities.UserRole;
+import lt.vu.persistence.entities.UserRole;
 
 import javax.ws.rs.NameBinding;
 import java.lang.annotation.ElementType;

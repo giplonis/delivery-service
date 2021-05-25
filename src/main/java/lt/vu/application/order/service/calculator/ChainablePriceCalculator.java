@@ -1,6 +1,6 @@
 package lt.vu.application.order.service.calculator;
 
-import lt.vu.persistence.orm.entities.Order;
+import lt.vu.persistence.entities.Order;
 
 public interface ChainablePriceCalculator {
 

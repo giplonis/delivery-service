@@ -1,9 +1,8 @@
-package lt.vu.persistence.orm.repository;
+package lt.vu.persistence.repository;
 
 import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.user.exception.UserNotFoundException;
-import lt.vu.persistence.orm.entities.User;
-import lt.vu.persistence.orm.entities.UserRole;
+import lt.vu.persistence.entities.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

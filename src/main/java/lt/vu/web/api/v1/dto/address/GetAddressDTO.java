@@ -2,7 +2,7 @@ package lt.vu.web.api.v1.dto.address;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.vu.persistence.orm.entities.Address;
+import lt.vu.persistence.entities.Address;
 
 @Getter @Setter
 public class GetAddressDTO {

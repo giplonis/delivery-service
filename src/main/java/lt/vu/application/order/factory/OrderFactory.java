@@ -2,9 +2,9 @@ package lt.vu.application.order.factory;
 
 import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.order.service.calculator.PriceCalculator;
-import lt.vu.persistence.orm.entities.*;
-import lt.vu.persistence.orm.repository.AttributeRepository;
-import lt.vu.persistence.orm.repository.PackageOptionRepository;
+import lt.vu.persistence.entities.*;
+import lt.vu.persistence.repository.AttributeRepository;
+import lt.vu.persistence.repository.PackageOptionRepository;
 import lt.vu.web.api.v1.dto.order.PostOrderDTO;
 import lt.vu.application.userInfo.factory.UserInfoFactory;
 

@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.exception.BadRequestException;
 import lt.vu.application.exception.NotFoundException;
-import lt.vu.application.user.service.UserInfoUpdateService;
+import lt.vu.application.userInfo.service.UserInfoUpdateService;
 import lt.vu.infrastructure.interceptors.LoggedAction;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.web.api.v1.controller.security.CurrentUserAwareController;

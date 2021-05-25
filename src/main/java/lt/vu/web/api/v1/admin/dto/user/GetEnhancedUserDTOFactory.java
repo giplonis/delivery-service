@@ -1,8 +1,8 @@
 package lt.vu.web.api.v1.admin.dto.user;
 
-import lt.vu.persistence.orm.entities.Order;
-import lt.vu.persistence.orm.entities.User;
-import lt.vu.persistence.orm.repository.OrderRepository;
+import lt.vu.persistence.entities.Order;
+import lt.vu.persistence.entities.User;
+import lt.vu.persistence.repository.OrderRepository;
 import lt.vu.web.api.v1.dto.address.GetAddressDTO;
 
 import javax.enterprise.context.ApplicationScoped;

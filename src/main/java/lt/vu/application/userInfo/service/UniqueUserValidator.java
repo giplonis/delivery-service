@@ -1,14 +1,14 @@
-package lt.vu.application.user.service;
+package lt.vu.application.userInfo.service;
 
 import lt.vu.application.exception.NotFoundException;
 import lt.vu.application.user.exception.UserAlreadyExistsException;
-import lt.vu.persistence.orm.repository.UserRepository;
+import lt.vu.persistence.repository.UserRepository;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-@ApplicationScoped
-public class EmailValidator {
+@RequestScoped
+public class UniqueUserValidator {
 
     @Inject
     UserRepository userRepository;

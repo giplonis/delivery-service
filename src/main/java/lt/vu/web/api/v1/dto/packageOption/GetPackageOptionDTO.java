@@ -2,7 +2,7 @@ package lt.vu.web.api.v1.dto.packageOption;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.vu.persistence.orm.entities.PackageOption;
+import lt.vu.persistence.entities.PackageOption;
 import lt.vu.web.api.v1.dto.packageSize.GetPackageSizeDTO;
 import lt.vu.web.api.v1.dto.packageType.GetPackageTypeDTO;
 

@@ -1,6 +1,6 @@
 package lt.vu.infrastructure.validators;
 
-import lt.vu.persistence.orm.entities.OrderStatus;
+import lt.vu.persistence.entities.OrderStatus;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,9 +1,9 @@
 package lt.vu.application.order.service.calculator;
 
 import lombok.SneakyThrows;
-import lt.vu.persistence.orm.entities.AttributeType;
-import lt.vu.persistence.orm.entities.Order;
-import lt.vu.persistence.orm.repository.AttributeRepository;
+import lt.vu.persistence.entities.AttributeType;
+import lt.vu.persistence.entities.Order;
+import lt.vu.persistence.repository.AttributeRepository;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

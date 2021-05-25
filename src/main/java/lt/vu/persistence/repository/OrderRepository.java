@@ -1,9 +1,9 @@
-package lt.vu.persistence.orm.repository;
+package lt.vu.persistence.repository;
 
 import lt.vu.application.config.AppConfig;
 import lt.vu.application.order.exception.OrderNotFoundException;
-import lt.vu.persistence.orm.entities.Order;
-import lt.vu.persistence.orm.entities.User;
+import lt.vu.persistence.entities.Order;
+import lt.vu.persistence.entities.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

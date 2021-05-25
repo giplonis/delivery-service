@@ -1,8 +1,8 @@
 package lt.vu.application.security.service;
 
 import lt.vu.application.security.exception.PasswordIncorrectException;
-import lt.vu.persistence.orm.entities.User;
-import lt.vu.persistence.orm.repository.UserRepository;
+import lt.vu.persistence.entities.User;
+import lt.vu.persistence.repository.UserRepository;
 import lt.vu.web.api.v1.dto.security.PutPasswordDTO;
 
 import javax.enterprise.context.RequestScoped;

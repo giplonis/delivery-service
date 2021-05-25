@@ -6,7 +6,7 @@ import io.jsonwebtoken.impl.TextCodec;
 import lt.vu.application.security.config.SecurityConfig;
 import lt.vu.application.security.config.Claims;
 import lt.vu.application.security.model.Token;
-import lt.vu.persistence.orm.entities.User;
+import lt.vu.persistence.entities.User;
 
 import javax.enterprise.context.RequestScoped;
 import java.util.Date;
@@ -20,8 +20,7 @@ public class JWTBuilder {
                 .claim(Claims.ROLES, user.getRoles())
                 .setIssuedAt(new Date())
                 .setIssuer(Claims.ISSUER)
-                // Expires after 30 minutes
-                .setExpiration(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConfig.TOKEN_TTL_MINUTES * 60 * 1000))
                 .signWith(
                     SignatureAlgorithm.HS256,
                     TextCodec.BASE64.decode(SecurityConfig.SECRET)

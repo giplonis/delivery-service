@@ -1,4 +1,4 @@
-package lt.vu.persistence.orm.entities;
+package lt.vu.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,16 +43,11 @@ public class PackageSize implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         PackageSize packageSize = (PackageSize) o;
 
-        return packageSize.id == this.id
-            && packageSize.maxWeight == this.maxWeight
-            && packageSize.length == this.length
-            && packageSize.height == this.height
-            && packageSize.width == this.width
-            && packageSize.title.equals(this.title);
+        return packageSize.id == this.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, maxWeight, length, height, width);
+        return Objects.hash(id);
     }
 }
