@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lt.vu.application.exception.BadRequestException;
 import lt.vu.application.exception.NotFoundException;
 import lt.vu.infrastructure.interceptors.LoggedAction;
+import lt.vu.infrastructure.logger.Logger;
 import lt.vu.infrastructure.security.Authorized;
 import lt.vu.persistence.orm.entities.Order;
 import lt.vu.persistence.orm.entities.OrderStatus;
@@ -20,7 +21,6 @@ import lt.vu.web.api.v1.exception.ExceptionDTO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -33,13 +33,15 @@ public class PutOrderStatusController {
     @Inject
     private OrderRepository orderRepository;
 
+    @Inject
+    private Logger logger;
+
     @PUT
     @Path("/{id}/status")
     @LoggedAction
     @Authorized(role = UserRole.ADMIN)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
     @Operation(
         summary = "Change order's status",
         description = "Changes order status to given.",
@@ -68,11 +70,24 @@ public class PutOrderStatusController {
             required = true,
             content = @Content(schema = @Schema(implementation = PutOrderStatusDTO.class))
         ) @Valid PutOrderStatusDTO putOrderStatusDTO,
-        @PathParam("id") Integer orderId) throws BadRequestException, NotFoundException {
+        @PathParam("id") Integer orderId, @QueryParam("sleep") Integer sleep) throws BadRequestException, NotFoundException {
 
         Order order = this.orderRepository.findOneById(orderId);
         order.setStatus(OrderStatus.valueOf(putOrderStatusDTO.getStatus()));
-        this.orderRepository.update(order);
+
+        try {
+            // This is for demo purposes only
+            if (sleep != null) {
+                Thread.sleep(sleep);
+            }
+            this.orderRepository.update(order);
+        } catch (Exception e) {
+            // Handle optimistic locking exception
+            this.logger.warning(e);
+            order = this.orderRepository.findOneById(orderId);
+            order.setStatus(OrderStatus.valueOf(putOrderStatusDTO.getStatus()));
+            this.orderRepository.update(order);
+        }
 
         return Response
                 .ok(GetOrderDTO.createFromEntity(order))

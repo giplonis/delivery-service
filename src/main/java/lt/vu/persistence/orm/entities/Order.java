@@ -61,6 +61,10 @@ public class Order implements Serializable {
     )
     private List<Attribute> attributes;
 
+    @Version
+    @Column(name = "VERSION", nullable = false)
+    private long version;
+
     public Order() {
     }
 
