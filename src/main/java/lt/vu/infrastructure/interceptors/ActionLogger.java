@@ -2,8 +2,8 @@ package lt.vu.infrastructure.interceptors;
 
 import lt.vu.infrastructure.logger.Logger;
 import lt.vu.infrastructure.security.LoggedInUser;
+import lt.vu.persistence.entities.User;
 import lt.vu.persistence.orm.entities.LogEntry;
-import lt.vu.persistence.orm.entities.User;
 
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
