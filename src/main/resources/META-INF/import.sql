@@ -36,7 +36,7 @@ insert into `ORDER` (ID, CREATED_AT, STATUS, PICKUP_DATE_TIME, TOTAL_PRICE, PACK
 -- Users
 -- PASSWORD = password
 insert into `USER` (ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, ADDRESS_ID, PASSWORD, LAST_LOGIN) values (1, 'jonas@gmail.com', 'Jonas', 'Jonauskas', 862598745, 1, '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', current_timestamp());
-insert into `USER` (ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, ADDRESS_ID, PASSWORD, LAST_LOGIN) values (2, 'admin@gmail.com', 'Admin', 'Admin', 862598745, 1, '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', current_timestamp());
+insert into `USER` (ID, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, ADDRESS_ID, PASSWORD, LAST_LOGIN) values (2, 'admin@delivery.com', 'John', 'Administrator', 862598745, 1, '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', current_timestamp());
 
 -- Demo user roles
 insert into USER_ROLE (USER_ID, `ROLE`) values (1, 'USER');
