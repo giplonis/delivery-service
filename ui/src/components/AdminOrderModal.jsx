@@ -24,7 +24,7 @@ export default function AdminOrderModal(props) {
         await axiosInstance.put(
           ADMIN_ORDERS + "/" + props.order.id + "/status",
           { status: status },
-            window.innerHeight < 500 ? { params: { sleep: 3000 }} : {},
+            window.innerHeight < 500 ? { params: { sleep: 5000 }} : {},
         );
         displaySuccess("Status changed");
         props.handleStatusChange(props.order.id, status);
